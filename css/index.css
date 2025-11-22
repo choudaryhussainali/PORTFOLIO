@@ -300,6 +300,15 @@ nav {
     margin-bottom: 1.5rem;
     font-weight: 600;
     animation: fadeInUp 1s ease 0.4s both;
+    /* 1. Reserve height for 2 lines of text (prevents jumping up) */
+    min-height: 3.6rem; 
+    
+    /* 2. Align text vertically so single lines sit in the middle (optional) */
+    display: flex;
+    align-items: center;
+    
+    /* 3. Default alignment for Desktop */
+    justify-content: flex-start;
 }
 
 /* --- TYPING EFFECT CSS --- */
@@ -1429,6 +1438,13 @@ footer {
         font-size: 3.5rem;
     }
 
+    .hero-text .subtitle {
+        font-size: 1.5rem;
+            /* --- MOBILE FIX --- */
+        justify-content: center; /* Force center alignment on mobile */
+        min-height: 3rem; /* Slightly smaller reserved height for mobile font */
+        margin-bottom: 1rem; /* Adjust spacing if needed */
+    }
     .hero-buttons {
         justify-content: center;
     }
