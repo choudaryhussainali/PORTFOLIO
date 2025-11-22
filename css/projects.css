@@ -259,7 +259,7 @@ section {
     padding: 6rem 3rem;
     max-width: 1400px;
     margin: 0 auto;
-    scroll-margin-top: 40px; /* For smooth scroll offset with fixed header */
+    scroll-margin-top: 60px; /* For smooth scroll offset with fixed header */
 }
 
 .section-header {
