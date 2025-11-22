@@ -30,6 +30,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
+    scroll-margin-top: 100px; /* Global offset for fixed header */
 }
 
 /* --- GLOBAL COMPONENTS (BUTTONS) --- */
@@ -905,7 +906,7 @@ footer {
     }
     
     .projects-section {
-        padding-top: 10rem !important; /* Reduced from 10rem */
+        padding-top: 8rem !important; /* Reduced from 10rem */
     }
 
     #projects.fade-in {
