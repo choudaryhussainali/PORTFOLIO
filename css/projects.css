@@ -976,11 +976,7 @@ footer {
     .footer-heart {
         font-size: 1.2rem;
     }
-    @media (hover: none) and (pointer: coarse) {
-        .cursor {
-            display: none !important;
-        }
-    }
+
 }
 
 /* Custom Scrollbar */
@@ -988,3 +984,19 @@ footer {
 ::-webkit-scrollbar-track { background: var(--darker); }
 ::-webkit-scrollbar-thumb { background: var(--gradient-1); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+/* --- HIDE CUSTOM CURSOR ON TOUCH DEVICES --- */
+@media (hover: none) and (pointer: coarse) {
+    /* Targets the JS-created cursor div */
+    .custom-cursor-element, 
+    .cursor { 
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
+    /* Reset standard cursor just in case */
+    * {
+        cursor: auto !important;
+    }
+}
