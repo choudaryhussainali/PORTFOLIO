@@ -29,6 +29,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
+    scroll-margin-top: 110px; /* Global offset for fixed header */    
 }
 
 /* Animated Background */
