@@ -251,34 +251,49 @@ window.addEventListener('mousemove', (e) => {
     });
 });
 
-// --- 9. CUSTOM MOUSE CURSOR ---
-const cursor = document.createElement('div');
-cursor.style.cssText = `
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--primary);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.1s ease;
-    transform: translate(-50%, -50%);
-`;
-document.body.appendChild(cursor);
+// Add cursor effect
+// --- 9. CUSTOM MOUSE CURSOR (Desktop Only) ---
+// Check if device supports hovering (Mouse)
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
 
-document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-});
+    // Only create if not exists
+    if (!document.querySelector('.custom-cursor-element')) {
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor-element');
+        cursor.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease, opacity 0.2s ease; /* Added opacity transition */
+            transform: translate(-50%, -50%);
+        `;
+        document.body.appendChild(cursor);
 
-// Hover effect for interactive elements
-document.querySelectorAll('a, button, .project-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        cursor.style.background = 'rgba(0, 240, 255, 0.2)';
-    });
-    el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursor.style.background = 'transparent';
-    });
-});
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursor.style.opacity = '1'; // Show when moving
+        });
+
+        // Hide cursor when mouse leaves the window
+        document.addEventListener('mouseout', () => {
+            cursor.style.opacity = '0';
+        });
+
+        // Hover effect for interactive elements
+        document.querySelectorAll('a, button, .project-card, .skill-tag').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursor.style.background = 'rgba(0, 240, 255, 0.2)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.background = 'transparent';
+            });
+        });
+    }
+}
