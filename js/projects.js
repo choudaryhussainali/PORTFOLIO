@@ -45,6 +45,14 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 document.querySelectorAll('.slide-in-left').forEach(el => observer.observe(el));
 document.querySelectorAll('.slide-in-right').forEach(el => observer.observe(el));
 
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+} else {
+    window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+    }
+}
+
 // Auto-Scroll for Project Galleries
 const projectCards = document.querySelectorAll('.project-card');
 
