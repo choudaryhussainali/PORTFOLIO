@@ -58,14 +58,27 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 });
 
 // --- 3. HEADER SCROLL EFFECT ---
+// --- 3. OPTIMIZED HEADER SCROLL (High Performance) ---
 const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
+let lastScrollY = window.scrollY;
+let ticking = false;
+
+function updateHeader() {
+    if (window.scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
-});
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+        window.requestAnimationFrame(updateHeader);
+        ticking = true;
+    }
+}, { passive: true }); // 'passive: true' tells browser not to wait for JS
 
 // --- 4. SCROLL ANIMATIONS (Fade In) ---
 const observerOptions = {
@@ -77,6 +90,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);

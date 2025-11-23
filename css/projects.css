@@ -976,6 +976,33 @@ footer {
     .footer-heart {
         font-size: 1.2rem;
     }
+    /* 1. Reduce Blur Calculation Load */
+    .project-card, 
+    .about-content, 
+    .stat-card, 
+    .contact-card, 
+    .contact-form, 
+    .nav-links, 
+    header {
+        /* Reduce blur radius (easier for CPU) */
+        backdrop-filter: blur(5px) !important; 
+        -webkit-backdrop-filter: blur(5px) !important;
+        
+        /* Increase opacity slightly to compensate for less blur */
+        background: rgba(17, 25, 40, 0.85) !important;
+    }
+
+    /* 2. Pause background shapes on scroll to save resources */
+    .shape {
+        animation-play-state: paused; /* Shapes won't move while you fight for scroll fps */
+        opacity: 0.2; /* Lower opacity looks cleaner static */
+    }
+    
+    /* 3. Disable heavy box-shadows on scroll */
+    .project-card, .contact-card {
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.15); /* Use border instead of shadow for depth */
+    }
 
 }
 
@@ -999,4 +1026,37 @@ footer {
     * {
         cursor: auto !important;
     }
+}
+
+
+/* --- PERFORMANCE OPTIMIZATIONS (GPU ACCELERATION) --- */
+
+/* 1. Promote heavy elements to their own layer */
+.project-card, 
+.about-content, 
+.contact-card, 
+.stat-card,
+header,
+.hero-content {
+    /* Tells browser: "This will move/change, get ready" */
+    will-change: transform, opacity;
+    /* Hardware acceleration hacks */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 2. Optimize the Background Animation */
+.bg-animation::before {
+    /* Stop the browser from calculating blur on the background constantly */
+    will-change: transform;
+}
+
+/* 3. Fix Text Rendering during scroll */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
