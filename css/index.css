@@ -1420,7 +1420,7 @@ footer {
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease;
+    transition: all 1s ease;
 }
 
 .fade-in.active {
@@ -1490,6 +1490,13 @@ footer {
 @media (max-width: 768px) {
     nav {
         padding: 0 1.5rem;
+    }
+    .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+        visibility: visible !important;
     }
 
     @media (hover: none) and (pointer: coarse) {
