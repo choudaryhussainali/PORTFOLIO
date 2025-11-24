@@ -1,3 +1,8 @@
+// Force browser to treat all touch interactions as passive (scrolling allowed)
+// This removes the "delay" before scrolling starts
+window.addEventListener('touchstart', function() {}, { passive: true });
+window.addEventListener('touchmove', function() {}, { passive: true });
+
 // Mobile Menu Toggle
 const mobileMenu = document.getElementById('mobileMenu');
 const navLinks = document.getElementById('navLinks');

@@ -21,6 +21,14 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    height: auto; 
+    overflow-y: scroll; /* Force Y scrollbar to avoid layout jumping */
+    
+    /* 2. Modern Smooth Scroll */
+    scroll-behavior: smooth;
+    
+    /* 3. Prevent "Bouncing" that locks scroll on iOS */
+    overscroll-behavior-y: none;
 }
 
 body {
@@ -31,6 +39,10 @@ body {
     overflow-x: hidden;
     position: relative;
     scroll-margin-top: 120px; /* Global offset for fixed header */
+    /* 4. Ensure Body grows with content */
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* Double safety */
 }
 
 /* --- GLOBAL COMPONENTS (BUTTONS) --- */
@@ -89,6 +101,7 @@ body {
     z-index: -1;
     background: var(--darker);
     overflow: hidden;
+    pointer-events: none;
 }
 
 .bg-animation::before {

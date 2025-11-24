@@ -1,3 +1,8 @@
+// Force browser to treat all touch interactions as passive (scrolling allowed)
+// This removes the "delay" before scrolling starts
+window.addEventListener('touchstart', function() {}, { passive: true });
+window.addEventListener('touchmove', function() {}, { passive: true });
+
 // --- 1. TYPING EFFECT (Hero Section) ---
 const typingText = document.getElementById('typing-text');
 const textCursor = document.querySelector('.cursor'); // Named textCursor to avoid conflict
