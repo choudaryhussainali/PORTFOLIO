@@ -1,3 +1,79 @@
+
+/* --- PRELOADER STYLES --- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--darker); /* Deep blue background */
+    z-index: 99999; /* Sits on top of everything */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+.loader-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.loader-logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: logoFadeIn 1s ease forwards;
+}
+
+.loader-bar {
+    width: 150px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loader-progress {
+    width: 0%;
+    height: 100%;
+    background: var(--gradient-1);
+    border-radius: 10px;
+    animation: progressFill 1.5s ease-in-out forwards;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+/* Hide Scrollbar while loading */
+body.loading {
+    overflow: hidden !important;
+}
+
+/* Animations */
+@keyframes logoFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes progressFill {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 100%; }
+}
+
+/* --- FADE OUT CLASS --- */
+#preloader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -284,7 +360,9 @@ nav {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
-    animation: fadeInUp 1s ease;
+    opacity: 0;      /* Start invisible */
+    animation: none; /* Do not animate yet */
+
 }
 
 @keyframes fadeInUp {
@@ -307,7 +385,8 @@ nav {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: fadeInUp 1s ease 0.2s both;
+    opacity: 0;      /* Start invisible */
+    animation: none; /* Do not animate yet */
 }
 
 .hero-text .subtitle {
@@ -315,7 +394,6 @@ nav {
     color: var(--primary);
     margin-bottom: 1.5rem;
     font-weight: 600;
-    animation: fadeInUp 1s ease 0.4s both;
     /* 1. Reserve height for 2 lines of text (prevents jumping up) */
     min-height: 3.6rem; 
     
@@ -325,6 +403,8 @@ nav {
     
     /* 3. Default alignment for Desktop */
     justify-content: flex-start;
+    opacity: 0;      /* Start invisible */
+    animation: none; /* Do not animate yet */
 }
 
 /* --- TYPING EFFECT CSS --- */
@@ -352,14 +432,16 @@ nav {
     color: var(--gray);
     margin-bottom: 2.5rem;
     line-height: 1.8;
-    animation: fadeInUp 1s ease 0.6s both;
+    opacity: 0;      /* Start invisible */
+    animation: none; /* Do not animate yet */
 }
 
 .hero-buttons {
     display: flex;
     gap: 1.5rem;
-    animation: fadeInUp 1s ease 0.8s both;
     flex-wrap: wrap;
+    opacity: 0;      /* Start invisible */
+    animation: none; /* Do not animate yet */
 }
 
 .btn {
@@ -402,7 +484,33 @@ nav {
 
 .hero-visual {
     position: relative;
-    animation: fadeInUp 1s ease 0.4s both;
+    opacity: 0;      /* Start invisible */
+    animation: none; /* Do not animate yet */
+}
+
+/* When JS adds .animate-hero, these animations fire */
+.hero.animate-hero .hero-content { 
+    animation: fadeInUp 1s ease forwards; 
+}
+
+.hero.animate-hero .hero-text h1 { 
+    animation: fadeInUp 1s ease 0.2s forwards; 
+}
+
+.hero.animate-hero .hero-text .subtitle { 
+    animation: fadeInUp 1s ease 0.4s forwards; 
+}
+
+.hero.animate-hero .hero-text p { 
+    animation: fadeInUp 1s ease 0.6s forwards; 
+}
+
+.hero.animate-hero .hero-buttons { 
+    animation: fadeInUp 1s ease 0.8s forwards; 
+}
+
+.hero.animate-hero .hero-visual { 
+    animation: fadeInUp 1s ease 0.4s forwards; 
 }
 
 .hero-image-container {

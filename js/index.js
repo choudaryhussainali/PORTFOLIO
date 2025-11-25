@@ -1,3 +1,39 @@
+
+
+// --- PRELOADER LOGIC ---
+document.addEventListener("DOMContentLoaded", () => {
+    const preloader = document.getElementById('preloader');
+    
+    // 1. Force page to start at top (prevents scroll jumping)
+    if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+    } else {
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+    }
+
+    // 2. Add "loading" class to body to stop scrolling
+    document.body.classList.add('loading');
+
+    // 3. Wait for everything to load (images, styles, scripts)
+    window.addEventListener('load', () => {
+        
+        setTimeout(() => {
+            // A. Hide Preloader
+            preloader.classList.add('hide');
+            document.body.classList.remove('loading');
+            
+            // B. TRIGGER HERO ANIMATIONS NOW
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) {
+                heroSection.classList.add('animate-hero');
+            }
+            
+        }, 1500);
+    });
+});
+
 // Force browser to treat all touch interactions as passive (scrolling allowed)
 // This removes the "delay" before scrolling starts
 window.addEventListener('touchstart', function() {}, { passive: true });
