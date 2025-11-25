@@ -1024,6 +1024,16 @@ footer {
         box-shadow: none !important;
         border: 1px solid rgba(255, 255, 255, 0.15); /* Use border instead of shadow for depth */
     }
+    /* Remove hardware acceleration on mobile to prevent memory overload */
+    .project-card, 
+    .about-content, 
+    .contact-card, 
+    .stat-card,
+    header,
+    .hero-content {
+        will-change: auto !important;
+        transform: none !important; /* Removes the 3D hack that might cause flickering */
+    }
 
 }
 

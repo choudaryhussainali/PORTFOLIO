@@ -1855,6 +1855,62 @@ footer {
         box-shadow: none !important;
         border: 1px solid rgba(255, 255, 255, 0.15); /* Use border instead of shadow for depth */
     }
+    /* Remove hardware acceleration on mobile to prevent memory overload */
+    .project-card, 
+    .about-content, 
+    .contact-card, 
+    .stat-card,
+    header,
+    .hero-content {
+        will-change: auto !important;
+        transform: none !important; /* Removes the 3D hack that might cause flickering */
+    }
+
+    /* 1. Fix the Vertical Line Position */
+    .timeline::before {
+        left: 30px; /* Anchors line strictly to the left */
+    }
+
+    /* 2. Reset the Item Container */
+    .timeline-item {
+        /* Force simple row layout - NO reversing */
+        flex-direction: row !important; 
+        /* Stop flexbox from squishing content (Fixes Distortion) */
+        align-items: flex-start; 
+        width: 100%;
+        /* Remove any animations that might cause popping */
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    /* 3. Reset the Content Card */
+    .timeline-content {
+        /* Push content clear of the dot */
+        margin-left: 4rem !important; 
+        margin-right: 0 !important;
+        /* Ensure width is stable */
+        width: auto;
+        flex: 1;
+        /* Disable hover effects on mobile (causes jumping) */
+        transform: none !important;
+    }
+
+    /* 4. Fix the Dot Position */
+    /* Target BOTH odd and even items to align them identically */
+    .timeline-item:nth-child(odd) .timeline-content::before,
+    .timeline-item:nth-child(even) .timeline-content::before {
+        left: -65px !important; /* Hard lock the dot position */
+        right: auto !important;
+        top: center; /* Anchor to top (stable) instead of center (unstable) */
+        transform: none; /* Remove centering transform */
+    }
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        animation-delay: 0s !important;
+        transition-delay: 0s !important;
+    }
 
 }
 
