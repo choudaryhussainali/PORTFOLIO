@@ -946,12 +946,7 @@ footer {
         color: var(--light);
         text-align: center;
     }
-
-    .projects-grid {
-        display: flex; /* Flex is safer than Grid for simple stacking on mobile */
-        flex-direction: column;
-        gap: 2rem;
-    }            
+           
     /* 1. Shrink the Card Padding */
     .contact-card, .contact-form {
         padding: 1.4rem !important; /* Reduced from 2.5rem */
@@ -1009,6 +1004,64 @@ footer {
         opacity: 0;
         animation: fadeInUp 1s ease-out forwards; 
         animation-delay: 0.2s;
+    }
+
+    /* --- INSIDE @media (max-width: 768px) --- */
+
+    /* 1. STABILIZE THE GRID (Prevent Layout Shifting) */
+    .projects-grid {
+        /* Switch to Flex Column for rock-solid stability on mobile */
+        display: flex !important; 
+        flex-direction: column !important;
+        gap: 2.5rem !important;
+        
+        /* Remove container-level delays */
+        animation: none !important; 
+        transition: none !important;
+        opacity: 1 !important; /* Ensure grid itself is visible */
+    }
+
+    /* 2. FIX CARD DISTORTION & "POP-OUT" DELAY */
+    .project-card {
+        /* A. Layout Physics */
+        height: auto !important; /* Critical: Lets card grow naturally, prevents squashing */
+        min-height: auto !important;
+        width: 100% !important;
+        
+        /* B. Instant Visibility (Fixes the Delay/Stuck issue) */
+        opacity: 1 !important;
+        visibility: visible !important;
+        
+        /* C. Kill Performance Killers */
+        transform: none !important; /* Stop the card from moving/floating */
+        animation: none !important; /* Stop the "FadeInUp" on individual cards */
+        transition: none !important; /* Remove hover lag */
+        
+        /* D. Mobile Styling */
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        background: rgba(17, 25, 40, 0.85) !important;
+    }
+
+    /* 3. ENSURE INNER CONTENT IS SOLID */
+    .project-content {
+        flex: 1 !important; /* Fixes potential flexbox crushing */
+        height: auto !important;
+        opacity: 1 !important;
+    }
+
+    /* 4. PRELOADER OVERRIDE (The "Late Fade" Fix) */
+    /* When preloader finishes, FORCE instant appearance without drag */
+    .projects-section.animate-projects .projects-grid {
+        animation: none !important; /* Override the 0.2s delay from desktop */
+        opacity: 1 !important;
+    }
+
+    /* 5. REMOVE HOVER EFFECTS (Prevents sticky distortion on tap) */
+    .project-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
     }
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(30px); }
