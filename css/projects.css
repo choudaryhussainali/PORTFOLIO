@@ -1068,6 +1068,13 @@ footer {
         to { opacity: 1; transform: translateY(0); }
     }
     
+    .gallery-item {
+        /* ... existing styles ... */
+        
+        /* Tell browser the shape of image immediately (16:9 ratio is standard) */
+        aspect-ratio: 16 / 9; 
+        background-color: var(--darker); /* Show dark box instead of white flash while loading */
+    }
     .form-row {
         grid-template-columns: 1fr;
     }
@@ -1161,6 +1168,26 @@ footer {
     .hero-content {
         will-change: auto !important;
         transform: none !important; /* Removes the 3D hack that might cause flickering */
+    }
+    /* --- RENDER ISOLATION (The "Anti-Patch" Fix) --- */
+    .project-card, 
+    .contact-card,
+    .timeline-item {
+        /* 1. ISOLATION: Tells browser to paint this item independently */
+        contain: content;
+        
+        /* 2. SIZE PREDICTION: Tells browser "This is roughly 500px tall" 
+           so it reserves space before loading (prevents layout jumps) */
+        contain-intrinsic-size: 1px 500px; 
+        
+        /* 3. RENDER SKIPPING: If it's off-screen, don't even think about painting it yet */
+        content-visibility: auto; 
+    }
+
+    /* 4. BACKGROUND LOCK: Stop the background from forcing repaints */
+    .bg-animation, .bg-animation::before {
+        /* On mobile, a fixed gradient is heavy. We simplify it. */
+        background-attachment: scroll !important; 
     }
 
 }

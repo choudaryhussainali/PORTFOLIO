@@ -2072,6 +2072,15 @@ footer {
         animation-delay: 0s !important;
         transition-delay: 0s !important;
     }
+    /* --- RENDER ISOLATION --- */
+    .about-content,
+    .stat-card,
+    .timeline-content,
+    .project-card {
+        contain: content;
+        contain-intrinsic-size: 1px 400px; /* Approximate height */
+        content-visibility: auto;
+    }
 
 }
 
