@@ -1743,6 +1743,12 @@ footer {
         
         /* D. Paint Isolation */
         contain: content; 
+        /* --- PROFESSIONAL JUSTIFICATION --- */
+        text-align: justify;       /* Aligns text to both edges */
+        text-justify: inter-word;  /* spreads space between words, not characters */
+        hyphens: auto;             /* Breaks long words to prevent ugly gaps */
+        -webkit-hyphens: auto;     /* Safari support */
+        -ms-hyphens: auto;         /* Edge/IE support */
     }
     
     /* Remove the side-line animation on mobile */
