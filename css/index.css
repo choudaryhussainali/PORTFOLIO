@@ -1699,24 +1699,90 @@ footer {
         font-size: 2.5rem;
     }
 
-    .image-placeholder {
-        width: 250px;
-        height: 250px;
-    }
     .image-placeholder svg {
         width: 100px;
         height: 100px;
     }
+
+    /* =========================================
+       3. ABOUT SECTION STABILIZATION
+       ========================================= */
+
+    /* 1. Fix Layout Shift & Delay */
     .about-grid {
+        /* Force vertical stack */
         display: flex !important;
         flex-direction: column !important;
+        gap: 2rem !important;
+        
+        /* Instant Visibility */
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+        transition: none !important;
     }
 
-/* 2. The Magic Command */
+    /* 2. Optimize the Text Card (Remove Lag) */
+    .about-content {
+        /* A. Instant Show */
+        opacity: 1 !important;
+        visibility: visible !important;
+        
+        /* B. Kill Physics */
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+        
+        /* C. Render Optimization (Fixes "Black Blocks") */
+        /* Removing blur here allows the text to render instantly */
+        backdrop-filter: none !important; 
+        -webkit-backdrop-filter: none !important;
+        background: rgba(17, 25, 40, 0.95) !important; /* Solid dark tint */
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        box-shadow: none !important;
+        
+        /* D. Paint Isolation */
+        contain: content; 
+    }
+    
+    /* Remove the side-line animation on mobile */
+    .about-content::before {
+        display: none !important;
+    }
+
+    /* 3. Stabilize the Image Container */
     .about-image {
-        order: -1; /* Moves this element to the very top */
-        margin-top: 0 !important; /* Remove old spacing */
-        margin-bottom: 2rem; /* Add spacing below image (above text) */
+        /* Move to top */
+        order: -1 !important; 
+        margin-top: 0 !important;
+        margin-bottom: 2rem !important;
+        
+        /* Physics Reset */
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+    }
+
+    /* 4. Fix the Image Placeholder (The Source of "Empty Space") */
+    .image-placeholder {
+        /* A. Fixed Size Constraints */
+        width: 250px !important;
+        height: 250px !important;
+        
+        /* B. Kill Heavy Animations */
+        animation: none !important; /* Stop the "Pulse" - major lag killer */
+        box-shadow: none !important; /* Remove heavy glow */
+        border: 3px solid var(--primary) !important;
+        
+        /* C. Render Isolation */
+        contain: strict; /* Tells browser: "Nothing inside here affects outside" */
+        
+        /* D. Remove Shimmer (CPU Saver) */
+        background: var(--card-bg) !important;
+    }
+    
+    .image-placeholder::before {
+        display: none !important; /* Remove the "Shine" animation */
     }
 
     .stats-grid {
