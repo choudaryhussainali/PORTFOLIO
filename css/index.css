@@ -2338,3 +2338,35 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
+
+/* --- FINAL HEADER VISIBILITY FIX (MOBILE) --- */
+/* Placed at the bottom to override all previous rules */
+
+@media (max-width: 768px) {
+    
+    /* 1. Target ID and Class to override the generic "header" rule */
+    #header, 
+    header.scrolled, 
+    header {
+        /* FORCE SOLID DARK COLOR */
+        /* This is your --darker color (#060818) at 99% opacity */
+        background-color: #060818 !important; 
+        background: rgba(6, 8, 24, 0.99) !important;
+        
+        /* Reset any blur that might be making it light */
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        
+        /* Add a strong bottom border so you see where header ends */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+        
+        /* Add a shadow to separate it from content */
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.9) !important;
+    }
+
+    /* 2. Ensure the dropdown menu is also solid dark */
+    .nav-links {
+        background-color: #060818 !important;
+        background: rgba(6, 8, 24, 0.99) !important;
+    }
+}
