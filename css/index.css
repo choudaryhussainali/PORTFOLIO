@@ -2075,7 +2075,6 @@ footer {
     /* --- RENDER ISOLATION --- */
     .about-content,
     .stat-card,
-    .timeline-content,
     .project-card {
         contain: content;
         contain-intrinsic-size: 1px 400px; /* Approximate height */

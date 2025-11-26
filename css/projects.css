@@ -1171,8 +1171,7 @@ footer {
     }
     /* --- RENDER ISOLATION (The "Anti-Patch" Fix) --- */
     .project-card, 
-    .contact-card,
-    .timeline-item {
+    .contact-card{
         /* 1. ISOLATION: Tells browser to paint this item independently */
         contain: content;
         
