@@ -2081,6 +2081,99 @@ footer {
         content-visibility: auto;
     }
 
+    /* =========================================
+       1. SKILLS SECTION STABILIZATION
+       ========================================= */
+    
+    /* Stop the container from fading in late */
+    .skills-container, 
+    .skills-cloud {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        visibility: visible !important;
+        
+        /* Fix layout shifting */
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+
+    /* Fix the individual "Black Blocks" (Skill Tags) */
+    .skill-tag {
+        /* A. Instant Visibility */
+        opacity: 1 !important;
+        visibility: visible !important;
+        
+        /* B. Kill Animation Lag */
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        
+        /* C. Render Optimization (The "Black Block" Fix) */
+        /* Removing blur on tiny items saves massive GPU power */
+        backdrop-filter: none !important; 
+        -webkit-backdrop-filter: none !important;
+        background: rgba(17, 25, 40, 0.9) !important; /* Slightly clearer background */
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        box-shadow: none !important;
+        
+        /* D. Paint Isolation */
+        /* Tells browser: "Paint this simple box instantly" */
+        contain: content; 
+    }
+    
+    /* Disable hover jitter on touch */
+    .skill-tag:hover {
+        transform: none !important;
+        background: rgba(17, 25, 40, 0.9) !important;
+    }
+
+    /* =========================================
+       2. STATS CARDS STABILIZATION
+       ========================================= */
+    
+    /* Force vertical stack instead of grid to prevent squashing */
+    .stats-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        
+        /* Instant Visibilty */
+        opacity: 1 !important;
+        animation: none !important;
+    }
+
+    .stat-card {
+        /* A. Physics Reset */
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        
+        /* B. Visual Stability */
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        animation: none !important;
+        
+        /* C. Mobile Styling */
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        
+        /* D. Render Isolation */
+        contain: content;
+    }
+    
+    /* Remove the hover line animation on mobile (causes repaints) */
+    .stat-card::before {
+        display: none !important;
+    }
+    
+    .stat-card:hover {
+        transform: none !important;
+    }
+
 }
 
 /* Custom Scrollbar */
