@@ -507,7 +507,6 @@ section {
     height: 100%;
     scroll-snap-align: start;
     
-    /* CHANGE THIS LINE: */
     object-fit: contain; /* Shows full image, might leave black/white bars */
     /* object-fit: cover; <--- Old setting (Crops to fill) */
     
@@ -770,9 +769,7 @@ noscript .fade-in {
     box-shadow: 0 15px 40px rgba(0, 240, 255, 0.4);
 }
 
-/* --- FOOTER --- */
-/* --- PROFESSIONAL SIDE-BY-SIDE GRID FOOTER --- */
-/* --- EXPERT FLEXBOX FOOTER LAYOUT --- */
+/* --- FLEXBOX FOOTER LAYOUT --- */
 footer {
     background: var(--darker);
     padding: 4rem 0 2rem;
@@ -1006,7 +1003,6 @@ footer {
         animation-delay: 0.2s;
     }
 
-    /* --- INSIDE @media (max-width: 768px) --- */
 
     /* 1. STABILIZE THE GRID (Prevent Layout Shifting) */
     .projects-grid {
@@ -1050,7 +1046,7 @@ footer {
         opacity: 1 !important;
     }
 
-    /* 4. PRELOADER OVERRIDE (The "Late Fade" Fix) */
+
     /* When preloader finishes, FORCE instant appearance without drag */
     .projects-section.animate-projects .projects-grid {
         animation: none !important; /* Override the 0.2s delay from desktop */
@@ -1069,8 +1065,7 @@ footer {
     }
     
     .gallery-item {
-        /* ... existing styles ... */
-        
+
         /* Tell browser the shape of image immediately (16:9 ratio is standard) */
         aspect-ratio: 16 / 9; 
         background-color: var(--darker); /* Show dark box instead of white flash while loading */
@@ -1079,7 +1074,7 @@ footer {
         grid-template-columns: 1fr;
     }
 
-                footer {
+    footer {
         padding: 2rem 1.5rem; /* Reduced padding for mobile */
     }
 
@@ -1188,7 +1183,6 @@ footer {
         /* On mobile, a fixed gradient is heavy. We simplify it. */
         background-attachment: scroll !important; 
     }
-    /* --- INSIDE @media (max-width: 768px) --- */
 
     .project-card, 
     .contact-card {
@@ -1270,8 +1264,6 @@ body {
     #header, 
     header.scrolled, 
     header {
-        /* FORCE SOLID DARK COLOR */
-        /* This is your --darker color (#060818) at 99% opacity */
         background-color: #060818 !important; 
         background: rgba(6, 8, 24, 0.99) !important;
         

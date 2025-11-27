@@ -923,7 +923,6 @@ section {
     margin-top: 3rem;
 }
 
-/* --- Find and Replace this rule --- */
 .project-card {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -962,7 +961,7 @@ section {
     border-color: rgba(0, 240, 255, 0.3);
 }
 
-/* NEW GALLERY STYLES */
+/* GALLERY STYLES */
 .project-gallery {
     display: flex;
     height: 250px;
@@ -983,7 +982,6 @@ section {
     height: 100%;
     scroll-snap-align: start;
     
-    /* CHANGE THIS LINE: */
     object-fit: contain; /* Shows full image, might leave black/white bars */
     /* object-fit: cover; <--- Old setting (Crops to fill) */
     
@@ -1079,7 +1077,6 @@ section {
 }
 
 
-/* --- Find and Replace this rule --- */
 .project-content {
     padding: 2rem;
     position: relative;
@@ -1124,7 +1121,6 @@ section {
 }
 
 /* 1. Adjust spacing container */
-/* --- Find and Replace this rule --- */
 .project-links {
     display: flex;
     gap: 1rem;
@@ -1430,7 +1426,6 @@ section {
     box-shadow: 0 15px 40px rgba(0, 240, 255, 0.4);
 }
 
-/* --- PROFESSIONAL SIDE-BY-SIDE GRID FOOTER --- */
 /* --- EXPERT FLEXBOX FOOTER LAYOUT --- */
 footer {
     background: var(--darker);
@@ -2245,9 +2240,9 @@ footer {
     .stat-card:hover {
         transform: none !important;
     }
-
-    /* --- INSIDE @media (max-width: 768px) --- */
-
+    /* =========================================
+       3. DARKER CARD THEME
+       ========================================= */
     /* A. The "Stealth Dark" Look */
     .about-content,
     .stat-card,
