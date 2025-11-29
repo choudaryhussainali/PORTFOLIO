@@ -2174,36 +2174,68 @@ footer {
         animation: none !important;
         visibility: visible !important;
         
-        /* Fix layout shifting */
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
     }
-
+    .skills-cloud {
+        /* 1. Switch from messy "Flex Wrap" to structured "Grid" */
+        display: grid !important;
+        
+        /* 2. Create 2 Equal Columns (The "Card" Look) */
+        grid-template-columns: repeat(2, 1fr) !important; 
+        
+        /* 3. Clean Spacing */
+        gap: 12px !important;
+        padding: 0 5px !important;
+        
+        /* Reset older styles */
+        justify-content: stretch !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
     /* Fix the individual "Black Blocks" (Skill Tags) */
     .skill-tag {
         /* A. Instant Visibility */
         opacity: 1 !important;
         visibility: visible !important;
-        
-        /* B. Kill Animation Lag */
-        animation: none !important;
-        transition: none !important;
-        transform: none !important;
+
+        /* D. Paint Isolation */
+        /* Tells browser: "Paint this simple box instantly" */
+        contain: content; 
+        width: 100% !important;
+        height: 50px !important; /* Uniform height for alignment */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important; /* Center the text & icon */
         
         /* C. Render Optimization (The "Black Block" Fix) */
         /* Removing blur on tiny items saves massive GPU power */
         backdrop-filter: none !important; 
         -webkit-backdrop-filter: none !important;
-        background: rgba(17, 25, 40, 0.9) !important; /* Slightly clearer background */
+        background: rgba(17, 25, 40, 0.95) !important; /* Slightly clearer background */
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        box-shadow: none !important;
+        border-radius: 12px !important; /* Slightly boxier than pills */
         
-        /* D. Paint Isolation */
-        /* Tells browser: "Paint this simple box instantly" */
-        contain: content; 
+        /* C. Text Styling */
+        font-size: 0.9rem !important;
+        color: var(--primary) !important;
+        margin: 0 !important; /* Remove random margins */
+        
+        /* D. Performance */
+        box-shadow: none !important;
+        animation: none !important;
+        transition: none !important;
+        contain: content;
     }
     
+    .skill-tag {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .skill-tag img {
+        width: 25px !important;
+        height: 25px !important;
+        margin-right: 1px !important;
+    }
     /* Disable hover jitter on touch */
     .skill-tag:hover {
         transform: none !important;
