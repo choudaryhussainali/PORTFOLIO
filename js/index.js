@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Force browser to treat all touch interactions as passive (scrolling allowed)
 // This removes the "delay" before scrolling starts
 window.addEventListener('touchstart', function() {}, { passive: true });
 window.addEventListener('touchmove', function() {}, { passive: true });
@@ -98,7 +97,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// --- 3. HEADER SCROLL EFFECT ---
 // --- 3. OPTIMIZED HEADER SCROLL (High Performance) ---
 const header = document.getElementById('header');
 let lastScrollY = window.scrollY;
@@ -245,7 +243,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // --- 7. FORM SUBMISSION ---
-// --- 7. FORM SUBMISSION (Real Email Functionality) ---
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -306,8 +303,7 @@ window.addEventListener('mousemove', (e) => {
     });
 });
 
-// Add cursor effect
-// --- 9. CUSTOM MOUSE CURSOR (Desktop Only) ---
+
 // Check if device supports hovering (Mouse)
 if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
 

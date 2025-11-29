@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('load', () => {
         
         // Minimum timer (1.5s) to ensure the logo animation plays smoothly
-        // even on fast internets (prevents flickering)
         setTimeout(() => {
             preloader.classList.add('hide');
             document.body.classList.remove('loading');
@@ -215,7 +214,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // --- 7. FORM SUBMISSION ---
-// --- 7. FORM SUBMISSION (Real Email Functionality) ---
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -276,8 +274,7 @@ window.addEventListener('mousemove', (e) => {
     });
 });
 
-// Add cursor effect
-// --- 9. CUSTOM MOUSE CURSOR (Desktop Only) ---
+
 // Check if device supports hovering (Mouse)
 if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
 
