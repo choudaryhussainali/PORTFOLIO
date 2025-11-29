@@ -2183,8 +2183,8 @@ footer {
         grid-template-columns: repeat(2, 1fr) !important; 
         
         /* 3. Clean Spacing */
-        gap: 12px !important;
-        padding: 0 5px !important;
+        gap: 15px !important;
+        padding: 0 2px !important;
         
         /* Reset older styles */
         justify-content: stretch !important;
@@ -2202,7 +2202,7 @@ footer {
         /* Tells browser: "Paint this simple box instantly" */
         contain: content; 
         width: 100% !important;
-        height: 50px !important; /* Uniform height for alignment */
+        height: 60px !important; /* Uniform height for alignment */
         display: flex !important;
         align-items: center !important;
         justify-content: center !important; /* Center the text & icon */
@@ -2213,7 +2213,7 @@ footer {
         -webkit-backdrop-filter: none !important;
         background: rgba(17, 25, 40, 0.95) !important; /* Slightly clearer background */
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        border-radius: 12px !important; /* Slightly boxier than pills */
+        border-radius: 22px !important; /* Slightly boxier than pills */
         
         /* C. Text Styling */
         font-size: 0.9rem !important;
@@ -2228,7 +2228,7 @@ footer {
     }
     
     .skill-tag {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
     }
 
     .skill-tag img {
