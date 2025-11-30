@@ -5,11 +5,10 @@
 
 ---
 
-```
 [![Website](https://img.shields.io/badge/website-online-brightgreen)](https://choudaryhussainali.online)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Built with HTML/CSS/JS](https://img.shields.io/badge/tech-HTML%20CSS%20JS-informational)]()
-```
+
 
 <!-- HERO SVG -->
 
