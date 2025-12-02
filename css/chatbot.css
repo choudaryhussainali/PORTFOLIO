@@ -141,6 +141,37 @@
     border-bottom-left-radius: 2px;
 }
 
+/* --- Formatting for Chat Content --- */
+
+/* Links inside bot messages */
+.message.bot a {
+    color: #00f0ff; /* Neon Cyan */
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dotted rgba(0, 240, 255, 0.5);
+    transition: all 0.2s ease;
+}
+
+.message.bot a:hover {
+    color: #ffffff;
+    background: rgba(0, 240, 255, 0.2);
+    border-radius: 4px;
+    padding: 0 4px;
+}
+
+/* Bold text inside bot messages */
+.message.bot strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Paragraph spacing */
+.message.bot br {
+    display: block;
+    content: "";
+    margin-top: 8px;
+}
+
 .message.user {
     /* Neon Gradient Background for User */
     background: linear-gradient(135deg, #00f0ff 0%, #00aaff 100%);

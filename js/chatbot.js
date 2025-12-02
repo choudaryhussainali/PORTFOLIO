@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function formatMessage(text) {
+        // 1. Convert Bold (**text**) to <strong>text</strong>
+        let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        // 2. Convert Links [Title](URL) to <a href="URL" target="_blank">Title</a>
+        formatted = formatted.replace(
+            /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, 
+            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+        );
+
+        // 3. Convert Newlines to <br>
+        formatted = formatted.replace(/\n/g, '<br>');
+
+        // 4. Convert Bullet Points (* text) to • text with spacing
+        formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '• $1');
+
+        return formatted;
+    }
+
     // 5. Add Message Function (Inserts BEFORE the dots)
     function addMessage(text, sender) {
         const div = document.createElement('div');
