@@ -145,12 +145,15 @@
 
 /* Links inside bot messages */
 .message.bot a {
-    color: #00f0ff; /* Neon Cyan */
-    text-decoration: none;
-    font-weight: 600;
-    border-bottom: 1px dotted rgba(0, 240, 255, 0.5);
-    transition: all 0.2s ease;
+    color: #00f0ff !important; /* Neon Cyan */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 700;
+    pointer-events: auto; /* Ensure clickable */
+    position: relative;
+    z-index: 10;
 }
+
 
 .message.bot a:hover {
     color: #ffffff;
@@ -159,6 +162,11 @@
     padding: 0 4px;
 }
 
+.chat-list-item {
+    padding-left: 5px;
+    margin-bottom: 4px;
+    display: block; /* Ensure they sit on their own lines */
+}
 /* Bold text inside bot messages */
 .message.bot strong {
     color: #ffffff;
