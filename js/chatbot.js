@@ -5,98 +5,109 @@ document.addEventListener("DOMContentLoaded", () => {
     const sendBtn = document.getElementById('send-btn');
     const input = document.getElementById('chat-input');
     const messagesContainer = document.getElementById('chat-messages');
+    
+    // 1. Get the HTML Typing Indicator (The Neon Dots)
+    const typingIndicator = document.getElementById('typing-indicator');
 
-    // 1. Toggle Window
-    toggleBtn.addEventListener('click', () => {
-        chatWindow.classList.toggle('open');
-        if (chatWindow.classList.contains('open')) {
-            setTimeout(() => input.focus(), 100); // Focus input for UX
-        }
-    });
+    // 2. Toggle Window Logic
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            chatWindow.classList.toggle('open');
+            if (chatWindow.classList.contains('open')) {
+                setTimeout(() => input.focus(), 300); // Auto-focus input
+            }
+        });
+    }
 
-    closeBtn.addEventListener('click', () => {
-        chatWindow.classList.remove('open');
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            chatWindow.classList.remove('open');
+        });
+    }
 
-    // 2. Auto Scroll Function (Crucial)
+    // 3. Auto Scroll Function
     function scrollToBottom() {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // 3. Send Logic
-    async function sendMessage() {
-        const text = input.value.trim();
-        if (!text) return;
-
-        // A. Add User Message to UI
-        addMessage(text, 'user');
-        input.value = ''; // Clear input immediately
-        input.focus();    // Keep focus for rapid typing
-        scrollToBottom(); // Scroll down to see it
-
-        // B. Add Loading Bubble ("Thinking...")
-        const loadingId = addMessage("Thinking...", 'bot', true);
-        scrollToBottom();
-
-        try {
-            // C. REAL API CALL to your Vercel Backend
-            const response = await fetch('/api/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: text })
-            });
-
-            // Check if the server responded with an error (e.g., 500 or 404)
-            if (!response.ok) {
-                throw new Error(`Server Error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            
-            // D. Remove "Thinking..." and Add AI Response
-            removeMessage(loadingId);
-            
-            if (data.reply) {
-                addMessage(data.reply, 'bot');
-            } else {
-                addMessage("I didn't get a response. Please try again.", 'bot');
-            }
-
-        } catch (error) {
-            // E. Error Handling (Network failure, API limits, etc.)
-            removeMessage(loadingId);
-            console.error("Chat Error:", error);
-            addMessage("⚠️ Sorry, I'm having trouble connecting to the AI server. Please check your internet or try again later.", 'bot');
+    // 4. UI Helpers for Typing Indicator
+    function showTyping() {
+        // Remove the 'hidden' class we added in CSS to show the neon dots
+        if(typingIndicator) {
+            typingIndicator.classList.remove('hidden');
+            scrollToBottom();
         }
     }
 
-    // 4. Message Builder
-    function addMessage(text, sender, isLoading = false) {
+    function hideTyping() {
+        // Add the 'hidden' class back to hide the dots
+        if(typingIndicator) {
+            typingIndicator.classList.add('hidden');
+        }
+    }
+
+    // 5. Add Message Function (Inserts BEFORE the dots)
+    function addMessage(text, sender) {
         const div = document.createElement('div');
         div.classList.add('message', sender);
         div.innerText = text;
         
-        if (isLoading) {
-            div.id = 'loading-msg';
-            div.style.fontStyle = 'italic';
-            div.style.opacity = '0.7';
+        // IMPORTANT: Insert the new message BEFORE the typing indicator
+        // This ensures the dots always stay at the very bottom
+        if (typingIndicator) {
+            messagesContainer.insertBefore(div, typingIndicator);
+        } else {
+            messagesContainer.appendChild(div);
         }
-
-        messagesContainer.appendChild(div);
-        scrollToBottom(); // Ensure visibility
-        return div.id;
+        
+        scrollToBottom();
     }
 
-    function removeMessage(id) {
-        const el = document.getElementById('loading-msg');
-        if (el) el.remove();
+    // 6. Main Send Logic
+    async function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+
+        // A. User Message
+        addMessage(text, 'user');
+        input.value = '';
+        
+        // B. Show Neon Dots
+        showTyping();
+
+        try {
+            // C. API Call to Vercel
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+
+            if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+
+            const data = await response.json();
+            
+            // D. Hide Dots & Show Bot Reply
+            hideTyping();
+            
+            if (data.reply) {
+                addMessage(data.reply, 'bot');
+            } else {
+                addMessage("I'm not sure how to answer that yet.", 'bot');
+            }
+
+        } catch (error) {
+            hideTyping();
+            console.error("Chat Error:", error);
+            addMessage("⚠️ Sorry, I can't connect to the server right now.", 'bot');
+        }
     }
 
-    // 5. Event Listeners
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
+    // 7. Event Listeners
+    if (sendBtn && input) {
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    }
 });
