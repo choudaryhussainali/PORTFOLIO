@@ -48,7 +48,7 @@ class handler(BaseHTTPRequestHandler):
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message}
                 ],
-                model="llama3-8b-8192",
+                model="llama-3.3-70b-versatile",
             )
 
             bot_reply = chat_completion.choices[0].message.content
