@@ -28,28 +28,47 @@ document.addEventListener("DOMContentLoaded", () => {
         const text = input.value.trim();
         if (!text) return;
 
-        // Add User Message
+        // A. Add User Message to UI
         addMessage(text, 'user');
         input.value = ''; // Clear input immediately
+        input.focus();    // Keep focus for rapid typing
         scrollToBottom(); // Scroll down to see it
 
-        // Add Loading Bubble
+        // B. Add Loading Bubble ("Thinking...")
         const loadingId = addMessage("Thinking...", 'bot', true);
         scrollToBottom();
 
         try {
-            // Simulate API Call (Replace with real fetch later)
-            // const response = await fetch('/api/chat', ...);
+            // C. REAL API CALL to your Vercel Backend
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: text })
+            });
+
+            // Check if the server responded with an error (e.g., 500 or 404)
+            if (!response.ok) {
+                throw new Error(`Server Error: ${response.status}`);
+            }
+
+            const data = await response.json();
             
-            // For now, simulated response for testing UI:
-            setTimeout(() => {
-                removeMessage(loadingId);
-                addMessage("I am currently a demo UI. Connect me to Vercel/Groq to make me smart!", 'bot');
-            }, 1500);
+            // D. Remove "Thinking..." and Add AI Response
+            removeMessage(loadingId);
+            
+            if (data.reply) {
+                addMessage(data.reply, 'bot');
+            } else {
+                addMessage("I didn't get a response. Please try again.", 'bot');
+            }
 
         } catch (error) {
+            // E. Error Handling (Network failure, API limits, etc.)
             removeMessage(loadingId);
-            addMessage("Error connecting to AI.", 'bot');
+            console.error("Chat Error:", error);
+            addMessage("⚠️ Sorry, I'm having trouble connecting to the AI server. Please check your internet or try again later.", 'bot');
         }
     }
 
