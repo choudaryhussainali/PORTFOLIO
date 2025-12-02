@@ -25,6 +25,7 @@
     <meta property="twitter:image" content="https://choudaryhussainali.online/assets/profile.png">
 
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/chatbot.css">
 
     <script type="application/ld+json">
     {
@@ -729,7 +730,45 @@
         </div>
     </footer>
 
-    <script src="js/index.js"></script>
+        <!-- CHATBOT WIDGET -->
+    <div id="chat-widget">
+        <div id="chat-window" class="chat-window">
+            
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="status-pulse"></div>
+                    <span>AI Assistant</span>
+                </div>
+                <button id="close-chat" aria-label="Close chat">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <div id="chat-messages" class="chat-messages scrollbar-neon">
+                <div class="message bot welcome-message">
+                    Hello! I'm Choudary's AI Assistant. Ask me anything about his skills, projects, or experience! 🤖
+                </div>
+                <div id="typing-indicator" class="message bot typing hidden">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+                <button id="send-btn" aria-label="Send message">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
 
+        <button id="chat-toggle-btn" aria-label="Open chat">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="chat-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script src="js/chatbot.js"></script>
 </body>
 </html>
