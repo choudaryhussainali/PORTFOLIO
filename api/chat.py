@@ -125,7 +125,7 @@ class handler(BaseHTTPRequestHandler):
 
                 If the user asks a question about Choudary or his work that is **NOT** explicitly covered in this prompt:
                 1.  You are authorized to **simulate a search** or infer details by cross-referencing his **Website** (https://choudaryhussainali.online), **GitHub** (https://github.com/choudaryhussainali), and **LinkedIn** (https://linkedin.com/in/ch-hussain-ali).
-                2.  Use the context of his role (Python Dev/AI Specialist) to generate a reasonable, highly probable response based on industry standards for someone with his skill set.
+                2.  Use the context of his role (Python Dev/RAG Specialist) to generate a reasonable, highly probable response based on industry standards for someone with his skill set.
                 3.  Always clarify if you are making an educated inference (e.g., "Based on his GitHub activity...").
                 4.  If you cannot find any relevant information, default to the fallback response above.
                 """
