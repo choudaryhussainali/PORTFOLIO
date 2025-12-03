@@ -83,7 +83,7 @@
     pointer-events: all;
 }
 
-/* --- Header --- */
+/* --- PROFESSIONAL HEADER DESIGN --- */
 .chat-header {
     /* Gradient Background */
     background: linear-gradient(135deg, #0a0e27 0%, #1a1f3c 100%);
@@ -162,9 +162,6 @@
     gap: 4px;
 }
 
-.chat-title { display: flex; align-items: center; gap: 10px; }
-.status-pulse { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 8px #00ff00; }
-
 #close-chat {
     background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer;
     line-height: 1; padding: 0 5px;
@@ -207,45 +204,6 @@
     border-bottom-left-radius: 2px;
 }
 
-/* --- Formatting for Chat Content --- */
-
-/* Links inside bot messages */
-.message.bot a {
-    color: #00f0ff !important; /* Neon Cyan */
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    font-weight: 700;
-    pointer-events: auto; /* Ensure clickable */
-    position: relative;
-    z-index: 10;
-}
-
-
-.message.bot a:hover {
-    color: #ffffff;
-    background: rgba(0, 240, 255, 0.2);
-    border-radius: 4px;
-    padding: 0 4px;
-}
-
-.chat-list-item {
-    padding-left: 5px;
-    margin-bottom: 4px;
-    display: block; /* Ensure they sit on their own lines */
-}
-/* Bold text inside bot messages */
-.message.bot strong {
-    color: #ffffff;
-    font-weight: 700;
-}
-
-/* Paragraph spacing */
-.message.bot br {
-    display: block;
-    content: "";
-    margin-top: 8px;
-}
-
 .message.user {
     /* Neon Gradient Background for User */
     background: linear-gradient(135deg, #00f0ff 0%, #00aaff 100%);
@@ -282,18 +240,44 @@
 #chat-input::placeholder { color: rgba(255, 255, 255, 0.5); }
 
 #send-btn {
+    width: 50px; height: 50px;
+    border-radius: 50%;
     background: transparent;
-    border: none;
+    border: 1px solid rgba(0, 240, 255, 0.3);
     color: #00f0ff;
     cursor: pointer;
-    transition: transform 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
 }
-#send-btn:hover { transform: scale(1.1); }
+#send-btn:hover {
+    background: var(--gradient-1);
+    border-color: transparent;
+    color: white;
+    transform: scale(1.05) rotate(-10deg);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
 
-/* OLD RULE: */
-/* .message.typing.hidden { display: none; } */
+/* --- ANIMATIONS --- */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-/* NEW FIX (Add !important to force it off): */
+/* --- 1. Typing Indicator Animation (The Bubbles) --- */
+.message.typing {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 80px;
+    background: rgba(255, 255, 255, 0.05); /* Subtle background */
+    border-radius: 15px;
+    border-bottom-left-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+}
+
+/* Force hide when JS adds 'hidden' class */
 .message.typing.hidden {
     display: none !important;
     visibility: hidden !important;
@@ -303,10 +287,50 @@
     border: none !important;
 }
 
-/* --- ANIMATIONS --- */
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: #00f0ff; /* Neon Cyan */
+    border-radius: 50%;
+    animation: typing-bounce 1.4s infinite both;
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes typing-bounce {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px #00f0ff; }
+}
+
+/* --- 2. Highlighted Links Styling --- */
+.message.bot a {
+    color: #00f0ff !important; /* Force Neon Cyan */
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px dotted rgba(0, 240, 255, 0.8);
+    transition: all 0.2s ease;
+    pointer-events: auto; /* Ensure they are clickable */
+    position: relative;
+    z-index: 10;
+}
+
+.message.bot a:hover {
+    color: #ffffff !important;
+    background: rgba(0, 240, 255, 0.2);
+    border-radius: 4px;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+    border-bottom: 1px solid #00f0ff;
+}
+
+/* List Items formatting */
+.chat-list-item {
+    margin-top: 4px;
+    padding-left: 8px;
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* --- MOBILE RESPONSIVE FIX --- */
