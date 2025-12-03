@@ -30,6 +30,9 @@
 
 ## 🔎 Project Snapshot
 
+<img width="1365" height="634" alt="image" src="https://github.com/user-attachments/assets/59b12e35-b392-415a-8fa4-deef30658ec9" />
+
+---
 <img width="1365" height="636" alt="image" src="https://github.com/user-attachments/assets/895c7c8e-3e60-49e8-bea4-5fce6b270272" />
 
 ---
