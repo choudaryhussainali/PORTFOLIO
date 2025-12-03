@@ -41,6 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function formatMessage(text) {
         let formatted = text;
 
+        // 0. Normalize newlines (prevent huge gaps)
+        formatted = formatted.replace(/\n\s*\n\s*\n/g, '\n\n');
+
         // A. Convert Bold (**text**) to <strong>text</strong>
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
@@ -51,21 +54,21 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         // C. Convert Raw URLs (https://...) NOT already in tags
-        // Negative lookbehind (?<!...) ensures we don't match inside href="..."
+        // Negative lookbehind (?<!...) ensures we don't match inside href="..." or >text</a>
         formatted = formatted.replace(
-            /(?<!["'=])(https?:\/\/[^\s<]+)/g, 
+            /(?<!["'= >])(https?:\/\/[^\s<]+)/g, 
             '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
         );
 
         // D. Convert Email Addresses NOT already in tags
         // Exclude if preceded by "mailto:" or other attribute markers
         formatted = formatted.replace(
-            /(?<!["'=:])([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
+            /(?<!["'= :])([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
             '<a href="mailto:$1">$1</a>'
         );
 
-        // E. Convert Bullet Points
-        formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '<div class="chat-list-item">• $1</div>');
+        // E. Convert Bullet Points (handle *, -, and •)
+        formatted = formatted.replace(/^\s*[\-\*•]\s+(.*)$/gm, '<div class="chat-list-item">• $1</div>');
 
         // F. Convert Newlines
         formatted = formatted.replace(/\n/g, '<br>');
