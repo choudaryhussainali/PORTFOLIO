@@ -54,16 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         // C. Convert Raw URLs (https://...) NOT already in tags
-        // Negative lookbehind (?<!...) ensures we don't match inside href="..." or >text</a>
+        // Negative lookbehind (?<!...) matches only if NOT preceded by quote, equals, or space
+        // \b ensures we start at a word boundary
         formatted = formatted.replace(
-            /(?<!["'= >])(https?:\/\/[^\s<]+)/g, 
+            /(?<!["'= >])\b(https?:\/\/[^\s<]+)/g, 
             '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
         );
 
         // D. Convert Email Addresses NOT already in tags
-        // Exclude if preceded by "mailto:" or other attribute markers
+        // Critical Fix: \b at start prevents matching substring "houdary" inside "choudary"
+        // Critical Fix: > in lookbehind prevents matching text inside existing anchor tags
         formatted = formatted.replace(
-            /(?<!["'= :])([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
+            /(?<!["'= :>])\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
             '<a href="mailto:$1">$1</a>'
         );
 
