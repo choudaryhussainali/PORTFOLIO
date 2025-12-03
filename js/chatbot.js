@@ -37,36 +37,37 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typingIndicator) typingIndicator.classList.add('hidden');
     }
 
-    // 3. Smart Message Formatter (The Fix)
+    // 3. Smart Message Formatter (Regex Fix)
     function formatMessage(text) {
         let formatted = text;
 
         // A. Convert Bold (**text**) to <strong>text</strong>
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-        // B. Convert Markdown Links [Title](URL) first
+        // B. Convert Markdown Links [Title](URL)
         formatted = formatted.replace(
             /\[([^\]]+)\]\(([^)]+)\)/g, 
             '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
         );
 
-        // C. Convert Raw URLs (https://...) that are NOT already inside an HTML tag
-        // The regex (?<!["'>]) checks that the URL isn't part of href="..."
+        // C. Convert Raw URLs (https://...) NOT already in tags
+        // Negative lookbehind (?<!...) ensures we don't match inside href="..."
         formatted = formatted.replace(
-            /(?<!["'>])(https?:\/\/[^\s<]+)/g, 
+            /(?<!["'=])(https?:\/\/[^\s<]+)/g, 
             '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
         );
 
-        // D. Convert Email Addresses
+        // D. Convert Email Addresses NOT already in tags
+        // Exclude if preceded by "mailto:" or other attribute markers
         formatted = formatted.replace(
-            /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
+            /(?<!["'=:])([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
             '<a href="mailto:$1">$1</a>'
         );
 
-        // E. Convert Bullet Points (* or -) to stylized list items
+        // E. Convert Bullet Points
         formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '<div class="chat-list-item">• $1</div>');
 
-        // F. Convert Newlines to <br> for spacing
+        // F. Convert Newlines
         formatted = formatted.replace(/\n/g, '<br>');
 
         return formatted;
@@ -86,59 +87,58 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollToBottom();
     }
 
-    // 5. Typewriter Effect (Animated) - For Bot
+    // 5. Typewriter Effect (DOM Walker Version) - For Bot
     function typeBotMessage(text) {
         const div = document.createElement('div');
         div.classList.add('message', 'bot');
         
-        // Insert empty div first
         if (typingIndicator) {
             messagesContainer.insertBefore(div, typingIndicator);
         } else {
             messagesContainer.appendChild(div);
         }
 
-        // Pre-format the text into HTML
-        const htmlContent = formatMessage(text);
+        // Parse HTML into a Shadow DOM / Temp div
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = formatMessage(text);
         
-        // Split logic: We want to "type" text but "print" tags instantly
-        // Regex splits by HTML tags, keeping the tags in the array
-        const tokens = htmlContent.split(/(<[^>]+>)/g).filter(Boolean);
-        
-        let tokenIndex = 0;
-        let charIndex = 0;
-
-        function typeNextChar() {
-            if (tokenIndex >= tokens.length) {
-                scrollToBottom();
-                return; 
-            }
-
-            const currentToken = tokens[tokenIndex];
-
-            if (currentToken.startsWith('<')) {
-                // Is a Tag? Append instantly.
-                div.innerHTML += currentToken;
-                tokenIndex++;
-                typeNextChar(); 
-            } else {
-                // Is Text? Type it out.
-                div.innerHTML += currentToken.charAt(charIndex);
-                charIndex++;
-                scrollToBottom();
-
-                if (charIndex < currentToken.length) {
-                    setTimeout(typeNextChar, 10); // Faster typing speed
+        // Recursive Typing Function
+        function typeNode(node, targetElement) {
+            return new Promise(resolve => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const textContent = node.textContent;
+                    let charIndex = 0;
+                    
+                    function typeChar() {
+                        if (charIndex < textContent.length) {
+                            targetElement.append(textContent.charAt(charIndex));
+                            charIndex++;
+                            scrollToBottom();
+                            setTimeout(typeChar, 10); // Typing Speed
+                        } else {
+                            resolve();
+                        }
+                    }
+                    typeChar();
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    const element = node.cloneNode(false); // Clone tag without content
+                    targetElement.appendChild(element);
+                    
+                    // Process children sequentially
+                    // We use reduce to chain promises
+                    Array.from(node.childNodes).reduce((promise, child) => {
+                        return promise.then(() => typeNode(child, element));
+                    }, Promise.resolve()).then(resolve);
                 } else {
-                    charIndex = 0;
-                    tokenIndex++;
-                    setTimeout(typeNextChar, 10);
+                    resolve();
                 }
-            }
+            });
         }
 
-        // Start
-        typeNextChar();
+        // Start typing process
+        Array.from(tempDiv.childNodes).reduce((promise, child) => {
+            return promise.then(() => typeNode(child, div));
+        }, Promise.resolve());
     }
 
     // 6. Send Logic
