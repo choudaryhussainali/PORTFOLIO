@@ -40,20 +40,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Message Formatter (Markdown -> HTML)
     function formatMessage(text) {
         let formatted = text;
+
+        // 1. Convert Bold (**text**) to <strong>text</strong>
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        // 2. Convert Links [Title](URL) -> Supports https, http, mailto, tel
+        // The regex \(([^)]+)\) captures anything inside the parentheses
         formatted = formatted.replace(
             /\[([^\]]+)\]\(([^)]+)\)/g, 
             '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
         );
+
+        // 3. Convert Bullet Points (* or -) to stylized list items
         formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '<div class="chat-list-item">• $1</div>');
+
+        // 4. Convert Newlines to <br> for spacing
         formatted = formatted.replace(/\n/g, '<br>');
+
         return formatted;
     }
 
     // 4. Standard Add Message (Instant) - For User
-    function addUserMessage(text) {
+    function addMessage(text, sender) {
         const div = document.createElement('div');
-        div.classList.add('message', 'user');
+        div.classList.add('message', sender);
+        
+        // USE INNERHTML TO RENDER LINKS
         div.innerHTML = formatMessage(text);
         
         if (typingIndicator) {
@@ -61,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             messagesContainer.appendChild(div);
         }
+        
         scrollToBottom();
     }
 
@@ -123,11 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const text = input.value.trim();
         if (!text) return;
 
-        // User message appears instantly
-        addUserMessage(text);
+        addMessage(text, 'user');
         input.value = '';
-        
-        // Show the 3 dots while waiting
         showTyping();
 
         try {
@@ -141,21 +151,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             
-            // Hide dots -> Start Typing Response
             hideTyping();
-            
             if (data.reply) {
-                typeBotMessage(data.reply);
+                addMessage(data.reply, 'bot');
             } else {
-                typeBotMessage("I'm not sure how to answer that.");
+                addMessage("I'm not sure how to answer that.", 'bot');
             }
 
         } catch (error) {
             hideTyping();
             console.error("Chat Error:", error);
-            typeBotMessage("⚠️ Connection error. Please try again.");
+            addMessage("⚠️ Connection error. Please try again.", 'bot');
         }
     }
+
 
     if (sendBtn && input) {
         sendBtn.addEventListener('click', sendMessage);
