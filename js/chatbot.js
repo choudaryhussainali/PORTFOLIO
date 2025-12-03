@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // 2. Thinking Effect (The Dots)
+    // 2. Thinking Effect
     function showTyping() {
         if (typingIndicator) {
             typingIndicator.classList.remove('hidden');
@@ -37,35 +37,45 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typingIndicator) typingIndicator.classList.add('hidden');
     }
 
-    // 3. Message Formatter (Markdown -> HTML)
+    // 3. Smart Message Formatter (The Fix)
     function formatMessage(text) {
         let formatted = text;
 
-        // 1. Convert Bold (**text**) to <strong>text</strong>
+        // A. Convert Bold (**text**) to <strong>text</strong>
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-        // 2. Convert Links [Title](URL) -> Supports https, http, mailto, tel
-        // The regex \(([^)]+)\) captures anything inside the parentheses
+        // B. Convert Markdown Links [Title](URL) first
         formatted = formatted.replace(
             /\[([^\]]+)\]\(([^)]+)\)/g, 
             '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
         );
 
-        // 3. Convert Bullet Points (* or -) to stylized list items
+        // C. Convert Raw URLs (https://...) that are NOT already inside an HTML tag
+        // The regex (?<!["'>]) checks that the URL isn't part of href="..."
+        formatted = formatted.replace(
+            /(?<!["'>])(https?:\/\/[^\s<]+)/g, 
+            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+        );
+
+        // D. Convert Email Addresses
+        formatted = formatted.replace(
+            /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
+            '<a href="mailto:$1">$1</a>'
+        );
+
+        // E. Convert Bullet Points (* or -) to stylized list items
         formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '<div class="chat-list-item">• $1</div>');
 
-        // 4. Convert Newlines to <br> for spacing
+        // F. Convert Newlines to <br> for spacing
         formatted = formatted.replace(/\n/g, '<br>');
 
         return formatted;
     }
 
     // 4. Standard Add Message (Instant) - For User
-    function addMessage(text, sender) {
+    function addUserMessage(text) {
         const div = document.createElement('div');
-        div.classList.add('message', sender);
-        
-        // USE INNERHTML TO RENDER LINKS
+        div.classList.add('message', 'user');
         div.innerHTML = formatMessage(text);
         
         if (typingIndicator) {
@@ -73,7 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             messagesContainer.appendChild(div);
         }
-        
         scrollToBottom();
     }
 
@@ -89,10 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
             messagesContainer.appendChild(div);
         }
 
+        // Pre-format the text into HTML
         const htmlContent = formatMessage(text);
         
-        // Regex to split HTML tags from text
-        // This creates an array like: ["Hello ", "<strong>", "World", "</strong>"]
+        // Split logic: We want to "type" text but "print" tags instantly
+        // Regex splits by HTML tags, keeping the tags in the array
         const tokens = htmlContent.split(/(<[^>]+>)/g).filter(Boolean);
         
         let tokenIndex = 0;
@@ -101,33 +111,33 @@ document.addEventListener("DOMContentLoaded", () => {
         function typeNextChar() {
             if (tokenIndex >= tokens.length) {
                 scrollToBottom();
-                return; // Done
+                return; 
             }
 
             const currentToken = tokens[tokenIndex];
 
             if (currentToken.startsWith('<')) {
-                // If it's an HTML tag, append the WHOLE tag instantly (don't type it)
+                // Is a Tag? Append instantly.
                 div.innerHTML += currentToken;
                 tokenIndex++;
-                typeNextChar(); // Recursively call immediately
+                typeNextChar(); 
             } else {
-                // If it's text, append one character
+                // Is Text? Type it out.
                 div.innerHTML += currentToken.charAt(charIndex);
                 charIndex++;
                 scrollToBottom();
 
                 if (charIndex < currentToken.length) {
-                    setTimeout(typeNextChar, 15); // Typing speed (ms)
+                    setTimeout(typeNextChar, 10); // Faster typing speed
                 } else {
                     charIndex = 0;
                     tokenIndex++;
-                    setTimeout(typeNextChar, 15); // Pause between tokens
+                    setTimeout(typeNextChar, 10);
                 }
             }
         }
 
-        // Start typing
+        // Start
         typeNextChar();
     }
 
@@ -136,8 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const text = input.value.trim();
         if (!text) return;
 
-        addMessage(text, 'user');
+        addUserMessage(text);
         input.value = '';
+        
         showTyping();
 
         try {
@@ -152,19 +163,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
             
             hideTyping();
+            
             if (data.reply) {
-                addMessage(data.reply, 'bot');
+                typeBotMessage(data.reply);
             } else {
-                addMessage("I'm not sure how to answer that.", 'bot');
+                typeBotMessage("I'm not sure how to answer that.");
             }
 
         } catch (error) {
             hideTyping();
             console.error("Chat Error:", error);
-            addMessage("⚠️ Connection error. Please try again.", 'bot');
+            typeBotMessage("⚠️ Connection error. Please try again.");
         }
     }
-
 
     if (sendBtn && input) {
         sendBtn.addEventListener('click', sendMessage);
