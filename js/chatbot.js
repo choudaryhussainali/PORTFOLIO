@@ -130,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     targetElement.appendChild(element);
                     
                     // Process children sequentially
-                    // We use reduce to chain promises
                     Array.from(node.childNodes).reduce((promise, child) => {
                         return promise.then(() => typeNode(child, element));
                     }, Promise.resolve()).then(resolve);
