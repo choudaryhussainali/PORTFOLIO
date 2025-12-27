@@ -6,11 +6,56 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById('chat-input');
     const messagesContainer = document.getElementById('chat-messages');
     const typingIndicator = document.getElementById('typing-indicator');
+    const chatTooltip = document.getElementById('chat-tooltip');
+
+    // --- TOOLTIP LOOP ENGINE ---
+    let tooltipTimer = null;
+    let hideTimer = null;
+    let isUserEngaged = false; // Stops the loop if user clicks chat
+
+    // Configuration (Milliseconds)
+    const INITIAL_DELAY = 2500;   // Wait 2.5s on load
+    const VISIBLE_TIME = 5000;    // Stay visible for 5s
+    const COOLDOWN_TIME = 20000;  // Come back after 20s
+
+    function triggerTooltipLoop(delay) {
+        if (isUserEngaged) return; // Stop if user already clicked
+
+        clearTimeout(tooltipTimer); // Safety clear
+
+        tooltipTimer = setTimeout(() => {
+            // Check again if chat is closed and user hasn't clicked
+            if (!chatWindow.classList.contains('open') && !isUserEngaged && chatTooltip) {
+                
+                // A. Show Tooltip
+                chatTooltip.classList.add('show');
+
+                // B. Schedule Hide
+                hideTimer = setTimeout(() => {
+                    chatTooltip.classList.remove('show');
+                    
+                    // C. Schedule RE-APPEARANCE (Recursive Loop)
+                    triggerTooltipLoop(COOLDOWN_TIME); 
+                }, VISIBLE_TIME);
+            }
+        }, delay);
+    }
+
+    // Start the loop on load
+    triggerTooltipLoop(INITIAL_DELAY);
 
     // 1. Toggle Window
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
             chatWindow.classList.toggle('open');
+            // IF USER CLICKS:
+            // 1. Hide tooltip immediately
+            if (chatTooltip) chatTooltip.classList.remove('show');
+            
+            // 2. Stop the loop permanently (User has engaged)
+            isUserEngaged = true;
+            clearTimeout(tooltipTimer);
+            clearTimeout(hideTimer);
             if (chatWindow.classList.contains('open')) {
                 setTimeout(() => input.focus(), 300);
             }

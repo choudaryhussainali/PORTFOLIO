@@ -1534,6 +1534,57 @@ footer {
     animation: pulse 2s infinite;
 }
 
+/* --- Greeting Tooltip (The Pop-up) --- */
+.chat-tooltip {
+    position: absolute;
+    bottom: 15px; /* Align vertically with button */
+    right: 85px;  /* Push to the left of the button */
+    
+    background: rgba(10, 14, 30, 0.95); /* Deep Navy Background */
+    border: 1px solid #00f0ff; /* Neon Cyan Border */
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border-bottom-right-radius: 2px; /* Speech bubble look */
+    
+    font-size: 0.9rem;
+    font-weight: 400;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    
+    /* Animation State (Hidden by default) */
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy effect */
+    z-index: 9998;
+}
+
+/* The "Show" State */
+.chat-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* The Arrow pointing to the button */
+.chat-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    bottom: 10px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #00f0ff; /* Neon Arrow */
+}
+
+/* Hide on Mobile if screen is too narrow */
+@media (max-width: 400px) {
+    .chat-tooltip { display: none !important; }
+}
+
 /* Scroll Animations */
 .fade-in {
     opacity: 0;
