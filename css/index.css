@@ -1581,7 +1581,7 @@ footer {
 }
 
 /* Hide on Mobile if screen is too narrow */
-@media (max-width: 400px) {
+@media (max-width: 280px) {
     .chat-tooltip { display: none !important; }
 }
 
