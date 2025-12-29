@@ -199,6 +199,6 @@ in the Software without restriction...
 * GitHub: [https://github.com/choudaryhussainali](https://github.com/choudaryhussainali)
 * LinkedIn: `https://linkedin.com/in/ch-hussain-ali`
 * Instagram: `https://instagram.com/choudary_hussain_ali`
-* Email: `mailto:choudaryhussainali@outlook.com`
+* Email: `contact@choudaryhussainali.online`
 
 ---

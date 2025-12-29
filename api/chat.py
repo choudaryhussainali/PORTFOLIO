@@ -57,7 +57,7 @@ class handler(BaseHTTPRequestHandler):
                 - Core Focus: Building human-centered AI tools, RAG pipelines, Automation, and Streamlit Apps.
 
                 2. **Contact & Socials:**
-                - 📧 Email: choudaryhussainali@outlook.com
+                - 📧 Email: contact@choudaryhussainali.online
                 - 🌐 Website: https://choudaryhussainali.online
                 - 🐙 GitHub: https://github.com/choudaryhussainali
                 - 💼 LinkedIn: https://linkedin.com/in/ch-hussain-ali
