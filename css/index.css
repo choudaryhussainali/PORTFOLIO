@@ -1597,6 +1597,214 @@ footer {
     transform: translateY(0);
 }
 
+/* =========================================
+   PROFESSIONAL CLIENT WORK SECTION
+   ========================================= */
+
+.client-work-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.client-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    
+    /* Premium Dark Glass Look */
+    background: linear-gradient(135deg, rgba(20, 27, 45, 0.8), rgba(10, 14, 30, 0.9));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    
+    /* Neon Left Accent (The "Pro" Touch) */
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.client-card:hover {
+    transform: translateX(10px); /* Slides slightly right on hover */
+    box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1);
+    background: linear-gradient(135deg, rgba(25, 35, 60, 0.9), rgba(15, 20, 40, 0.95));
+}
+
+/* Visual Side (Logo/Icon) */
+.client-visual {
+    flex-shrink: 0;
+}
+
+.client-logo-wrapper {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; /* Ensures image doesn't bleed out */
+    padding: 10px;    /* Padding so logo isn't touching edges */
+}
+
+/* --- NEW IMAGE STYLES --- */
+.client-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Keeps aspect ratio */
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); /* Adds depth to logo */
+}
+
+/* Content Side */
+.client-content {
+    flex: 1;
+}
+
+.client-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.client-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--light);
+    margin: 0;
+}
+
+.client-badge {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--secondary); /* Neon Pink */
+    background: rgba(255, 0, 110, 0.1);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 0, 110, 0.3);
+}
+
+.client-description {
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+}
+
+.client-description strong {
+    color: var(--light);
+}
+
+/* Tech Stack Tags */
+.client-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.client-tech-stack span {
+    font-size: 0.85rem;
+    color: var(--primary);
+    background: rgba(0, 240, 255, 0.05);
+    padding: 4px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.client-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--light);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dotted var(--primary);
+    transition: color 0.3s;
+}
+.client-link:hover {
+    color: var(--primary);
+}
+/* --- NEW: CLIENT REVIEW BOX --- */
+.client-review {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid rgba(131, 56, 236, 0.5); /* Purple accent */
+    padding: 1rem 1.2rem;
+    border-radius: 0 12px 12px 0;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.quote-icon {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 1.5rem;
+    color: rgba(131, 56, 236, 0.8);
+    background: var(--darker); /* Masks the line behind it */
+    padding: 0 5px;
+    line-height: 1;
+}
+
+.client-review p {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.review-author {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--primary); /* Neon Cyan */
+    font-weight: 600;
+    text-align: right;
+}
+
+/* --- NEW: CARD FOOTER (Stack & Link) --- */
+.client-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.client-visit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.client-visit-btn:hover {
+    background: var(--primary);
+    color: var(--dark);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    transform: translateY(-2px);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero-content {
@@ -1749,7 +1957,71 @@ footer {
         width: 100px;
         height: 100px;
     }
+    /* --- INSIDE @media (max-width: 768px) --- */
 
+    /* Professional Work Mobile Fixes */
+    .client-card {
+        flex-direction: column !important; /* Stack vertically */
+        align-items: flex-start !important;
+        gap: 1.5rem !important;
+        
+        /* Mobile styling stability */
+        border-left: none !important;
+        border-top: 4px solid var(--primary) !important; /* Move accent to top */
+        transform: none !important;
+        margin-bottom: 0 !important;
+        
+        /* Render Optimizations */
+        opacity: 1 !important;
+        visibility: visible !important;
+        backdrop-filter: none !important;
+        background: rgba(17, 25, 40, 0.95) !important;
+        contain: content;
+    }
+    
+    .client-card:hover {
+        transform: none !important;
+    }
+
+    .client-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .client-logo-wrapper {
+        width: 60px !important;
+        height: 60px !important;
+        padding: 8px !important; /* Slightly less padding on mobile */
+    }
+
+    .client-description {
+        color: var(--gray);
+        font-size: 0.7rem;
+        text-align: center;
+        margin-bottom: 1.2rem;
+        line-height: 1.6;
+    }
+
+
+    /* Client Card Mobile Updates */
+    .client-footer {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 1.5rem !important;
+    }
+    
+    .client-visit-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 0 !important; /* Bigger tap target */
+    }
+    
+    /* Ensure review box doesn't break layout */
+    .client-review {
+        margin: 1rem 0 !important;
+        border-left: 2px solid rgba(131, 56, 236, 0.5) !important;
+    }
     /* =========================================
        3. ABOUT SECTION STABILIZATION
        ========================================= */
