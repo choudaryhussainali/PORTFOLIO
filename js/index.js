@@ -32,6 +32,42 @@ document.addEventListener("DOMContentLoaded", () => {
             
         }, 1500);
     });
+
+        // --- CERTIFICATE LIGHTBOX LOGIC ---
+    const certImages = document.querySelectorAll('.cert-visual img');
+    const body = document.body;
+
+    // 1. Create Lightbox Elements
+    const lightbox = document.createElement('div');
+    lightbox.className = 'cert-lightbox';
+    lightbox.innerHTML = `
+        <span class="cert-lightbox-close">&times;</span>
+        <img src="" alt="Certificate Preview">
+    `;
+    body.appendChild(lightbox);
+
+    const lightboxImg = lightbox.querySelector('img');
+    const closeBtn = lightbox.querySelector('.cert-lightbox-close');
+
+    // 2. Open Lightbox
+    certImages.forEach(img => {
+        img.parentElement.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            body.style.overflow = 'hidden'; // Disable scroll
+        });
+    });
+
+    // 3. Close Lightbox
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
 });
 
 // This removes the "delay" before scrolling starts
