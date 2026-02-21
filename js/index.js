@@ -34,37 +34,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
         // --- CERTIFICATE LIGHTBOX LOGIC ---
-    const certImages = document.querySelectorAll('.cert-visual img');
+    // --- LIGHTBOX LOGIC (Certificates & Client Projects) ---
+    // Select both certificate images and client project preview images
+    const expandableImages = document.querySelectorAll('.cert-visual img, .client-preview img');
     const body = document.body;
 
-    // 1. Create Lightbox Elements
+    // 1. Create Lightbox Elements dynamically
     const lightbox = document.createElement('div');
-    lightbox.className = 'cert-lightbox';
+    lightbox.className = 'cert-lightbox'; // Reusing the sleek cert-lightbox CSS
     lightbox.innerHTML = `
         <span class="cert-lightbox-close">&times;</span>
-        <img src="" alt="Certificate Preview">
+        <img src="" alt="Expanded Preview">
     `;
     body.appendChild(lightbox);
 
     const lightboxImg = lightbox.querySelector('img');
     const closeBtn = lightbox.querySelector('.cert-lightbox-close');
 
-    // 2. Open Lightbox
-    certImages.forEach(img => {
-        img.parentElement.addEventListener('click', () => {
+    // 2. Open Lightbox on Click
+    expandableImages.forEach(img => {
+        // Force the zoom-in cursor so users know it's clickable
+        img.style.cursor = 'zoom-in';
+        
+        // Listen for the click on the image itself
+        img.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents triggering other click events
             lightboxImg.src = img.src;
             lightbox.classList.add('active');
-            body.style.overflow = 'hidden'; // Disable scroll
+            body.style.overflow = 'hidden'; // Disable page scrolling while open
         });
     });
 
-    // 3. Close Lightbox
+    // 3. Close Lightbox Logic
     function closeLightbox() {
         lightbox.classList.remove('active');
-        body.style.overflow = '';
+        body.style.overflow = ''; // Restore page scrolling
     }
 
+    // Close when clicking the 'X'
     closeBtn.addEventListener('click', closeLightbox);
+
+    // Close when clicking the dark background outside the image
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
     });

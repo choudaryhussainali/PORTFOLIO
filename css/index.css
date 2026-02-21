@@ -2094,6 +2094,11 @@ footer {
     color: var(--primary);
 }
 
+/* Make sure user knows Client Project Images are clickable */
+.client-preview img {
+    cursor: zoom-in;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero-content {
