@@ -1687,12 +1687,11 @@ footer {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--secondary); /* Neon Pink */
-    background: rgba(255, 0, 110, 0.1);
     padding: 5px 12px;
     border-radius: 50px;
     font-weight: 600;
-    border: 1px solid rgba(255, 0, 110, 0.3);
+    border: 1px solid;
+    color: #00ff88; background: rgba(0, 255, 136, 0.1); border-color: rgba(0, 255, 136, 0.3);
 }
 
 .client-description {
