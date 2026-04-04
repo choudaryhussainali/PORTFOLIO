@@ -421,6 +421,100 @@ nav {
     vertical-align: sub; /* Moves it down slightly to align with text */
     transform: translateY(-5px);
 }
+/* =========================================
+   MILLION DOLLAR HERO TYPING EFFECT (V2 ULTRA-PREMIUM)
+   ========================================= */
+
+.premium-subtitle-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(13, 17, 30, 0.85); /* Deep, rich dark blue */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle glass rim */
+    border-bottom: 2px solid #00f0ff; /* Strong neon anchor line */
+    padding: 12px 24px 12px 24px; /* Snug on left, breathable on right */
+    border-radius: 100px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    /* Complex Shadow: Deep drop shadow + Ambient cyan glow + Glass top highlight */
+    box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.7), 
+        0 10px 30px rgba(0, 240, 255, 0.1), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* The Solid, Vibrant Badge */
+.tech-badge-inline {
+    background: linear-gradient(135deg, #00f0ff, #0055ff); /* Vivid cyan to blue */
+    color: #020617; /* Very dark text for extreme contrast */
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Live Pulse Dot inside the badge */
+.tech-badge-inline::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #fff;
+    animation: pulseLiveDot 2s infinite;
+}
+
+@keyframes pulseLiveDot {
+    0% { transform: scale(0.95); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; box-shadow: 0 0 15px #fff; }
+    100% { transform: scale(0.95); opacity: 1; }
+}
+
+/* The Typing Text */
+/* The Typing Text */
+.premium-subtitle-wrapper .subtitle {
+    margin: 0;
+    font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+    font-size: 1.25rem;
+    color: #f8fafc; 
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* PREVENTS UGLY MULTI-LINE WRAPPING */
+}
+
+#premium-typing-text {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* The True Neon Cursor */
+.premium-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.3rem;
+    background-color: #00f0ff;
+    margin-left: 8px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff; /* Double layer glow */
+    animation: premiumBlink 1s step-end infinite;
+}
+
+@keyframes premiumBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
@@ -853,6 +947,235 @@ section {
     color: var(--gray);
     font-size: 0.9rem;
 }
+
+
+
+
+/* =========================================
+   SERVICES TEASER SECTION
+   ========================================= */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: linear-gradient(135deg, rgba(25, 30, 50, 0.6), rgba(15, 20, 35, 0.8));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+/* The Premium Neon Top-Border Effect */
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 240, 255, 0.15);
+    border-color: rgba(0, 240, 255, 0.1);
+    background: linear-gradient(135deg, rgba(30, 35, 60, 0.8), rgba(20, 25, 45, 0.95));
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 240, 255, 0.1);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--primary);
+    color: var(--darker);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.service-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.service-card h3 {
+    font-size: 1.4rem;
+    color: var(--light);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.service-card p {
+    color: var(--gray);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   PREMIUM CYBER-GLASS BUTTON (Services CTA)
+   ========================================= */
+
+.premium-cta-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cta-subtitle {
+    font-size: 0.85rem;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.btn-cyber-glass {
+    position: relative;
+    display: inline-block;
+    padding: 2px; /* Space for the animated border */
+    border-radius: 50px;
+    text-decoration: none;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05); /* Very subtle base */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-cyber-glass .btn-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--dark); /* Inner dark background */
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--light);
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
+    transition: background 0.3s ease, color 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-cyber-glass .arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+/* The Animated Neon Border Glow */
+.btn-cyber-glass .btn-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        transparent, 
+        transparent, 
+        transparent, 
+        var(--primary)
+    );
+    animation: rotateGlow 4s linear infinite;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+/* Hover Effects */
+.btn-cyber-glass:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+}
+
+.btn-cyber-glass:hover .btn-content {
+    background: rgba(10, 14, 30, 0.9); /* Slightly lighter on hover */
+    color: var(--primary);
+}
+
+.btn-cyber-glass:hover .arrow-icon {
+    transform: translateX(5px);
+}
+
+/* The Rotation Animation */
+@keyframes rotateGlow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Card Layout Adjustment for Bottom Alignment */
+.service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.service-card p {
+    flex-grow: 1; /* Pushes the button to the very bottom automatically */
+    margin-bottom: 0;
+}
+
+/* Problem-Solving Action Button */
+.service-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2rem;
+    padding: 8px 20px;
+    background: rgba(0, 240, 255, 0.05); /* Ghost background */
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 50px;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.service-action-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.service-action-btn:hover {
+    background: var(--primary); /* Fills with Neon */
+    color: var(--darker); /* Text becomes dark for contrast */
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.service-action-btn:hover svg {
+    transform: translateX(4px); /* Arrow slides right slightly */
+}
+
+
 
 /* ... inside <style> ... */
 
@@ -3114,3 +3437,44 @@ body {
         background: rgba(6, 8, 24, 0.99) !important;
     }
 }
+
+
+/* =========================================
+   MOBILE RESPONSIVENESS: TYPING EFFECT FIX
+   ========================================= */
+@media (max-width: 768px) {
+    .premium-subtitle-wrapper {
+        /* TOP | RIGHT | BOTTOM | LEFT */
+        /* Drastically reduced vertical space, added large right space for breathing room */
+        padding: 6px 20px 6px 15px !important; 
+        gap: 10px !important; 
+        max-width: 95vw;
+        align-items: center;
+    }
+
+    .premium-subtitle-wrapper .subtitle {
+        margin: 0 !important; /* Force kills any rogue paragraph margins stretching the box up/down */
+        line-height: 1 !important; /* Shrinks the invisible text height */
+        font-size: 0.82rem !important; /* Scaled perfectly for all iPhones */
+    }
+
+    .tech-badge-inline {
+        padding: 5px 12px !important;
+        font-size: 0.65rem !important;
+        letter-spacing: 1px !important;
+        margin: 0 !important;
+    }
+
+    .tech-badge-inline::before {
+        width: 4px;
+        height: 4px;
+    }
+
+    .premium-cursor {
+        width: 6px;
+        height: 0.95rem;
+        margin-left: 6px;
+    }
+}
+
+

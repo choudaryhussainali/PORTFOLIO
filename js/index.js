@@ -84,48 +84,109 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener('touchstart', function() {}, { passive: true });
 window.addEventListener('touchmove', function() {}, { passive: true });
 
-// --- 1. TYPING EFFECT (Hero Section) ---
-const typingText = document.getElementById('typing-text');
-const textCursor = document.querySelector('.cursor'); // Named textCursor to avoid conflict
+// ==========================================
+// MILLION DOLLAR "CYBER DECODE" TYPING EFFECT
+// ==========================================
 
-if (typingText) {
-    const words = [
-        "Python Developer",
-        "Building Modern Webistes",
-        "🧠 AI-Powered Solutions Builder"
+const typingElement = document.getElementById("premium-typing-text");
+
+if (typingElement) {
+    // Your High-Value Skillsets
+    const roles = [
+        "Python Developer", 
+        "Building Modern Websites", 
+        "AI Automations",
+        "RAG Pipeline Architect",
+        "LLMOps Specialist",
     ];
+
+    // The random characters used during the "decode" scramble phase
+    const chars = "!<>-_\\/[]{}—=+*^?#________";
     
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typeSpeed = 100;
-
-    function type() {
-        const currentWord = words[wordIndex];
+    let roleIndex = 0;
+    let frameRequest;
+    let frame = 0;
+    
+    // Animation Configuration
+    const frameRate = 3;       // Speed of character scrambling
+    const pauseTime = 2500;    // Time word stays fully visible (2.5s)
+    
+    // The core scramble function
+    class ScrambleText {
+        constructor(el) {
+            this.el = el;
+            this.queue = [];
+        }
         
-        if (isDeleting) {
-            typingText.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-            typeSpeed = 50;
-        } else {
-            typingText.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-            typeSpeed = 100;
+        setText(newText) {
+            const oldText = this.el.innerText;
+            const length = Math.max(oldText.length, newText.length);
+            const promise = new Promise((resolve) => this.resolve = resolve);
+            this.queue = [];
+            
+            for (let i = 0; i < length; i++) {
+                const from = oldText[i] || '';
+                const to = newText[i] || '';
+                // The math determines how long the "scramble" lasts for each letter
+                const start = Math.floor(Math.random() * 40);
+                const end = start + Math.floor(Math.random() * 40);
+                this.queue.push({ from, to, start, end, char: '' });
+            }
+            
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+            return promise;
         }
-
-        if (!isDeleting && charIndex === currentWord.length) {
-            isDeleting = true;
-            typeSpeed = 2000; // Pause at end
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 500; // Pause before new word
+        
+        update() {
+            let output = '';
+            let complete = 0;
+            
+            for (let i = 0, n = this.queue.length; i < n; i++) {
+                let { from, to, start, end, char } = this.queue[i];
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) {
+                        char = this.randomChar();
+                        this.queue[i].char = char;
+                    }
+                    // Highlight the scrambled characters in neon blue
+                    output += `<span style="color: #00f0ff; text-shadow: 0 0 5px #00f0ff;">${char}</span>`;
+                } else {
+                    output += from;
+                }
+            }
+            
+            this.el.innerHTML = output;
+            
+            if (complete === this.queue.length) {
+                this.resolve();
+            } else {
+                this.frameRequest = requestAnimationFrame(this.update.bind(this));
+                this.frame += frameRate;
+            }
         }
-
-        setTimeout(type, typeSpeed);
+        
+        randomChar() {
+            return chars[Math.floor(Math.random() * chars.length)];
+        }
     }
-    // Start typing on load
-    document.addEventListener('DOMContentLoaded', type);
+
+    const scrambler = new ScrambleText(typingElement);
+
+    // The Infinite Loop
+    function nextRole() {
+        scrambler.setText(roles[roleIndex]).then(() => {
+            setTimeout(nextRole, pauseTime);
+        });
+        roleIndex = (roleIndex + 1) % roles.length;
+    }
+
+    // Start the animation slightly after page load
+    setTimeout(nextRole, 500);
 }
 
 // --- 2. MOBILE MENU TOGGLE ---

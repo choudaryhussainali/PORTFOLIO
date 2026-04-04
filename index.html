@@ -93,10 +93,11 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <!-- NEW: Added Services Link Here -->
+                <li><a href="#services">Services</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
             <button class="nav-cta" onclick="location.href='#contact'">Let's Talk</button>
             <div class="mobile-menu" id="mobileMenu">
@@ -111,9 +112,12 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>CH. Hussain Ali</h1>
-                <p class="subtitle">
-                    <span id="typing-text"></span><span class="cursor">|</span>
-                </p>               
+                <div class="premium-subtitle-wrapper">
+                    <div class="tech-badge-inline">Expertise</div>
+                    <p class="subtitle">
+                        <span id="premium-typing-text"></span><span class="premium-cursor"></span>
+                    </p>
+                </div>             
                 <p>Building smart, human-centered AI tools that merge advanced technology with thoughtful design. Transforming complexity into seamless Modern-Responsive Websites that inspire, automate, and elevate.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">
@@ -196,6 +200,81 @@
             </div>
         </div>
     </section>
+
+
+    <!-- =========================================
+         SERVICES TEASER SECTION
+    ========================================== -->
+    <section id="services" class="fade-in">
+        <div class="section-header">
+            <div class="section-label">Professional Services</div>
+            <h2 class="section-title">My Expertise</h2>
+            <p class="section-description">
+                Delivering high-end, scalable solutions tailored to elevate your business.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <h3>AI & LLM Solutions</h3>
+                <p>Custom RAG pipelines, conversational AI agents, and Generative AI integrations designed to automate workflows and unlock data insights.</p>
+                
+                <!-- Problem Solving Button -->
+                <a href="./services/" class="service-action-btn">
+                    Automate Workflows
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                </div>
+                <h3>Python Automation</h3>
+                <p>Enterprise-grade web scraping, API development, and data processing pipelines that eliminate manual tasks and accelerate operations.</p>
+                
+                <!-- Problem Solving Button -->
+                <a href="./services/" class="service-action-btn">
+                    Eliminate Manual Tasks
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                </div>
+                <h3>High-Performance Web</h3>
+                <p>Developing ultra-fast, responsive web applications and e-commerce stores using modern tech stacks optimized for SEO and conversions.</p>
+                
+                <!-- Problem Solving Button -->
+                <a href="./services/" class="service-action-btn">
+                    Boost Conversions
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- New Premium CTA Button -->
+        <div class="premium-cta-wrapper text-center" style="margin-top: 4rem;">
+            <a href="./services/" class="btn-cyber-glass">
+                <span class="btn-content">
+                    View Enterprise Solutions
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+                <span class="btn-glow"></span>
+            </a>
+            <p class="cta-subtitle">Available for freelance & contract roles</p>
+        </div>
+    </section>
+
+
 
     <section id="skills" class="fade-in">
         <div class="section-header">
