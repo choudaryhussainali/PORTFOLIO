@@ -1119,6 +1119,9 @@ section {
     .card-inner {
         padding: 2rem 1.5rem;
     }
+    .cta-subtitle {
+        text-align: center;
+    }
 }
 
 /* =========================================
