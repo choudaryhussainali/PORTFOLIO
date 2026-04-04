@@ -1,0 +1,563 @@
+/* =========================================
+   ENTERPRISE SERVICES PAGE (ISOLATED STYLES)
+   ========================================= */
+
+/* Reset & Base overrides for this page */
+.services-body {
+    font-family: 'Inter', sans-serif;
+    background-color: #050505; /* Deep rich black */
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Ambient Background Lights */
+.ambient-bg-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+.glow-top-left { top: -200px; left: -200px; background: #00f0ff; }
+.glow-bottom-right { bottom: -200px; right: -200px; background: #8338ec; }
+
+/* Header */
+.services-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 100;
+}
+
+.services-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #8b95a5;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #00f0ff;
+}
+
+/* Hero Section */
+.services-hero {
+    padding: 200px 20px 100px; 
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-container {
+    max-width: 800px;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0, 240, 255, 0.1);
+    color: #00f0ff;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #00f0ff, #0055ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #8b95a5;
+    line-height: 1.7;
+}
+
+/* Detailed Services Grid */
+.detailed-services-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem; /* Big spacing for enterprise feel */
+}
+
+.premium-service-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center; /* Perfect vertical centering */
+}
+
+.premium-service-row.reverse-layout {
+    direction: rtl; /* Elegant reversal technique */
+}
+
+.premium-service-row.reverse-layout > * {
+    direction: ltr; /* Keeps text left-to-right */
+}
+
+/* Service Content */
+.service-category {
+    color: #00f0ff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+}
+
+.service-heading {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.service-paragraph {
+    font-size: 1.1rem;
+    color: #8b95a5;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* Premium Checklist */
+.premium-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.premium-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1rem;
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.list-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 240, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00f0ff;
+    margin-top: 2px;
+}
+
+.list-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Premium CSS Art Visuals */
+.visual-glass-panel {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(20, 25, 40, 0.5), rgba(10, 15, 25, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    box-shadow: inset 0 2px 20px rgba(255,255,255,0.02), 0 20px 40px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Visual 1: AI Rings */
+.ai-rings {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+}
+.ring-1 { width: 100%; height: 100%; animation: spin 15s linear infinite; }
+.ring-2 { width: 70%; height: 70%; border-style: dashed; animation: spin 10s linear reverse infinite; }
+.ring-3 { width: 40%; height: 40%; background: radial-gradient(circle, rgba(0,240,255,0.2), transparent); box-shadow: 0 0 30px rgba(0,240,255,0.4); }
+
+/* Visual 2: Data Grid */
+.data-grid-effect {
+    width: 70%;
+    height: 70%;
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.15) 1px, transparent 1px);
+    background-size: 30px 30px;
+    transform: perspective(600px) rotateX(60deg) rotateZ(-45deg);
+    animation: pulseGrid 4s ease-in-out infinite alternate;
+}
+
+/* Visual 3: Web UI */
+.web-ui-effect {
+    width: 60%;
+    height: 60%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+}
+.ui-header { height: 15px; width: 40%; background: #00f0ff; border-radius: 4px; opacity: 0.8; }
+.ui-body { flex: 1; background: rgba(255,255,255,0.03); border-radius: 8px; }
+
+/* Process Section (Fixed Overlap Issue) */
+.premium-process {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 4rem 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.process-header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.process-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.process-header p {
+    color: #8b95a5;
+    font-size: 1.1rem;
+}
+
+.process-grid-system {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+.process-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 240, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.process-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); /* Clean outline look */
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.process-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.process-card p {
+    color: #8b95a5;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Call to Action */
+.premium-cta {
+    background: linear-gradient(180deg, transparent, rgba(0, 240, 255, 0.03));
+    padding: 6rem 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cta-content h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.cta-content p {
+    color: #8b95a5;
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.btn-glow-primary {
+    background: #00f0ff;
+    color: #050505;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.btn-glow-primary:hover {
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+    transform: scale(1.05);
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #ffffff;
+}
+
+.services-footer {
+    text-align: center;
+    padding: 2rem;
+    color: #8b95a5;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes pulseGrid { 0% { transform: perspective(600px) rotateX(60deg) rotateZ(-45deg) translateZ(0); } 100% { transform: perspective(600px) rotateX(60deg) rotateZ(-45deg) translateZ(20px); } }
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 900px) {
+    .premium-service-row, .premium-service-row.reverse-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        direction: ltr; /* Reset reverse layout for mobile */
+    }
+
+    /* Force visual to top on mobile for better flow */
+    .service-visual {
+        order: -1; 
+    }
+
+    .process-grid-system {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .cta-actions {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
+/* MAINTENANCE OVERLAY */
+
+/* =========================================
+   FULL-SCREEN MAINTENANCE OVERLAY
+   ========================================= */
+
+/* The Lockdown Layer */
+.maintenance-lockdown {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 5, 5, 0.85); /* Deep dark tint */
+    backdrop-filter: blur(25px); /* Heavy blur to hide the site but show colors */
+    -webkit-backdrop-filter: blur(25px);
+    z-index: 9999; /* Sits above absolutely everything */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    
+    /* Animation so it fades in smoothly */
+    animation: fadeInLockdown 0.5s ease forwards;
+}
+
+@keyframes fadeInLockdown {
+    0% { opacity: 0; backdrop-filter: blur(0px); }
+    100% { opacity: 1; backdrop-filter: blur(25px); }
+}
+
+/* The Glass Card */
+.maintenance-card {
+    background: linear-gradient(180deg, rgba(20, 25, 40, 0.9) 0%, rgba(10, 15, 25, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glowing Top Border */
+.maintenance-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00f0ff, #8338ec, transparent);
+}
+
+/* The Animated Icon */
+.maintenance-icon {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 50%;
+    color: #00f0ff;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.maintenance-icon svg {
+    width: 32px;
+    height: 32px;
+    animation: slowSpin 10s linear infinite;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #00f0ff;
+    animation: radarPulse 2s ease-out infinite;
+}
+
+@keyframes slowSpin { 100% { transform: rotate(360deg); } }
+@keyframes radarPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Typography Inside Card */
+.maintenance-badge {
+    display: inline-block;
+    background: rgba(255, 0, 85, 0.1);
+    color: #ff0055;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 0, 85, 0.3);
+}
+
+.maintenance-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.maintenance-desc {
+    color: #8b95a5;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+/* Button Layout */
+.maintenance-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 480px) {
+    .maintenance-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+}

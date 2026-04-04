@@ -952,89 +952,209 @@ section {
 
 
 /* =========================================
-   SERVICES TEASER SECTION
+   MILLION-DOLLAR ENTERPRISE SERVICE CARDS
    ========================================= */
+
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.service-card {
-    background: linear-gradient(135deg, rgba(25, 30, 50, 0.6), rgba(15, 20, 35, 0.8));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 2.5rem 2rem;
     position: relative;
-    overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    z-index: 10;
 }
 
-/* The Premium Neon Top-Border Effect */
-.service-card::before {
+/* Base Card Wrapper - Handles the 1px gradient border trick */
+.enterprise-card {
+    position: relative;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.0) 100%);
+    padding: 1px; /* This 1px padding IS the glowing border */
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    isolation: isolate; /* Creates a new stacking context */
+}
+
+/* The actual dark glass body of the card */
+.card-inner {
+    background: linear-gradient(180deg, rgba(13, 17, 28, 0.95) 0%, rgba(8, 11, 20, 0.98) 100%);
+    border-radius: 23px; /* 1px smaller than outer wrapper */
+    padding: 2.5rem 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05); /* Inner top highlight */
+    transition: background 0.5s ease;
+}
+
+/* Ambient Background Glow (Hidden by default, massive on hover) */
+.ambient-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    filter: blur(40px);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.cyan-glow { background: rgba(0, 240, 255, 0.4); }
+.purple-glow { background: rgba(131, 56, 236, 0.4); }
+.blue-glow { background: rgba(0, 85, 255, 0.4); }
+
+/* Card Hover Mechanics */
+.enterprise-card:hover {
+    transform: translateY(-8px) scale(1.01);
+}
+
+.enterprise-card:hover .ambient-glow {
+    opacity: 1;
+    transform: translateY(10px); /* Pushes the glow slightly down for depth */
+}
+
+.enterprise-card:hover .card-inner {
+    background: linear-gradient(180deg, rgba(16, 21, 35, 0.95) 0%, rgba(10, 14, 25, 0.98) 100%);
+}
+
+/* The Icon Box: Frosted Glass Cube */
+.enterprise-icon-box {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 240, 255, 0.02));
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+    color: #00f0ff;
+    box-shadow: inset 0 2px 10px rgba(255,255,255,0.1), 0 10px 20px -10px rgba(0, 240, 255, 0.4);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.enterprise-icon-box svg {
+    width: 26px;
+    height: 26px;
+    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6)); /* Glowing SVG */
+}
+
+.enterprise-card:hover .enterprise-icon-box {
+    transform: scale(1.05) rotate(-3deg);
+    box-shadow: inset 0 2px 10px rgba(255,255,255,0.2), 0 15px 25px -10px rgba(0, 240, 255, 0.6);
+}
+
+/* Typography */
+.enterprise-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
+}
+
+.enterprise-desc {
+    color: #8b95a5; /* Sophisticated blue-gray */
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex-grow: 1; /* Pushes button to bottom */
+}
+
+.enterprise-card:hover .enterprise-title {
+    color: #00f0ff; /* Text glows on card hover */
+}
+
+/* Call to Action Button */
+.enterprise-footer {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Subtle divider */
+    padding-top: 1.5rem;
+}
+
+.enterprise-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.enterprise-btn:hover {
+    color: #00f0ff;
+}
+
+.enterprise-btn:hover .btn-arrow {
+    background: rgba(0, 240, 255, 0.15);
+    transform: translateX(6px);
+    color: #00f0ff;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+        gap: 1.5rem;
+        padding: 0 10px;
+    }
+    
+    .card-inner {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* =========================================
+   TOP BORDER HOVER ANIMATION (Laser Sweep)
+   ========================================= */
+
+/* Ensure the card inner container can hold the absolute positioned laser */
+.card-inner {
+    position: relative;
+    overflow: hidden; /* Keeps the laser inside the rounded corners */
+}
+
+/* The Animated Laser Line */
+.card-inner::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 3px;
-    background: var(--primary);
+    height: 2px; /* Thickness of the line */
+    /* Center-weighted gradient for a "light beam" effect */
+    background: linear-gradient(90deg, transparent 0%, #00f0ff 50%, transparent 100%);
+    
+    /* Animation setup: Starts at 0 width from the center */
     transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
+    transform-origin: center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Super smooth Apple-like easing */
+    z-index: 20;
+    
+    /* Strong neon glow */
+    box-shadow: 0 2px 15px rgba(0, 240, 255, 0.8), 0 0 5px rgba(0, 240, 255, 0.5);
 }
 
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 240, 255, 0.15);
-    border-color: rgba(0, 240, 255, 0.1);
-    background: linear-gradient(135deg, rgba(30, 35, 60, 0.8), rgba(20, 25, 45, 0.95));
-}
-
-.service-card:hover::before {
+/* Trigger the sweep on card hover */
+.enterprise-card:hover .card-inner::before {
     transform: scaleX(1);
-}
-
-.service-icon {
-    width: 60px;
-    height: 60px;
-    background: rgba(0, 240, 255, 0.1);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    color: var(--primary);
-    transition: transform 0.4s ease;
-}
-
-.service-card:hover .service-icon {
-    transform: scale(1.1) rotate(5deg);
-    background: var(--primary);
-    color: var(--darker);
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-}
-
-.service-icon svg {
-    width: 32px;
-    height: 32px;
-}
-
-.service-card h3 {
-    font-size: 1.4rem;
-    color: var(--light);
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-.service-card p {
-    color: var(--gray);
-    font-size: 1rem;
-    line-height: 1.6;
 }
 
 /* =========================================
