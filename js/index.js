@@ -90,7 +90,8 @@ const textCursor = document.querySelector('.cursor'); // Named textCursor to avo
 
 if (typingText) {
     const words = [
-        "Python Developer", 
+        "Python Developer",
+        "Building Modern Webistes",
         "🧠 AI-Powered Solutions Builder"
     ];
     
