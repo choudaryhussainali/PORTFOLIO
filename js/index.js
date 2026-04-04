@@ -93,8 +93,9 @@ const typingElement = document.getElementById("premium-typing-text");
 if (typingElement) {
     // Your High-Value Skillsets
     const roles = [
-        "Python Developer", 
-        "Building Modern Websites", 
+        "Python Engineer", 
+        "Website Development", 
+        "UI/UX Design", 
         "AI Automations",
         "RAG Pipeline Architect",
         "LLMOps Specialist",
