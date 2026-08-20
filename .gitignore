@@ -1,0 +1,10 @@
+# Source screenshots for the work section — build inputs, not site assets.
+# The page loads the optimised output in assets/img/work/*.webp instead
+# (126 MB of PNG in, 2.6 MB of WebP out). Keep the originals locally; git
+# stores every blob forever, so they must not enter history.
+assets/img/clients/
+
+# Local preview / tooling noise
+.DS_Store
+Thumbs.db
+node_modules/
