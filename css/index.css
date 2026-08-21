@@ -3773,6 +3773,9 @@ body {
     display: grid;
     gap: 1.25rem;
     padding-block: 1.25rem;      /* room for the chip glow, which the mask would clip */
+    /* The stat cards sat flush against the track, so the two blocks read as one.
+       Fluid, so the separation holds from phone to desktop. */
+    margin-bottom: clamp(2.25rem, 4.5vw, 4rem);
     overflow: hidden;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
