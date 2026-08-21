@@ -3938,3 +3938,443 @@ body {
     .sv__card:hover, .sv__cta:hover { transform: none; }
     .field-flash { animation: none; }
 }
+
+/* ==========================================================================
+   QUOTE MODAL
+   One panel serves all fifteen service cards — it hydrates from whichever
+   card was clicked. Two rails on a desktop: the service on the left so the
+   visitor can see what they are asking about, the form on the right. Below
+   900px the rails stack and the left one compresses to a header strip, so
+   the first input is never more than a thumb-flick away.
+   ========================================================================== */
+.qz {
+    position: fixed;
+    inset: 0;
+    /* the chat launcher, its tooltip and the certificate lightbox all live in
+       the 9998-10000 band; the modal has to clear the lot of them */
+    z-index: 20000;
+    display: grid;
+    place-items: center;
+    padding: clamp(0.75rem, 3vw, 2rem);
+}
+.qz[hidden] { display: none; }
+
+.qz__veil {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 6, 18, 0.78);
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    opacity: 0;
+    transition: opacity 0.32s ease;
+}
+.qz.is-open .qz__veil { opacity: 1; }
+
+.qz__panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    width: min(1020px, 100%);
+    max-height: min(92vh, 860px);
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(150deg, #0d1330 0%, #0a0e27 46%, #080b1f 100%);
+    border: 1px solid rgba(0, 240, 255, 0.16);
+    box-shadow:
+        0 44px 120px -30px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 -1px 60px -20px rgba(131, 56, 236, 0.55) inset;
+    opacity: 0;
+    transform: translateY(18px) scale(0.975);
+    transition: opacity 0.34s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.qz.is-open .qz__panel { opacity: 1; transform: none; }
+
+/* the hairline of colour along the top edge */
+.qz__panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary) 22%, var(--accent) 62%, transparent);
+    opacity: 0.75;
+    z-index: 2;
+}
+
+.qz__x {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.9rem;
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    background: rgba(10, 14, 39, 0.72);
+    color: #cfd8f5;
+    cursor: pointer;
+    transition: color 0.22s ease, border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+}
+.qz__x svg { width: 17px; height: 17px; }
+.qz__x:hover { color: #fff; border-color: rgba(0, 240, 255, 0.5); background: rgba(0, 240, 255, 0.12); transform: rotate(90deg); }
+.qz__x:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- left rail ---------- */
+.qz__aside {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    background:
+        radial-gradient(120% 70% at 0% 0%, rgba(0, 240, 255, 0.12) 0%, rgba(0, 240, 255, 0) 60%),
+        linear-gradient(180deg, rgba(131, 56, 236, 0.16) 0%, rgba(131, 56, 236, 0.03) 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+}
+.qz__glow {
+    position: absolute;
+    left: -30%;
+    bottom: -35%;
+    width: 90%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(131, 56, 236, 0.5) 0%, rgba(131, 56, 236, 0) 68%);
+    pointer-events: none;
+}
+.qz__aside > *:not(.qz__glow) { position: relative; z-index: 1; }
+
+.qz__cat {
+    align-self: flex-start;
+    padding: 0.32rem 0.8rem;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 999px;
+    background: rgba(0, 240, 255, 0.08);
+    color: var(--primary);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+.qz__art {
+    display: grid;
+    place-items: center;
+    margin: clamp(1rem, 2.4vw, 1.6rem) 0;
+    padding: clamp(0.7rem, 2vw, 1.1rem);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+}
+.qz__art svg { width: 100%; max-width: 180px; height: auto; display: block; }
+.qz__art:empty { display: none; }
+
+.qz__name {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+    line-height: 1.2;
+    color: #fff;
+}
+.qz__who {
+    margin: 0 0 1.1rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--gray);
+}
+.qz__price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin: 0 0 1.3rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+.qz__price span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+}
+.qz__price b {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.qz__price[hidden] { display: none; }
+
+.qz__pts {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+}
+.qz__pts li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.83rem;
+    line-height: 1.5;
+    color: #a8b4d4;
+}
+.qz__pts li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.36em;
+    width: 13px;
+    height: 7px;
+    border-left: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    transform: rotate(-45deg);
+}
+
+/* ---------- right rail ---------- */
+.qz__body {
+    position: relative;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    -webkit-overflow-scrolling: touch;
+}
+.qz__chip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0 0 1.3rem;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid rgba(131, 56, 236, 0.35);
+    border-radius: 12px;
+    background: rgba(131, 56, 236, 0.1);
+}
+.qz__chip[hidden] { display: none; }
+@media (min-width: 901px) { .qz__chip { padding-right: 3.2rem; } }   /* clear the close button */
+.qz__chip span {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+}
+.qz__chip b { color: #fff; font-size: 0.95rem; }
+
+.qz__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1rem;
+}
+.qz__f { margin: 0 0 1.05rem; }
+.qz__f label {
+    display: block;
+    margin-bottom: 0.42rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #c3cdea;
+}
+.qz__f label i { color: var(--secondary); font-style: normal; }
+.qz__f label em {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.72rem;
+    color: var(--gray);
+}
+.qz__f input,
+.qz__f select,
+.qz__f textarea {
+    width: 100%;
+    padding: 0.8rem 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.035);
+    color: #eaf0ff;
+    font-family: inherit;
+    font-size: 0.93rem;
+    transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+.qz__f textarea { resize: vertical; min-height: 96px; line-height: 1.55; }
+.qz__f input::placeholder,
+.qz__f textarea::placeholder { color: #79839f; }
+.qz__f input:focus,
+.qz__f select:focus,
+.qz__f textarea:focus {
+    outline: none;
+    border-color: rgba(0, 240, 255, 0.6);
+    background: rgba(0, 240, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.13);
+}
+/* the browser paints option lists on its own surface, so they need their own colours */
+.qz__f select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #8892b0 50%),
+        linear-gradient(135deg, #8892b0 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% + 1px), calc(100% - 13px) calc(50% + 1px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 2.2rem;
+}
+.qz__f select option { background: #0d1330; color: #eaf0ff; }
+.qz__f input.is-bad,
+.qz__f select.is-bad,
+.qz__f textarea.is-bad {
+    border-color: rgba(255, 0, 110, 0.65);
+    box-shadow: 0 0 0 3px rgba(255, 0, 110, 0.12);
+}
+
+/* Formspree reads this field to catch bots; a person must never see or reach it */
+.qz__hp {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.qz__err {
+    margin: 0 0 0.9rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgba(255, 0, 110, 0.45);
+    border-radius: 10px;
+    background: rgba(255, 0, 110, 0.1);
+    color: #ffc2da;
+    font-size: 0.84rem;
+}
+.qz__err[hidden] { display: none; }
+
+.qz__send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.95rem 1.4rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #00f0ff 0%, #4fd8ff 42%, #9d7bff 100%);
+    color: #04101c;
+    font-family: inherit;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+    box-shadow: 0 14px 34px -14px rgba(0, 240, 255, 0.6);
+}
+.qz__send svg { width: 18px; height: 18px; }
+.qz__send:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 20px 42px -14px rgba(0, 240, 255, 0.75); }
+.qz__send:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.qz__send:disabled { cursor: not-allowed; filter: saturate(0.5) brightness(0.85); }
+.qz__send.is-bad { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #fff; }
+
+.qz__fine {
+    margin: 0.9rem 0 0;
+    font-size: 0.74rem;
+    line-height: 1.5;
+    /* it sits inside the send button's cyan glow, which lifts the ground under
+       it — #6f7a9c measured 3.77:1 there, so this line has to be brighter */
+    color: #8892b0;
+}
+
+/* ---------- success state ---------- */
+.qz__done {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
+}
+.qz__done[hidden] { display: none; }
+.qz__tick { color: var(--primary); }
+.qz__tick svg { width: 62px; height: 62px; }
+.qz__tick svg path {
+    stroke-dasharray: 34;
+    stroke-dashoffset: 34;
+    animation: qz-tick 0.55s 0.12s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes qz-tick { to { stroke-dashoffset: 0; } }
+.qz__done h3 { margin: 1.1rem 0 0.5rem; font-size: 1.4rem; color: #fff; }
+.qz__done p { margin: 0 0 1.6rem; max-width: 40ch; font-size: 0.92rem; line-height: 1.6; color: var(--gray); }
+.qz__back {
+    padding: 0.7rem 1.9rem;
+    border: 1px solid rgba(0, 240, 255, 0.45);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.22s ease, color 0.22s ease;
+}
+.qz__back:hover { background: rgba(0, 240, 255, 0.12); color: #fff; }
+
+/* ---------- stacked layout ---------- */
+@media (max-width: 900px) {
+    .qz__panel { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); max-height: 94vh; }
+    /* the rail becomes a header strip: identity on the left, price on the right */
+    .qz__aside {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 0 0.9rem;
+        padding: 1.05rem 3.6rem 1.05rem 1.15rem;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .qz__cat { grid-column: 2; justify-self: start; align-self: end; margin-bottom: 0.18rem; }
+    /* the strip already names the service — repeating it in the chip is dead height */
+    .qz__chip { display: none; }
+    .qz__art {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        margin: 0;
+        padding: 0.5rem;
+        width: 62px;
+        border-radius: 13px;
+    }
+    .qz__name { grid-column: 2; margin: 0; font-size: 1.08rem; }
+    .qz__who { display: none; }
+    .qz__price {
+        grid-column: 3;
+        grid-row: 1 / span 2;
+        margin: 0;
+        padding-top: 0;
+        border-top: 0;
+        text-align: right;
+    }
+    .qz__price b { font-size: 1rem; }
+    .qz__pts { display: none; }
+    .qz__glow { display: none; }
+}
+@media (max-width: 560px) {
+    .qz { padding: 0; }
+    .qz__panel { max-height: 100dvh; height: 100dvh; width: 100%; border-radius: 0; border-left: 0; border-right: 0; }
+    .qz__row { grid-template-columns: 1fr; }
+    .qz__price { display: none; }
+    .qz__aside { padding-right: 3.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .qz__veil, .qz__panel { transition: none; }
+    .qz__panel { transform: none; }
+    .qz__x:hover { transform: none; }
+    .qz__tick svg path { animation: none; stroke-dashoffset: 0; }
+}
+
+/* the chat launcher is fixed to the corner, which is exactly where the modal
+   wants the visitor's attention — park it until the panel closes */
+body.qz-lock #chat-toggle-btn,
+body.qz-lock .chat-tooltip,
+body.qz-lock .chat-window { opacity: 0; pointer-events: none; }
+body.qz-lock #chat-toggle-btn,
+body.qz-lock .chat-tooltip { transition: opacity 0.25s ease; }

@@ -624,34 +624,223 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         var contact = document.getElementById("contact");
         var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        function choose(value) {
+        // --- quote modal -----------------------------------------------
+        // One panel in the document, hydrated from whichever card was clicked.
+        var qz       = document.getElementById("quote-modal");
+        var qzPanel  = document.getElementById("qz-panel");
+        var qzForm   = document.getElementById("qz-form");
+        var qzDone   = document.getElementById("qz-done");
+        var qzErr    = document.getElementById("qz-err");
+        var qzSend   = document.getElementById("qz-send");
+        var opener   = null;          // what to hand focus back to on close
+        var scrollY  = 0;
+
+        function fill(card, label) {
+            var pick = function (sel) { return card ? card.querySelector(sel) : null; };
+            var cat   = pick(".sv__cat");
+            var name  = pick(".sv__name");
+            var who   = pick(".sv__who");
+            var price = pick(".sv__price b");
+            var art   = pick(".sv__art svg");
+
+            var elCat = document.getElementById("qz-cat");
+            elCat.textContent = cat ? cat.textContent.trim() : "Service";
+            elCat.hidden = !cat;
+
+            document.getElementById("qz-title").textContent = name ? name.textContent.trim() : "Request a quote";
+
+            var elWho = document.getElementById("qz-who");
+            elWho.textContent = who ? who.textContent.trim()
+                                    : "Tell me what you need and you will have a written price back.";
+
+            var wrap = document.getElementById("qz-pricewrap");
+            if (price) { document.getElementById("qz-price").textContent = price.textContent.trim(); wrap.hidden = false; }
+            else { wrap.hidden = true; }
+
+            // the card's icon is a <use> into the sprite, so a clone still resolves
+            var slot = document.getElementById("qz-art");
+            slot.textContent = "";
+            if (art) slot.appendChild(art.cloneNode(true));
+
+            var chip = document.getElementById("qz-chip");
+            if (label) {
+                document.getElementById("qz-chiptext").textContent = label;
+                chip.hidden = false;
+            } else {
+                chip.hidden = true;
+            }
+
+            document.getElementById("qz-service").value = label || "";
+            document.getElementById("qz-subject").value =
+                label ? ("Quote request: " + label) : "Quote request from the site";
+        }
+
+        function focusables() {
+            return Array.prototype.filter.call(
+                qzPanel.querySelectorAll('a[href],button:not([disabled]),input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])'),
+                function (el) { return el.offsetParent !== null || el === document.activeElement; }
+            );
+        }
+
+        function trap(e) {
+            if (e.key === "Escape") { closeModal(); return; }
+            if (e.key !== "Tab") return;
+            var list = focusables();
+            if (!list.length) return;
+            var first = list[0], last = list[list.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+
+        function openModal(card, label, trigger) {
+            if (!qz) return false;
+            opener = trigger || null;
+            fill(card, label);
+
+            // back to the form if a previous send left the panel on the thank-you
+            qzForm.hidden = false;
+            qzDone.hidden = true;
+            qzErr.hidden = true;
+            resetSend();
+
+            // lock the page behind the modal without losing the reading position
+            scrollY = window.scrollY || window.pageYOffset || 0;
+            var bar = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.position = "fixed";
+            document.body.style.top = -scrollY + "px";
+            document.body.style.width = "100%";
+            if (bar > 0) document.body.style.paddingRight = bar + "px";
+            document.body.classList.add("qz-lock");
+
+            qz.hidden = false;
+            void qz.offsetWidth;                       // let the transition catch
+            qz.classList.add("is-open");
+            document.addEventListener("keydown", trap);
+
+            var target = document.getElementById("qz-name");
+            setTimeout(function () {
+                try { target.focus({ preventScroll: true }); } catch (err) { target.focus(); }
+            }, reduced ? 0 : 240);
+            return true;
+        }
+
+        function closeModal() {
+            if (!qz || qz.hidden) return;
+            qz.classList.remove("is-open");
+            document.removeEventListener("keydown", trap);
+
+            var finish = function () {
+                qz.hidden = true;
+                document.body.style.position = "";
+                document.body.style.top = "";
+                document.body.style.width = "";
+                document.body.style.paddingRight = "";
+                document.body.classList.remove("qz-lock");
+                // the page sets scroll-behavior:smooth, which would animate this
+                // restore from 0 and leave the visitor mid-flight — snap instead
+                try { window.scrollTo({ top: scrollY, behavior: "instant" }); }
+                catch (err) { window.scrollTo(0, scrollY); }
+                if (opener) { try { opener.focus({ preventScroll: true }); } catch (err) { opener.focus(); } }
+                opener = null;
+            };
+            if (reduced) finish();
+            else setTimeout(finish, 320);
+        }
+
+        function resetSend() {
+            if (!qzSend) return;
+            qzSend.disabled = false;
+            qzSend.classList.remove("is-bad");
+            qzSend.querySelector("span").textContent = "Send request";
+        }
+
+        if (qz) {
+            qz.addEventListener("click", function (e) {
+                if (e.target.closest("[data-qz-close]")) { e.preventDefault(); closeModal(); }
+            });
+
+            // a field stops looking wrong the moment it is corrected
+            qzForm.addEventListener("input", function (e) {
+                if (e.target.classList) e.target.classList.remove("is-bad");
+            });
+
+            qzForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                // validate here rather than leaning on the browser bubble, which
+                // renders outside the panel and is not styleable
+                var required = ["qz-name", "qz-email", "qz-msg"];
+                var firstBad = null;
+                required.forEach(function (id) {
+                    var el = document.getElementById(id);
+                    var ok = el.value.trim() !== "" &&
+                             (el.type !== "email" || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value.trim()));
+                    el.classList.toggle("is-bad", !ok);
+                    if (!ok && !firstBad) firstBad = el;
+                });
+                if (firstBad) {
+                    qzErr.textContent = firstBad.type === "email" && firstBad.value.trim()
+                        ? "That email address does not look right — I would not be able to reply."
+                        : "Please fill in your name, email and a short description.";
+                    qzErr.hidden = false;
+                    firstBad.focus();
+                    return;
+                }
+                qzErr.hidden = true;
+
+                qzSend.disabled = true;
+                qzSend.querySelector("span").textContent = "Sending…";
+
+                fetch(qzForm.action, {
+                    method: "POST",
+                    body: new FormData(qzForm),
+                    headers: { Accept: "application/json" }
+                }).then(function (res) {
+                    if (!res.ok) throw new Error("rejected");
+                    var label = document.getElementById("qz-service").value;
+                    document.getElementById("qz-donetext").textContent = label
+                        ? "Your request about " + label + " is with me. I read every message myself, and you will have a written price back within one business day."
+                        : "I read every message myself. You will have a written price back within one business day.";
+                    qzForm.reset();
+                    qzForm.hidden = true;
+                    qzDone.hidden = false;
+                    qzDone.querySelector(".qz__back").focus();
+                }).catch(function () {
+                    qzErr.textContent = "That did not send. Please try again, or email hivenexis@gmail.com directly.";
+                    qzErr.hidden = false;
+                    qzSend.classList.add("is-bad");
+                    qzSend.querySelector("span").textContent = "Try again";
+                    qzSend.disabled = false;
+                });
+            });
+        }
+
+        // Fallback for the day the modal markup is not on the page: drop the
+        // choice into the contact form the old way rather than doing nothing.
+        function fallback(value) {
             if (subject) {
                 var matched = false;
                 for (var i = 0; i < subject.options.length; i++) {
                     if (subject.options[i].value === value) { subject.selectedIndex = i; matched = true; break; }
                 }
-                // "Not sure yet" and anything unmatched fall back to that option
                 if (!matched) {
                     for (var k = 0; k < subject.options.length; k++) {
                         if (subject.options[k].value === "Not sure yet") { subject.selectedIndex = k; break; }
                     }
                 }
                 subject.classList.remove("field-flash");
-                void subject.offsetWidth;                 // restart the flash
+                void subject.offsetWidth;
                 subject.classList.add("field-flash");
             }
             if (contact) contact.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-            var first = document.getElementById("firstName");
-            if (first) setTimeout(function () {
-                try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); }
-            }, reduced ? 0 : 700);
         }
 
         document.addEventListener("click", function (e) {
             var b = e.target.closest("[data-service]");
             if (!b) return;
             e.preventDefault();
-            choose(b.getAttribute("data-service"));
+            var label = b.getAttribute("data-service");
+            if (!openModal(b.closest(".sv__card"), label, b)) fallback(label);
         });
 
         if (!track || !wrap) return;
