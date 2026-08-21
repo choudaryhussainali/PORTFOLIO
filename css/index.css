@@ -4446,3 +4446,103 @@ body.qz-lock .chat-tooltip,
 body.qz-lock .chat-window { opacity: 0; pointer-events: none; }
 body.qz-lock #chat-toggle-btn,
 body.qz-lock .chat-tooltip { transition: opacity 0.25s ease; }
+
+/* ==========================================================================
+   SERVICE ICON MOTION
+   The whole row is gated behind a pointer and a wide viewport, and measured
+   at 4x CPU throttle with the section in view:
+
+       static icons                       30 fps   <- ceiling on this page
+       + float on all 45                  18 fps
+       + float and sheen on all 45        15 fps
+
+   At 1x the same pair holds a flat 60fps. The page already runs four marquee
+   loops, so on a phone there is no headroom to spend here — those devices get
+   the drawings and nothing else. Everything below is transform or opacity,
+   so it stays on the compositor.
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) and (min-width: 900px) {
+    .sv__art { position: relative; overflow: hidden; }
+
+    /* the icon breathes */
+    .sv__art svg {
+        animation: sv-float 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes sv-float {
+        50% { transform: translateY(-6px); }
+    }
+    /* offset by thirds, or the whole row rises and falls in unison */
+    .sv__card:nth-child(3n + 2) .sv__art svg { animation-delay: -1.85s; }
+    .sv__card:nth-child(3n + 3) .sv__art svg { animation-delay: -3.7s; }
+
+    /* a light crosses the plate, with a long pause between passes */
+    .sv__art::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(105deg,
+            transparent 38%,
+            rgba(0, 240, 255, 0.13) 48%,
+            rgba(157, 123, 255, 0.1) 54%,
+            transparent 64%);
+        transform: translateX(-130%);
+        animation: sv-sheen 6.5s ease-in-out infinite;
+    }
+    @keyframes sv-sheen {
+        0%, 58%  { transform: translateX(-130%); }
+        88%, 100% { transform: translateX(130%); }
+    }
+    .sv__card:nth-child(2n) .sv__art::after { animation-delay: -3.25s; }
+
+    /* and a slow bloom behind it, so the plate is never quite flat */
+    .sv__art::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 78%;
+        aspect-ratio: 1;
+        transform: translate(-50%, -50%) scale(0.75);
+        border-radius: 50%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(0, 240, 255, 0.16) 0%, rgba(0, 240, 255, 0) 68%);
+        animation: sv-bloom 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes sv-bloom {
+        50% { transform: translate(-50%, -50%) scale(1); opacity: 0.55; }
+    }
+    .sv__card:nth-child(3n + 2) .sv__art::before { animation-delay: -1.85s; }
+    .sv__card:nth-child(3n + 3) .sv__art::before { animation-delay: -3.7s; }
+
+    /* hovering a card swaps its icon for the animated twin (see index.js),
+       and the plate opens up to meet it */
+    .sv__card:hover .sv__art { border-color: rgba(0, 240, 255, 0.3); }
+    .sv__card:hover .sv__art svg { animation-play-state: paused; transform: none; }
+    .sv__card:hover .sv__art::before { animation-play-state: paused; opacity: 0.7; }
+}
+
+/* the panel shows one icon at a time, so it can carry the full animation on
+   any device — see the bank lifted in index.js */
+.qz__art svg { width: 100%; max-width: 180px; height: auto; display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+    .sv__art svg,
+    .sv__art::after,
+    .sv__art::before { animation: none; }
+    .sv__art::after { opacity: 0; }
+}
+
+/* Off-screen the row has nothing to say, so it stops entirely. The class is
+   put on by an observer in index.js; without script the animations simply run,
+   which is the safe way round. */
+.sv.is-away .sv__art svg,
+.sv.is-away .sv__art::after,
+.sv.is-away .sv__art::before { animation-play-state: paused; }
+
+/* Nothing behind the quote panel is visible; the CSS-driven rows are cheap but
+   not free, and the panel's own icon is the only thing worth painting. */
+:root[data-hold] .sk__row,
+:root[data-hold] .sv__art svg,
+:root[data-hold] .sv__art::after,
+:root[data-hold] .sv__art::before { animation-play-state: paused; }

@@ -487,7 +487,9 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
 
         var gap = parseFloat(getComputedStyle(track).columnGap) || 28;
         period = track.scrollWidth + gap;
-        step   = master[0].getBoundingClientRect().width + gap;
+        // measure a card that is in the document: master[] holds detached
+        // clones, whose boxes are zero
+        step   = track.firstElementChild.getBoundingClientRect().width + gap;
 
         // enough copies that the window can never see past the ends
         var need = Math.max(3, Math.ceil(wrap.clientWidth / Math.max(period, 1)) + 2);
@@ -517,7 +519,7 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     function frame(now) {
         var dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
         last = now;
-        if (!held) target += SPEED * dt;
+        if (!held && !document.documentElement.hasAttribute("data-hold")) target += SPEED * dt;
         pos += (target - pos) * Math.min(1, dt * 11);   // arrows glide, then land
         render();
         requestAnimationFrame(frame);
@@ -624,7 +626,71 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         var contact = document.getElementById("contact");
         var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        // --- quote modal -----------------------------------------------
+        // --- icon animation ----------------------------------------------
+        // The sprite holds still drawings. The animated twins sit in an inert
+        // <template>, because SMIL anywhere in the document runs whether or
+        // not anything references it — one animated symbol measured 15fps
+        // against a 31fps ceiling at 4x CPU throttle, and fifteen measured 10.
+        // So a twin is lifted out only for the card under the pointer, and
+        // for the panel, which shows one icon at a time.
+        var bank = document.getElementById("sv-live");
+        var spriteEl = document.querySelector(".sv-sprite");
+        var lifted = {};                    // id -> already cloned into the sprite
+        var showing = 0;                    // how many are on screen right now
+
+        // A lifted twin keeps ticking whether or not a <use> still points at
+        // it, so the sprite's timeline is stopped whenever nothing is showing.
+        // Cheaper than removing and re-cloning the symbol each time.
+        function tick(delta) {
+            showing = Math.max(0, showing + delta);
+            if (!spriteEl || !spriteEl.pauseAnimations) return;
+            if (showing > 0) spriteEl.unpauseAnimations();
+            else spriteEl.pauseAnimations();
+        }
+
+        function liftIcon(id) {
+            if (!bank || !spriteEl || reduced) return null;
+            var liveId = id + "--live";
+            if (!lifted[liveId]) {
+                var sym = bank.content.getElementById(liveId);
+                if (!sym) return null;
+                spriteEl.appendChild(sym.cloneNode(true));
+                lifted[liveId] = true;
+            }
+            return liveId;
+        }
+        if (spriteEl && spriteEl.pauseAnimations) spriteEl.pauseAnimations();
+
+        // and stop the row's own motion while the section is off screen
+        if (wrap && window.IntersectionObserver) {
+            new IntersectionObserver(function (entries) {
+                wrap.classList.toggle("is-away", !entries[0].isIntersecting);
+            }, { rootMargin: "180px 0px" }).observe(wrap);
+        }
+
+        // Only where there is a real pointer and room to see it. A touch
+        // device has no hover to trigger this, and no headroom to spend.
+        if (!reduced && window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 900px)").matches) {
+            var held = null;
+
+            document.addEventListener("pointerover", function (e) {
+                var card = e.target.closest && e.target.closest(".sv__card");
+                if (card === held) return;
+                if (held) {
+                    var u0 = held.querySelector(".sv__art use");
+                    if (u0) u0.setAttribute("href", u0.getAttribute("href").replace("--live", ""));
+                    held = null;
+                    tick(-1);
+                }
+                if (!card) return;
+                var u = card.querySelector(".sv__art use");
+                if (!u) return;
+                var live = liftIcon(u.getAttribute("href").slice(1).replace("--live", ""));
+                if (live) { u.setAttribute("href", "#" + live); held = card; tick(1); }
+            }, { passive: true });
+        }
+
+        // --- quote modal ---        // --- quote modal -----------------------------------------------
         // One panel in the document, hydrated from whichever card was clicked.
         var qz       = document.getElementById("quote-modal");
         var qzPanel  = document.getElementById("qz-panel");
@@ -633,6 +699,7 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         var qzErr    = document.getElementById("qz-err");
         var qzSend   = document.getElementById("qz-send");
         var opener   = null;          // what to hand focus back to on close
+        var panelLive = false;        // whether the panel is holding an animated icon
         var scrollY  = 0;
 
         function fill(card, label) {
@@ -657,10 +724,21 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
             if (price) { document.getElementById("qz-price").textContent = price.textContent.trim(); wrap.hidden = false; }
             else { wrap.hidden = true; }
 
-            // the card's icon is a <use> into the sprite, so a clone still resolves
+            // the card's icon is a <use> into the sprite, so a clone still
+            // resolves — and with one icon on screen the animated twin is
+            // affordable here even on a phone
             var slot = document.getElementById("qz-art");
             slot.textContent = "";
-            if (art) slot.appendChild(art.cloneNode(true));
+            if (panelLive) { panelLive = false; tick(-1); }
+            if (art) {
+                var copy = art.cloneNode(true);
+                var cu = copy.querySelector("use");
+                if (cu) {
+                    var live = liftIcon(cu.getAttribute("href").slice(1).replace("--live", ""));
+                    if (live) { cu.setAttribute("href", "#" + live); panelLive = true; tick(1); }
+                }
+                slot.appendChild(copy);
+            }
 
             var chip = document.getElementById("qz-chip");
             if (label) {
@@ -712,6 +790,9 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
             if (bar > 0) document.body.style.paddingRight = bar + "px";
             document.body.classList.add("qz-lock");
 
+            // the marquees are covered by the panel; leaving four scroll loops
+            // running behind it only steals frames from the icon on top
+            document.documentElement.setAttribute("data-hold", "1");
             qz.hidden = false;
             void qz.offsetWidth;                       // let the transition catch
             qz.classList.add("is-open");
@@ -731,6 +812,7 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
             qz.classList.remove("is-open");
             document.removeEventListener("keydown", trap);
 
+            if (panelLive) { panelLive = false; tick(-1); }
             var finish = function () {
                 qz.hidden = true;
                 document.body.style.position = "";
@@ -738,6 +820,7 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
                 document.body.style.width = "";
                 document.body.style.paddingRight = "";
                 document.body.classList.remove("qz-lock");
+                document.documentElement.removeAttribute("data-hold");
                 // the page sets scroll-behavior:smooth, which would animate this
                 // restore from 0 and leave the visitor mid-flight — snap instead
                 try { window.scrollTo({ top: scrollY, behavior: "instant" }); }
@@ -886,7 +969,8 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
             master.forEach(function (el) { track.appendChild(el.cloneNode(true)); });
             var gap = parseFloat(getComputedStyle(track).columnGap) || 24;
             period = track.scrollWidth + gap;
-            step = master[0].getBoundingClientRect().width + gap;
+            // as above: measure an attached card, not one of the detached masters
+            step = track.firstElementChild.getBoundingClientRect().width + gap;
             var need = Math.max(3, Math.ceil(wrap.clientWidth / Math.max(period, 1)) + 2);
             for (var s = 1; s < need; s++) {
                 master.forEach(function (el) {
@@ -900,6 +984,10 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
                     track.appendChild(c);
                 });
             }
+            cards = Array.prototype.slice.call(track.querySelectorAll(".sv__card"));
+            liveLo = liveHi = -1;          // every card is still again after a rebuild
+            wrapW = wrap.clientWidth;      // cached: reading it in render() would
+                                           // force layout right after writing the transform
             var lead = Math.max(0, (wrap.clientWidth - step) / 2);
             pos = target = -lead;
             render();
@@ -911,7 +999,7 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         function frame(now) {
             var dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
             last = now;
-            if (!held) target += SPEED * dt;
+            if (!held && !document.documentElement.hasAttribute("data-hold")) target += SPEED * dt;
             pos += (target - pos) * Math.min(1, dt * 11);
             render();
             requestAnimationFrame(frame);
