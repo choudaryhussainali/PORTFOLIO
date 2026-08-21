@@ -3602,3 +3602,81 @@ body {
 }
 
 
+
+/* ==========================================================================
+   CLIENT WORK MARQUEE
+   The row drifts on its own and parks under the cursor, which is what hands
+   the card its own hover - the page screenshot only scrolls once the row is
+   still. Everything moves by transform, so nothing here reflows.
+   ========================================================================== */
+.cw { position: relative; margin-top: 3rem; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); }
+.cw__track { display: flex; gap: 1.75rem; align-items: stretch; width: max-content;
+    padding: 1rem 0 3rem; will-change: transform; }
+
+.cw__card { flex: 0 0 clamp(268px, 26vw, 360px); display: flex; flex-direction: column;
+    padding: 0.85rem 0.85rem 0; border-radius: 22px;
+    background: linear-gradient(145deg, rgba(20,27,45,0.92), rgba(10,14,30,0.96));
+    border: 1px solid rgba(0,240,255,0.14);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px -24px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: transform 380ms cubic-bezier(.22,1,.36,1), border-color 380ms ease, box-shadow 380ms ease; }
+.cw__card:hover { transform: translateY(-8px); border-color: rgba(0,240,255,0.45);
+    box-shadow: 0 30px 70px -26px rgba(0,0,0,1), 0 0 40px -8px rgba(0,240,255,0.28),
+                inset 0 1px 0 rgba(255,255,255,0.1); }
+
+.cw__frame { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #0b1020; }
+.cw__bar { display: flex; align-items: center; gap: 0.35rem; padding: 0.55rem 0.7rem;
+    background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.07); }
+.cw__bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+.cw__bar i:nth-child(1) { background: #ff5f57; }
+.cw__bar i:nth-child(2) { background: #febc2e; }
+.cw__bar i:nth-child(3) { background: #28c840; }
+
+/* The window shows a 3:2 slice; hover slides the full page past it. */
+.cw__shot { display: block; position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: #0b1020; }
+.cw__shot img { display: block; width: 100%; height: auto; transform: translateY(0);
+    transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
+@media (hover: hover) {
+  .cw__card:hover .cw__shot img,
+  .cw__card:focus-within .cw__shot img {
+      transform: translateY(var(--travel, -76%));
+      transition: transform var(--dur, 6s) linear; }
+}
+
+.cw__body { padding: 1.1rem 0.4rem 1.3rem; display: flex; flex-direction: column; gap: 0.65rem; }
+.cw__name { font-size: 1.1rem; font-weight: 700; color: var(--light); line-height: 1.25; }
+.cw__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 0; }
+.cw__tags li { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;
+    padding: 0.3rem 0.7rem; border-radius: 999px; color: var(--primary);
+    background: rgba(0,240,255,0.09); border: 1px solid rgba(0,240,255,0.2); }
+.cw__tags li:nth-child(2) { color: #c79bff; background: rgba(131,56,236,0.12); border-color: rgba(131,56,236,0.3); }
+.cw__link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.15rem;
+    min-height: 40px; font-size: 0.875rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+.cw__link svg { width: 16px; height: 16px; transition: transform 260ms ease; }
+.cw__link:hover { text-decoration: underline; }
+.cw__link:hover svg { transform: translate(2px, -2px); }
+
+.cw__nav { position: absolute; top: 40%; z-index: 5; transform: translateY(-50%);
+    width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%;
+    cursor: pointer; color: var(--primary); background: rgba(10,14,39,0.82);
+    border: 1px solid rgba(0,240,255,0.28);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.9);
+    transition: background 220ms ease, color 220ms ease, border-color 220ms ease; }
+.cw__nav svg { width: 22px; height: 22px; }
+.cw__nav:hover { background: var(--gradient-1); color: #04121b; border-color: transparent; }
+.cw__nav--prev { left: clamp(0.5rem, 2vw, 1.75rem); }
+.cw__nav--next { right: clamp(0.5rem, 2vw, 1.75rem); }
+@media (max-width: 640px) { .cw__nav { width: 42px; height: 42px; } }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cw { overflow-x: auto; }
+  .cw__card, .cw__shot img, .cw__link svg { transition: none; }
+  .cw__card:hover { transform: none; }
+  .cw__card:hover .cw__shot img { transform: none; }
+}
