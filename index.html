@@ -1371,6 +1371,7 @@
 
     <!-- right rail: the form -->
     <div class="qz__body">
+      <span class="qz__mask" aria-hidden="true"></span>
       <form class="qz__form" id="qz-form" action="https://formspree.io/f/xjklzvyz" method="POST" novalidate>
         <input type="hidden" name="_subject" id="qz-subject" value="New quote request">
         <input type="hidden" name="service"  id="qz-service" value="">
@@ -1443,6 +1444,10 @@
         <p id="qz-donetext">I read every message myself. You will have a written price back within one business day.</p>
         <button type="button" class="qz__back" data-qz-close>Close</button>
       </div>
+
+      <!-- sticks to the foot of the scrollport; the only cue that there is more
+           below, now that the scrollbar is hidden -->
+      <span class="qz__fade" id="qz-fade" aria-hidden="true"></span>
     </div>
   </div>
 </div>

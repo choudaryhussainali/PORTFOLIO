@@ -3974,6 +3974,9 @@ body {
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    /* the row must be bounded — left to size on its content, the rails grow past
+       the panel and overflow:hidden crops them instead of letting them scroll */
+    grid-template-rows: minmax(0, 1fr);
     width: min(1020px, 100%);
     max-height: min(92vh, 860px);
     border-radius: 24px;
@@ -4026,12 +4029,13 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
     padding: clamp(1.5rem, 3vw, 2.4rem);
     background:
         radial-gradient(120% 70% at 0% 0%, rgba(0, 240, 255, 0.12) 0%, rgba(0, 240, 255, 0) 60%),
         linear-gradient(180deg, rgba(131, 56, 236, 0.16) 0%, rgba(131, 56, 236, 0.03) 100%);
     border-right: 1px solid rgba(255, 255, 255, 0.07);
-    overflow: hidden;
 }
 .qz__glow {
     position: absolute;
@@ -4133,12 +4137,63 @@ body {
 
 /* ---------- right rail ---------- */
 .qz__body {
+    --pad: clamp(1.5rem, 3vw, 2.4rem);
     position: relative;
+    min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: clamp(1.5rem, 3vw, 2.4rem);
+    padding: var(--pad);
     -webkit-overflow-scrolling: touch;
 }
+
+/* The close button is pinned to the panel, so scrolled fields pass beneath it —
+   a click aimed at the email input would land on it and throw the form away.
+   This band reserves that strip, hides what scrolls under it, and swallows the
+   clicks. Only needed where the button overlaps this rail. */
+.qz__mask { display: none; }
+@media (min-width: 901px) {
+    .qz__mask {
+        display: block;
+        position: sticky;
+        top: calc(-1 * var(--pad));
+        z-index: 2;
+        height: 3.6rem;   /* clears the button's foot: 0.85rem offset + 38px */
+        /* out to the padding edges as well, so the band is the full width of the
+           scrollport rather than just the content column */
+        margin: calc(-1 * var(--pad)) calc(-1 * var(--pad)) 0;
+        background: linear-gradient(180deg, #090d24 0%, #090d24 68%, rgba(9, 13, 36, 0) 100%);
+    }
+}
+
+/* Scrolling without a visible bar, in all three engines. Wheel and touch keep
+   their native feel; only the keyboard and the auto-scroll to a bad field are
+   animated, which is what scroll-behavior actually governs. */
+.qz__aside,
+.qz__body {
+    scroll-behavior: smooth;
+    scrollbar-width: none;            /* Firefox */
+    -ms-overflow-style: none;         /* old Edge */
+}
+.qz__aside::-webkit-scrollbar,
+.qz__body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+/* With the bar gone there is nothing to say "there is more below", so the last
+   child sticks to the foot of the scrollport and fades the content under it.
+   It is removed once the end is reached. */
+.qz__fade {
+    position: sticky;
+    bottom: calc(-1 * clamp(1.5rem, 3vw, 2.4rem));
+    z-index: 2;
+    display: block;
+    height: 64px;
+    margin: -64px 0 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(10, 14, 39, 0) 0%, rgba(9, 12, 34, 0.86) 62%, #080b1f 100%);
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+.qz__body.is-end .qz__fade,
+.qz__body.is-short .qz__fade { opacity: 0; }
 .qz__chip {
     display: flex;
     flex-wrap: wrap;
@@ -4151,7 +4206,6 @@ body {
     background: rgba(131, 56, 236, 0.1);
 }
 .qz__chip[hidden] { display: none; }
-@media (min-width: 901px) { .qz__chip { padding-right: 3.2rem; } }   /* clear the close button */
 .qz__chip span {
     font-size: 0.64rem;
     font-weight: 700;
@@ -4364,8 +4418,22 @@ body {
     .qz__aside { padding-right: 3.4rem; }
 }
 
+/* laptops in the 600-700px band: trim the padding rather than make them scroll
+   through whitespace to reach the send button */
+@media (min-width: 901px) and (max-height: 700px) {
+    .qz__panel { max-height: 96vh; }
+    .qz__aside { padding: 1.35rem 1.6rem; }
+    .qz__body { --pad: 1.5rem; }
+    .qz__art { margin: 0.8rem 0; padding: 0.6rem; }
+    .qz__art svg { max-width: 120px; }
+    .qz__f { margin-bottom: 0.85rem; }
+    .qz__f textarea { min-height: 78px; }
+    .qz__chip { margin-bottom: 1rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .qz__veil, .qz__panel { transition: none; }
+    .qz__aside, .qz__body { scroll-behavior: auto; }
     .qz__panel { transform: none; }
     .qz__x:hover { transform: none; }
     .qz__tick svg path { animation: none; stroke-dashoffset: 0; }

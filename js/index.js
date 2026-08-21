@@ -715,6 +715,8 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
             qz.hidden = false;
             void qz.offsetWidth;                       // let the transition catch
             qz.classList.add("is-open");
+            if (qzBody) qzBody.scrollTop = 0;
+            gauge();
             document.addEventListener("keydown", trap);
 
             var target = document.getElementById("qz-name");
@@ -754,6 +756,28 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
             qzSend.querySelector("span").textContent = "Send request";
         }
 
+        // The hidden scrollbar means the fade is the only thing telling a visitor
+        // there is more form below, so it has to be right about that.
+        var qzBody = qz && qz.querySelector(".qz__body");
+        function gauge() {
+            if (!qzBody) return;
+            var room = qzBody.scrollHeight - qzBody.clientHeight;
+            qzBody.classList.toggle("is-short", room <= 4);
+            qzBody.classList.toggle("is-end", room > 4 && qzBody.scrollTop >= room - 4);
+        }
+        if (qzBody) {
+            qzBody.addEventListener("scroll", gauge, { passive: true });
+            window.addEventListener("resize", gauge);
+            // the panel grows and shrinks as fields are marked or the form is
+            // swapped for the thank-you, and neither fires a scroll or a resize
+            // watch the form itself — the scrollport's own box never changes size
+            if (window.ResizeObserver) {
+                var ro = new ResizeObserver(gauge);
+                ro.observe(qzForm);
+                ro.observe(qzDone);
+            }
+        }
+
         if (qz) {
             qz.addEventListener("click", function (e) {
                 if (e.target.closest("[data-qz-close]")) { e.preventDefault(); closeModal(); }
@@ -783,7 +807,10 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
                         ? "That email address does not look right — I would not be able to reply."
                         : "Please fill in your name, email and a short description.";
                     qzErr.hidden = false;
-                    firstBad.focus();
+                    // scroll-behavior:smooth on the scrollport makes this glide
+                    if (firstBad.scrollIntoView) firstBad.scrollIntoView({ block: "center" });
+                    try { firstBad.focus({ preventScroll: true }); } catch (err) { firstBad.focus(); }
+                    gauge();
                     return;
                 }
                 qzErr.hidden = true;
@@ -804,6 +831,8 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
                     qzForm.reset();
                     qzForm.hidden = true;
                     qzDone.hidden = false;
+                    if (qzBody) qzBody.scrollTop = 0;
+                    gauge();
                     qzDone.querySelector(".qz__back").focus();
                 }).catch(function () {
                     qzErr.textContent = "That did not send. Please try again, or email hivenexis@gmail.com directly.";
