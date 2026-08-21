@@ -762,9 +762,9 @@ section {
 /* About Section */
 .about-grid {
     display: grid;
-    grid-template-columns: 1.9fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 2.5rem;
+    align-items: stretch;   /* both cards end level instead of the text towering */
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -835,9 +835,11 @@ section {
 }
 
 .image-placeholder {
-    width: 350px;
-    height: 350px;
+    width: clamp(180px, 60%, 240px);
+    aspect-ratio: 1;
+    height: auto;
     border-radius: 50%;
+    flex: none;
     background: var(--card-bg);
     border: 3px solid var(--primary);
     display: flex;
@@ -3679,4 +3681,83 @@ body {
   .cw__card, .cw__shot img, .cw__link svg { transition: none; }
   .cw__card:hover { transform: none; }
   .cw__card:hover .cw__shot img { transform: none; }
+}
+
+
+/* --------------------------------------------------------------------------
+   ABOUT - profile card
+   The portrait alone left the right column far shorter than the copy beside
+   it. It now sits in a card with the facts a client actually scans for, so
+   both columns carry equal weight.
+   -------------------------------------------------------------------------- */
+.about-image { display: flex; align-items: stretch; }
+.about-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 2rem 1.75rem;
+    border-radius: 20px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+.about-card:hover {
+    border-color: rgba(0, 240, 255, 0.28);
+    box-shadow: 0 0 40px -12px rgba(0, 240, 255, 0.25);
+}
+
+.about-facts { list-style: none; margin: 0; padding: 0; width: 100%; }
+.about-facts li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.about-facts li:last-child { border-bottom: 0; }
+.about-facts span {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    white-space: nowrap;
+}
+.about-facts b {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--light);
+    text-align: right;
+}
+
+.about-cta {
+    margin-top: auto;          /* pinned to the foot, so the card fills its column */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #04121b;
+    background: var(--gradient-1);
+    box-shadow: 0 10px 26px -12px rgba(0, 240, 255, 0.8);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.about-cta svg { width: 17px; height: 17px; }
+.about-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px rgba(0, 240, 255, 1); }
+
+@media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-card { max-width: 420px; margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .about-card, .about-cta { transition: none; }
+    .about-cta:hover { transform: none; }
+    .image-placeholder { animation: none; }
 }
