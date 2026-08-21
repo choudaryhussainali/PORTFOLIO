@@ -208,31 +208,54 @@ ICONS["sv-starter"] = f'''
 '''
 
 # ── 6 · Custom Shopify store ───────────────────────────────────────────────
-# Presentation is the product: a lit plinth in a shop window, with the code
-# that built it either side.
+# Presentation is the product: a lit window, a piece staged in it, and a small
+# stamp in the corner saying the whole thing was coded rather than themed.
 ICONS["sv-shopcustom"] = f'''
-<path d="M28 34l8-16h88l8 16z" fill="{PU}" fill-opacity=".22" stroke="{PU}" stroke-width="1.6" stroke-linejoin="round"/>
-<rect x="28" y="34" width="104" height="66" rx="8" fill="{SURF}" stroke="{LINE}" stroke-width="1.6"/>
-<!-- beam -->
-<path d="M80 34l22 52H58z" fill="{CY}" fill-opacity=".1">
-  <animate attributeName="fill-opacity" values=".05;.2;.05" dur="3.4s" repeatCount="indefinite" {EASE}/>
+<clipPath id="sc-awn"><path d="M30 10h100l8 18a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0z"/></clipPath>
+<!-- the window -->
+<rect x="28" y="34" width="104" height="62" rx="9" fill="{SURF}" stroke="{LINE}" stroke-width="1.6"/>
+<rect x="34" y="40" width="92" height="50" rx="6" fill="{SURF2}" fill-opacity=".55"/>
+<!-- the light on it -->
+<path d="M80 38l24 48H56z" fill="{CY}" fill-opacity=".12">
+  <animate attributeName="fill-opacity" values=".06;.2;.06" dur="3.6s" repeatCount="indefinite" {EASE}/>
 </path>
+<ellipse cx="80" cy="86" rx="19" ry="4.5" fill="{CY}" fill-opacity=".2"/>
+<!-- the piece on display -->
 <g>
-  <animateTransform attributeName="transform" type="rotate" values="-7 80 34;7 80 34;-7 80 34"
-                    dur="4.6s" repeatCount="indefinite" {EASE}/>
-  <path d="M80 34l14 50H66z" fill="{CY}" fill-opacity=".16"/>
+  <animateTransform attributeName="transform" type="translate" values="0 0;0 -3.5;0 0"
+                    dur="3.6s" repeatCount="indefinite" {EASE}/>
+  <path d="M76.5 49h7v6.6a11 11 0 0 1 6.5 10v13.4a5 5 0 0 1-5 5H75a5 5 0 0 1-5-5V65.6a11 11 0 0 1 6.5-10z"
+        fill="{CY}" fill-opacity=".16" stroke="{CY}" stroke-width="1.7" stroke-linejoin="round"/>
+  <rect x="73.5" y="43" width="13" height="7" rx="2.5" fill="{PU}" fill-opacity=".6" stroke="{PU}" stroke-width="1.4"/>
+  <path d="M74.5 69v9" stroke="{INK}" stroke-width="1.5" stroke-opacity=".5" stroke-linecap="round"/>
 </g>
-<!-- plinth and product -->
-<ellipse cx="80" cy="86" rx="20" ry="5" fill="{CY}" fill-opacity=".16"/>
+<!-- awning: painted last, so it sits over the window head the way one does -->
 <g>
-  <animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0"
-                    dur="3.4s" repeatCount="indefinite" {EASE}/>
-  <path d="M70 78V60l10-6 10 6v18l-10 6z" fill="{SURF2}" stroke="{CY}" stroke-width="1.8" stroke-linejoin="round"/>
-  <path d="M70 60l10 6 10-6M80 66v18" fill="none" stroke="{CY}" stroke-width="1.3" stroke-opacity=".6"/>
+  <path d="M30 10h100l8 18a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0a9.67 9.67 0 0 1-19.33 0z"
+        fill="{PUD}" fill-opacity=".62" stroke="{PU}" stroke-width="1.7" stroke-linejoin="round"/>
+  <g clip-path="url(#sc-awn)" fill="{PU}" fill-opacity=".4">
+    <rect x="46" y="8" width="14" height="32"/>
+    <rect x="74" y="8" width="14" height="32"/>
+    <rect x="102" y="8" width="14" height="32"/>
+  </g>
+  <!-- a highlight travelling the length of it -->
+  <g clip-path="url(#sc-awn)">
+    <rect x="-46" y="6" width="26" height="34" fill="{INK}" fill-opacity=".3" transform="skewX(-16)">
+      <animateTransform attributeName="transform" type="translate" values="0 0;212 0;212 0"
+                        keyTimes="0;.42;1" dur="5.2s" repeatCount="indefinite" {EASE}/>
+    </rect>
+  </g>
 </g>
-<g stroke="{PU}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M46 54l-8 8 8 8"><animate attributeName="stroke-opacity" values=".45;1;.45" dur="2.8s" repeatCount="indefinite"/></path>
-  <path d="M114 54l8 8-8 8"><animate attributeName="stroke-opacity" values="1;.45;1" dur="2.8s" repeatCount="indefinite"/></path>
+<!-- coded, not themed -->
+<g>
+  <rect x="99" y="86" width="35" height="18" rx="9" fill="{SURF}" stroke="{PU}" stroke-width="1.6">
+    <animate attributeName="stroke-opacity" values=".5;1;.5" dur="2.8s" repeatCount="indefinite"/>
+  </rect>
+  <g fill="none" stroke="{PU}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M109 91l-4 4 4 4"/>
+    <path d="M124 91l4 4-4 4"/>
+    <path d="M118 90l-3 10"/>
+  </g>
 </g>
 '''
 
@@ -507,37 +530,46 @@ ICONS["sv-cms"] = f'''
 '''
 
 # ── 14 · Business automation ───────────────────────────────────────────────
-# The daily job, running without anyone starting it.
+# One idea, not three: the gear turns, the repeat arrow goes round it, and the
+# badge in the arrow's gap ticks every time the work comes round again.
 ICONS["sv-bizauto"] = f'''
+<!-- the loop it runs on -->
+<path d="M121.3 45.0 A44 44 0 1 1 95.0 18.7" fill="none" stroke="{LINE}" stroke-width="6" stroke-opacity=".5" stroke-linecap="round"/>
+<path d="M121.3 45.0 A44 44 0 1 1 95.0 18.7" fill="none" stroke="{CY}" stroke-width="2" stroke-linecap="round" stroke-opacity=".55"/>
+<path id="ba-loop" d="M121.3 45.0 A44 44 0 1 1 95.0 18.7" fill="none" stroke="none"/>
+<path d="M102.9 21.5 93.5 23.0 96.6 14.3z" fill="{CY}" stroke="{CY}" stroke-width="1.5" stroke-linejoin="round"/>
+
+<!-- the machine -->
 <g>
-  <animateTransform attributeName="transform" type="rotate" from="0 54 46" to="360 54 46"
-                    dur="9s" repeatCount="indefinite"/>
-  <path d="M54 22l3.6.6 2.6-2.6 3 2.2-.9 3.6 2.6 2.6 3.6-.9 2.2 3-2.6 2.6.6 3.6 3.6 1.3v3.7l-3.6 1.3-.6 3.6 2.6 2.6-2.2 3-3.6-.9-2.6 2.6.9 3.6-3 2.2-2.6-2.6-3.6.6-1.3 3.6h-3.7L48 62l-3.6-.6-2.6 2.6-3-2.2.9-3.6-2.6-2.6-3.6.9-2.2-3 2.6-2.6-.6-3.6L30 46v-3.7l3.6-1.3.6-3.6-2.6-2.6 2.2-3 3.6.9 2.6-2.6-.9-3.6 3-2.2 2.6 2.6 3.6-.6L50 22z"
-        fill="{PU}" fill-opacity=".16" stroke="{PU}" stroke-width="1.8" stroke-linejoin="round"/>
-  <circle cx="54" cy="44" r="9" fill="{SURF}" stroke="{PU}" stroke-width="1.8"/>
+  <animateTransform attributeName="transform" type="rotate" from="0 80 60" to="360 80 60"
+                    dur="11s" repeatCount="indefinite"/>
+  <path d="M80.0 37.0L82.7 30.1L85.2 30.4L86.0 37.8A23 23 0 0 1 91.5 40.1L97.3 35.5L99.2 37.0L96.3 43.7A23 23 0 0 1 99.9 48.5L107.2 47.4L108.2 49.7L102.2 54.0A23 23 0 0 1 103.0 60.0L109.9 62.7L109.6 65.2L102.2 66.0A23 23 0 0 1 99.9 71.5L104.5 77.3L103.0 79.2L96.3 76.3A23 23 0 0 1 91.5 79.9L92.6 87.2L90.3 88.2L86.0 82.2A23 23 0 0 1 80.0 83.0L77.3 89.9L74.8 89.6L74.0 82.2A23 23 0 0 1 68.5 79.9L62.7 84.5L60.8 83.0L63.7 76.3A23 23 0 0 1 60.1 71.5L52.8 72.6L51.8 70.3L57.8 66.0A23 23 0 0 1 57.0 60.0L50.1 57.3L50.4 54.8L57.8 54.0A23 23 0 0 1 60.1 48.5L55.5 42.7L57.0 40.8L63.7 43.7A23 23 0 0 1 68.5 40.1L67.4 32.8L69.7 31.8L74.0 37.8A23 23 0 0 1 80.0 37.0Z" fill="{PU}" fill-opacity=".16" stroke="{PU}" stroke-width="1.8" stroke-linejoin="round"/>
+  <circle cx="80" cy="60" r="12.5" fill="{SURF}" stroke="{PU}" stroke-width="1.8"/>
+  <g stroke="{PU}" stroke-width="1.5" stroke-opacity=".5" stroke-linecap="round">
+    <path d="M80 41v6M80 73v6M61 60h6M93 60h6"/>
+  </g>
 </g>
+<circle cx="80" cy="60" r="4.4" fill="{CY}">
+  <animate attributeName="fill-opacity" values="1;.35;1" dur="2.6s" repeatCount="indefinite"/>
+</circle>
+
+<!-- done, again -->
 <g>
-  <animateTransform attributeName="transform" type="rotate" from="360 96 74" to="0 96 74"
-                    dur="6s" repeatCount="indefinite"/>
-  <path d="M96 56l2.8.5 2-2 2.3 1.7-.7 2.8 2 2 2.8-.7 1.7 2.3-2 2 .5 2.8 2.8 1v2.9l-2.8 1-.5 2.8 2 2-1.7 2.3-2.8-.7-2 2 .7 2.8-2.3 1.7-2-2-2.8.5-1 2.8h-2.9l-1-2.8-2.8-.5-2 2-2.3-1.7.7-2.8-2-2-2.8.7-1.7-2.3 2-2-.5-2.8-2.8-1v-2.9l2.8-1 .5-2.8-2-2 1.7-2.3 2.8.7 2-2-.7-2.8 2.3-1.7 2 2 2.8-.5 1-2.8z"
-        fill="{CY}" fill-opacity=".16" stroke="{CY}" stroke-width="1.7" stroke-linejoin="round"/>
-  <circle cx="96" cy="72" r="7" fill="{SURF}" stroke="{CY}" stroke-width="1.7"/>
+  <circle cx="118.6" cy="25.2" r="11" fill="none" stroke="{CY}" stroke-width="1.6" opacity="0">
+    <animateTransform attributeName="transform" type="scale" values="1;1.9" additive="sum"
+                      dur="4.4s" begin="2.1s" repeatCount="indefinite" {EASE1}/>
+    <animate attributeName="opacity" values=".65;0" dur="4.4s" begin="2.1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="118.6" cy="25.2" r="11" fill="{SURF2}" stroke="{CY}" stroke-width="1.8"/>
+  <path d="M113.3 25.6 l3.7 3.7 7-7.6" fill="none" stroke="{CY}" stroke-width="2.1"
+        stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<!-- the queue clearing itself -->
-<g>
-  <rect x="112" y="18" width="34" height="10" rx="5" fill="{SURF2}" stroke="{LINE}" stroke-width="1.3"/>
-  <path d="M117 23l2.6 2.6L125 20" fill="none" stroke="{CY}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-    <animate attributeName="stroke-opacity" values="0;1;1;0" keyTimes="0;.14;.9;1" dur="3.6s" repeatCount="indefinite"/>
-  </path>
-  <rect x="112" y="33" width="34" height="10" rx="5" fill="{SURF2}" stroke="{LINE}" stroke-width="1.3"/>
-  <path d="M117 38l2.6 2.6L125 35" fill="none" stroke="{CY}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-    <animate attributeName="stroke-opacity" values="0;0;1;1;0" keyTimes="0;.3;.44;.9;1" dur="3.6s" repeatCount="indefinite"/>
-  </path>
-  <rect x="112" y="48" width="34" height="10" rx="5" fill="{SURF2}" stroke="{LINE}" stroke-width="1.3"/>
-  <path d="M117 53l2.6 2.6L125 50" fill="none" stroke="{CY}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-    <animate attributeName="stroke-opacity" values="0;0;1;1;0" keyTimes="0;.6;.74;.9;1" dur="3.6s" repeatCount="indefinite"/>
-  </path>
-</g>
+
+<!-- the work, coming round again -->
+<circle r="3.6" fill="{INK}" opacity="0">
+  <animateMotion dur="4.4s" repeatCount="indefinite"><mpath href="#ba-loop"/></animateMotion>
+  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.07;.93;1" dur="4.4s" repeatCount="indefinite"/>
+</circle>
 '''
 
 # ── 15 · AI apps ───────────────────────────────────────────────────────────
@@ -608,7 +640,12 @@ def build():
     for name, body in ICONS.items():
         inner = " ".join(line.strip() for line in body.strip().splitlines()
                          if line.strip() and not line.strip().startswith("<!--"))
-        live.append(f'<symbol id="{name}--live" viewBox="0 0 160 120">{inner}</symbol>')
+        body = inner
+        for ref in set(re.findall(r'id="([a-z]+-[a-z]+)"', inner)):
+            body = (body.replace(f'id="{ref}"', f'id="{ref}-l"')
+                        .replace(f'href="#{ref}"', f'href="#{ref}-l"')
+                        .replace(f'url(#{ref})', f'url(#{ref}-l)'))
+        live.append(f'<symbol id="{name}--live" viewBox="0 0 160 120">{body}</symbol>')
         # self-closing timing elements, whichever of the three it is
         flat = re.sub(r"<animate[^>]*/>", "", inner)
         # and the paired form, which only animateMotion uses (it wraps an mpath)
