@@ -541,3 +541,68 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
 
     if (!reduced) requestAnimationFrame(frame);
 })();
+
+
+// ==========================================
+// SKILLS MARQUEES - two tracks, opposing directions
+// Chips are built from the JSON manifests and reference the inline sprite via
+// <use>, so each mark's path data exists once however many times it is shown.
+// The .sr-only text list stays as the accessible alternative.
+// ==========================================
+(function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Relative luminance (sRGB, WCAG). Near-black marks - GitHub, Vercel - would
+    // disappear against this dark ground, so they are lifted to the cyan accent.
+    function tooDark(hex) {
+        var c = [1, 3, 5].map(function (i) {
+            var v = parseInt(hex.substr(i, 2), 16) / 255;
+            return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2] < 0.08;
+    }
+
+    function chip(rec) {
+        var el = document.createElement("span");
+        el.className = "sk__chip";
+        if (rec.slug) {
+            el.style.setProperty("--brand", tooDark(rec.hex) ? "#00f0ff" : rec.hex);
+            el.innerHTML = '<svg class="sk__logo" viewBox="0 0 24 24" aria-hidden="true">' +
+                           '<use href="#sk-' + rec.slug + '"></use></svg>';
+        } else {
+            el.classList.add("sk__chip--plain");
+        }
+        el.appendChild(document.createTextNode(rec.label));
+        return el;
+    }
+
+    function build(rowId, dataId) {
+        var row = document.getElementById(rowId), data = document.getElementById(dataId);
+        if (!row || !data) return;
+        var items;
+        try { items = JSON.parse(data.textContent); } catch (e) { return; }
+        if (!items || !items.length) return;
+
+        if (reduced) {
+            // Bailing out would leave an empty band - the text fallback is .sr-only.
+            row.classList.add("sk__row--static");
+            items.forEach(function (r) { row.appendChild(chip(r)); });
+            return;
+        }
+        // duplicated once so the 50% translation loops seamlessly
+        items.concat(items).forEach(function (r) { row.appendChild(chip(r)); });
+    }
+
+    // index.js is a classic script with no defer, so it runs while the document
+    // is still parsing - the sprite and the JSON blocks sit after it and do not
+    // exist yet. Wait for the parse to finish before reading them.
+    function start() {
+        build("sk-row-a", "sk-data-a");
+        build("sk-row-b", "sk-data-b");
+    }
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", start);
+    } else {
+        start();
+    }
+})();

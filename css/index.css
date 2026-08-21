@@ -3761,3 +3761,74 @@ body {
     .about-cta:hover { transform: none; }
     .image-placeholder { animation: none; }
 }
+
+
+/* --------------------------------------------------------------------------
+   SKILLS - two tracks running against each other
+   Opposing motion reads as depth; two rows going the same way just look like
+   one thick row. Icons come from the inline sprite, so the 19 CDN requests the
+   old chip cloud made are gone.
+   -------------------------------------------------------------------------- */
+.sk {
+    display: grid;
+    gap: 1.25rem;
+    padding-block: 1.25rem;      /* room for the chip glow, which the mask would clip */
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.sk__row { display: flex; width: max-content; animation: sk-scroll 68s linear infinite; }
+.sk__row--rev { animation-name: sk-scroll-rev; animation-duration: 60s; }
+.sk:hover .sk__row { animation-play-state: paused; }
+@keyframes sk-scroll     { from { transform: translateX(0); }     to { transform: translateX(-50%); } }
+@keyframes sk-scroll-rev { from { transform: translateX(-50%); }  to { transform: translateX(0); } }
+
+.sk__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex: none;
+    margin-inline: 0.4rem;
+    padding: 0.7rem 1.35rem;
+    white-space: nowrap;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e8f4ff;
+    background: linear-gradient(145deg, rgba(20, 27, 45, 0.9), rgba(10, 14, 30, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.sk__chip:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--brand, #00f0ff) 55%, transparent);
+    box-shadow: 0 0 26px -6px color-mix(in srgb, var(--brand, #00f0ff) 60%, transparent),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Simple Icons ships single-path monochrome glyphs, so fill is all that is
+   needed to give each mark its own brand colour. */
+.sk__logo { width: 26px; height: 26px; flex: none; fill: var(--brand, #00f0ff); }
+
+/* No official mark exists for these - a neutral dot, not an invented logo. */
+.sk__chip--plain::before {
+    content: "";
+    width: 9px; height: 9px; border-radius: 50%;
+    background: rgba(0, 240, 255, 0.15);
+    box-shadow: inset 0 0 0 2px #00f0ff;
+    flex: none;
+}
+
+/* Reduced motion: no scroll, so both tracks wrap and centre. */
+.sk__row--static {
+    width: auto; animation: none; flex-wrap: wrap; justify-content: center;
+    gap: 0.7rem 0; max-width: 1000px; margin-inline: auto;
+}
+.sk:has(.sk__row--static) { -webkit-mask-image: none; mask-image: none; }
+
+@media (max-width: 640px) {
+    .sk { gap: 0.9rem; }
+    .sk__chip { font-size: 0.85rem; padding: 0.6rem 1.1rem; gap: 0.55rem; }
+    .sk__logo { width: 22px; height: 22px; }
+}
