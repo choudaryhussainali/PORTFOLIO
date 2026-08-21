@@ -143,15 +143,46 @@ class handler(BaseHTTPRequestHandler):
                 4.  If you cannot find any relevant information, default to the fallback response above.
                 """
 
-            chat_completion = client.chat.completions.create(
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_message}
-                ],
-                model="llama-3.3-70b-versatile",
-            )
+            # Groq retires model IDs periodically, and a single hard-coded name
+            # takes the whole widget down when that happens (a 404
+            # "model_not_found" is what broke it last time). Try the configured
+            # model first, then fall back through known-good ones, and only
+            # surface an error if every option is unavailable.
+            models = [m for m in [
+                os.environ.get("GROQ_MODEL"),          # override without a deploy
+                "llama-3.3-70b-versatile",
+                "llama-3.1-8b-instant",
+                "openai/gpt-oss-20b",
+            ] if m]
 
-            bot_reply = chat_completion.choices[0].message.content
+            bot_reply = None
+            last_error = None
+            for name in models:
+                try:
+                    chat_completion = client.chat.completions.create(
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": user_message}
+                        ],
+                        model=name,
+                    )
+                    bot_reply = chat_completion.choices[0].message.content
+                    break
+                except Exception as err:
+                    last_error = err
+                    # Only walk on when the model itself is the problem. A bad
+                    # key or a rate limit would fail identically on every model,
+                    # so re-raise those immediately instead of retrying 4 times.
+                    text = str(err).lower()
+                    if "model_not_found" in text or "does not exist" in text or "decommission" in text:
+                        continue
+                    raise
+
+            if bot_reply is None:
+                raise RuntimeError(
+                    "No Groq model available. Tried: " + ", ".join(models) +
+                    ". Last error: " + str(last_error)
+                )
             
             # 6. Send Success Response
             self.wfile.write(json.dumps({"reply": bot_reply}).encode('utf-8'))
