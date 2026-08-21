@@ -3835,3 +3835,106 @@ body {
     .sk__chip { font-size: 0.85rem; padding: 0.6rem 1.1rem; gap: 0.55rem; }
     .sk__logo { width: 22px; height: 22px; }
 }
+
+
+/* --------------------------------------------------------------------------
+   SERVICES MARQUEE
+   Same behaviour as the client row: it drifts, parks under the cursor, and
+   every card's CTA drops that service straight into the contact form.
+   -------------------------------------------------------------------------- */
+.sv { position: relative; margin-top: 3rem; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); }
+.sv__track { display: flex; gap: 1.5rem; align-items: stretch; width: max-content;
+    padding: 1rem 0 3rem; will-change: transform; }
+
+.sv__card {
+    flex: 0 0 clamp(250px, 23vw, 310px);
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 0.6rem; padding: 1.6rem 1.4rem 1.4rem;
+    border-radius: 22px;
+    background: linear-gradient(155deg, rgba(20, 27, 45, 0.92), rgba(10, 14, 30, 0.96));
+    border: 1px solid rgba(0, 240, 255, 0.13);
+    box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: transform 380ms cubic-bezier(.22,1,.36,1), border-color 380ms ease, box-shadow 380ms ease;
+}
+.sv__card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 240, 255, 0.45);
+    box-shadow: 0 30px 70px -26px rgba(0,0,0,1), 0 0 40px -8px rgba(0,240,255,0.26),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+}
+/* the most-picked option in each category carries a warm edge */
+.sv__card[data-hot] { border-color: rgba(131, 56, 236, 0.5); }
+.sv__card[data-hot]:hover { border-color: rgba(131, 56, 236, 0.8); box-shadow: 0 30px 70px -26px rgba(0,0,0,1), 0 0 42px -8px rgba(131,56,236,0.45); }
+
+.sv__cat {
+    font-size: 0.64rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--primary); background: rgba(0, 240, 255, 0.09);
+    border: 1px solid rgba(0, 240, 255, 0.22); border-radius: 999px; padding: 0.28rem 0.7rem;
+}
+.sv__card[data-hot] .sv__cat { color: #c79bff; background: rgba(131,56,236,0.14); border-color: rgba(131,56,236,0.35); }
+
+.sv__art {
+    width: 100%; aspect-ratio: 16 / 10; display: grid; place-items: center;
+    border-radius: 14px; margin-block: 0.35rem;
+    background: linear-gradient(180deg, rgba(0,240,255,0.06), rgba(10,14,30,0));
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.sv__art svg { width: 74%; height: auto; }
+
+.sv__name { font-size: 1.08rem; font-weight: 700; color: var(--light); line-height: 1.25; }
+.sv__who { font-size: 0.83rem; line-height: 1.55; color: var(--gray); }
+.sv__price { margin-top: auto; padding-top: 0.9rem; width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.07); }
+.sv__price span { display: block; font-size: 0.62rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray); margin-bottom: 0.2rem; }
+.sv__price b { font-size: 1.18rem; font-weight: 700; color: var(--light); letter-spacing: -0.01em; }
+
+.sv__cta {
+    width: 100%; margin-top: 0.9rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+    min-height: 44px; padding: 0.7rem 1.1rem; border: 0; border-radius: 12px; cursor: pointer;
+    font-size: 0.875rem; font-weight: 700; color: #04121b;
+    background: var(--gradient-1);
+    box-shadow: 0 10px 24px -12px rgba(0,240,255,0.8);
+    transition: transform .22s ease, box-shadow .22s ease;
+}
+.sv__cta svg { width: 16px; height: 16px; }
+.sv__cta:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -12px rgba(0,240,255,1); }
+
+.sv__nav {
+    position: absolute; top: 42%; z-index: 5; transform: translateY(-50%);
+    width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%;
+    cursor: pointer; color: var(--primary); background: rgba(10,14,39,0.82);
+    border: 1px solid rgba(0,240,255,0.28);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.9);
+    transition: background .22s ease, color .22s ease, border-color .22s ease;
+}
+.sv__nav svg { width: 22px; height: 22px; }
+.sv__nav:hover { background: var(--gradient-1); color: #04121b; border-color: transparent; }
+.sv__nav--prev { left: clamp(0.5rem, 2vw, 1.75rem); }
+.sv__nav--next { right: clamp(0.5rem, 2vw, 1.75rem); }
+@media (max-width: 640px) { .sv__nav { width: 42px; height: 42px; } }
+
+.sv__foot { text-align: center; margin-top: 0.5rem; color: var(--gray); font-size: 0.95rem; }
+.sv__ask { border: 0; background: none; padding: 0; cursor: pointer;
+    font: inherit; font-weight: 700; color: var(--primary); }
+.sv__ask:hover { text-decoration: underline; }
+
+/* the field flashes when a card drops a service into it, so the jump is legible */
+.field-flash {
+    animation: field-flash 1.4s ease-out 1;
+}
+@keyframes field-flash {
+    0%   { box-shadow: 0 0 0 0 rgba(0,240,255,0.55); }
+    100% { box-shadow: 0 0 0 14px rgba(0,240,255,0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sv { overflow-x: auto; }
+    .sv__card, .sv__cta { transition: none; }
+    .sv__card:hover, .sv__cta:hover { transform: none; }
+    .field-flash { animation: none; }
+}

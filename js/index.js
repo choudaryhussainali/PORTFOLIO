@@ -606,3 +606,116 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         start();
     }
 })();
+
+
+// ==========================================
+// SERVICES MARQUEE + CTA WIRING
+// Same wrapped-middle-set technique as the client row, so there is always a
+// full set off-screen both ways. Each card's CTA selects that service in the
+// contact form and takes the visitor to it, so the choice survives the jump.
+// ==========================================
+(function () {
+    function start() {
+        var track = document.getElementById("sv-track");
+        var wrap  = track && track.closest(".sv");
+
+        // --- CTA wiring works with or without the marquee ---
+        var subject = document.getElementById("subject");
+        var contact = document.getElementById("contact");
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function choose(value) {
+            if (subject) {
+                var matched = false;
+                for (var i = 0; i < subject.options.length; i++) {
+                    if (subject.options[i].value === value) { subject.selectedIndex = i; matched = true; break; }
+                }
+                // "Not sure yet" and anything unmatched fall back to that option
+                if (!matched) {
+                    for (var k = 0; k < subject.options.length; k++) {
+                        if (subject.options[k].value === "Not sure yet") { subject.selectedIndex = k; break; }
+                    }
+                }
+                subject.classList.remove("field-flash");
+                void subject.offsetWidth;                 // restart the flash
+                subject.classList.add("field-flash");
+            }
+            if (contact) contact.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+            var first = document.getElementById("firstName");
+            if (first) setTimeout(function () {
+                try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); }
+            }, reduced ? 0 : 700);
+        }
+
+        document.addEventListener("click", function (e) {
+            var b = e.target.closest("[data-service]");
+            if (!b) return;
+            e.preventDefault();
+            choose(b.getAttribute("data-service"));
+        });
+
+        if (!track || !wrap) return;
+
+        // --- marquee ---
+        var SPEED = 32, JUMP = 3;
+        var master = Array.prototype.slice.call(track.querySelectorAll(".sv__card"))
+                          .map(function (el) { return el.cloneNode(true); });
+        if (!master.length) return;
+        var period = 0, pos = 0, target = 0, held = false, last = 0, step = 0;
+
+        function build() {
+            track.innerHTML = "";
+            master.forEach(function (el) { track.appendChild(el.cloneNode(true)); });
+            var gap = parseFloat(getComputedStyle(track).columnGap) || 24;
+            period = track.scrollWidth + gap;
+            step = master[0].getBoundingClientRect().width + gap;
+            var need = Math.max(3, Math.ceil(wrap.clientWidth / Math.max(period, 1)) + 2);
+            for (var s = 1; s < need; s++) {
+                master.forEach(function (el) {
+                    var c = el.cloneNode(true);
+                    c.setAttribute("data-clone", "");
+                    c.setAttribute("aria-hidden", "true");
+                    // the copies must not be reachable by keyboard, only the originals
+                    Array.prototype.forEach.call(c.querySelectorAll("button"), function (btn) {
+                        btn.setAttribute("tabindex", "-1");
+                    });
+                    track.appendChild(c);
+                });
+            }
+            var lead = Math.max(0, (wrap.clientWidth - step) / 2);
+            pos = target = -lead;
+            render();
+        }
+        function render() {
+            var m = ((pos % period) + period) % period;
+            track.style.transform = "translate3d(" + (-(period + m)).toFixed(1) + "px,0,0)";
+        }
+        function frame(now) {
+            var dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+            last = now;
+            if (!held) target += SPEED * dt;
+            pos += (target - pos) * Math.min(1, dt * 11);
+            render();
+            requestAnimationFrame(frame);
+        }
+        wrap.addEventListener("pointerenter", function () { held = true; });
+        wrap.addEventListener("pointerleave", function () { held = false; });
+        wrap.addEventListener("focusin",  function () { held = true; });
+        wrap.addEventListener("focusout", function () { held = false; });
+        document.addEventListener("visibilitychange", function () { held = document.hidden; });
+
+        var prev = wrap.querySelector(".sv__nav--prev"), next = wrap.querySelector(".sv__nav--next");
+        if (prev) prev.addEventListener("click", function () { target -= step * JUMP; });
+        if (next) next.addEventListener("click", function () { target += step * JUMP; });
+
+        build();
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+        var rt;
+        window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(build, 250); });
+        if (!reduced) requestAnimationFrame(frame);
+    }
+
+    // the sprite and this section sit after index.js in the document
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+    else start();
+})();

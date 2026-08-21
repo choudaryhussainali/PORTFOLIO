@@ -259,86 +259,180 @@
     <section id="services" class="fade-in">
         <div class="section-header">
             <div class="section-label">Professional Services</div>
-            <h2 class="section-title">My Expertise</h2>
+            <h2 class="section-title">What I Build</h2>
             <p class="section-description">
-                Delivering high-end, scalable solutions tailored to elevate your business.
+                Fifteen fixed-price services across Shopify, WordPress, custom builds and automation.
+                Every price is quoted in writing before any work starts.
             </p>
         </div>
 
-        <div class="services-grid">
-            <!-- Service 1: AI & LLM -->
-            <div class="enterprise-card">
-                <div class="ambient-glow cyan-glow"></div>
-                <div class="card-inner">
-                    <div class="enterprise-icon-box">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    </div>
-                    <h3 class="enterprise-title">AI & LLM Solutions</h3>
-                    <p class="enterprise-desc">Custom RAG pipelines, conversational AI agents, and Generative AI integrations designed to automate workflows and unlock data insights.</p>
-                    <div class="enterprise-footer">
-                        <a href="./services" class="enterprise-btn">
-                            <span class="btn-text">Automate Workflows</span>
-                            <span class="btn-arrow">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
+        <div class="sv" role="region" aria-label="Services">
+            <button type="button" class="sv__nav sv__nav--prev" aria-label="Previous services">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="sv__track" id="sv-track">
+                <article class="sv__card">
+                    <span class="sv__cat">Custom</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-landing"></use></svg></span>
+                    <h3 class="sv__name">Landing Page</h3>
+                    <p class="sv__who">One page, one goal — built to turn ad clicks into enquiries.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 35,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Landing Page &middot; Custom">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">Custom</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-business"></use></svg></span>
+                    <h3 class="sv__name">Business Website</h3>
+                    <p class="sv__who">A full company site, designed from scratch rather than themed.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 85,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Business Website &middot; Custom">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card" data-hot="1">
+                    <span class="sv__cat">Custom</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-fullstack"></use></svg></span>
+                    <h3 class="sv__name">Full Stack Website</h3>
+                    <p class="sv__who">Accounts, a secure database, and your own control panel.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 175,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Full Stack Website &middot; Custom">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">Custom</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-saas"></use></svg></span>
+                    <h3 class="sv__name">SaaS Platform</h3>
+                    <p class="sv__who">Software your customers pay a monthly or yearly fee to use.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 300,000</b></p>
+                    <button type="button" class="sv__cta" data-service="SaaS Platform &middot; Custom">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">Shopify</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-starter"></use></svg></span>
+                    <h3 class="sv__name">Starter Store</h3>
+                    <p class="sv__who">Your first online shop, set up and ready to take orders.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 65,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Starter Store &middot; Shopify">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card" data-hot="1">
+                    <span class="sv__cat">Shopify</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-shopcustom"></use></svg></span>
+                    <h3 class="sv__name">Custom Shopify Store</h3>
+                    <p class="sv__who">A coded storefront for brands competing on presentation.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 165,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Custom Shopify Store &middot; Shopify">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">Shopify</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-migrate"></use></svg></span>
+                    <h3 class="sv__name">Move to Shopify</h3>
+                    <p class="sv__who">Move across without losing products, customers, or rankings.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 95,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Move to Shopify &middot; Shopify">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">Shopify</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-integrate"></use></svg></span>
+                    <h3 class="sv__name">Connect Your Tools</h3>
+                    <p class="sv__who">Link your store to couriers, WhatsApp, and your accounts.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 45,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Connect Your Tools &middot; Shopify">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">WordPress</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-wplanding"></use></svg></span>
+                    <h3 class="sv__name">Landing Page</h3>
+                    <p class="sv__who">A single page you can edit yourself, for less.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 25,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Landing Page &middot; WordPress">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">WordPress</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-wpportfolio"></use></svg></span>
+                    <h3 class="sv__name">Portfolio Website</h3>
+                    <p class="sv__who">A gallery for your work that you update yourself.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 40,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Portfolio Website &middot; WordPress">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card" data-hot="1">
+                    <span class="sv__cat">WordPress</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-wpbusiness"></use></svg></span>
+                    <h3 class="sv__name">Business Website</h3>
+                    <p class="sv__who">A full company site your staff can edit without code.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 60,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Business Website &middot; WordPress">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">WordPress</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-wpservices"></use></svg></span>
+                    <h3 class="sv__name">Services Website</h3>
+                    <p class="sv__who">A page for each service, built to be found in local search.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 75,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Services Website &middot; WordPress">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">Automation</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-cms"></use></svg></span>
+                    <h3 class="sv__name">Website Control Panel</h3>
+                    <p class="sv__who">Change anything on your site yourself, with no developer.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 70,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Website Control Panel &middot; Automation">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card">
+                    <span class="sv__cat">Automation</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-bizauto"></use></svg></span>
+                    <h3 class="sv__name">Business Automation</h3>
+                    <p class="sv__who">Turn a repeated daily task into a program that runs itself.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 90,000</b></p>
+                    <button type="button" class="sv__cta" data-service="Business Automation &middot; Automation">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article><article class="sv__card" data-hot="1">
+                    <span class="sv__cat">Automation</span>
+                    <span class="sv__art"><svg viewBox="0 0 160 120" aria-hidden="true"><use href="#sv-genai"></use></svg></span>
+                    <h3 class="sv__name">AI Apps</h3>
+                    <p class="sv__who">A chatbot or document assistant built on your own material.</p>
+                    <p class="sv__price"><span>Starting from</span><b>PKR 120,000</b></p>
+                    <button type="button" class="sv__cta" data-service="AI Apps &middot; Automation">
+                        Get a quote
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </article>
             </div>
-
-            <!-- Service 2: Python Automation -->
-            <div class="enterprise-card">
-                <div class="ambient-glow purple-glow"></div>
-                <div class="card-inner">
-                    <div class="enterprise-icon-box">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                    </div>
-                    <h3 class="enterprise-title">Python Automation</h3>
-                    <p class="enterprise-desc">Enterprise-grade web scraping, API development, and data processing pipelines that eliminate manual tasks and accelerate operations.</p>
-                    <div class="enterprise-footer">
-                        <a href="./services" class="enterprise-btn">
-                            <span class="btn-text">Eliminate Manual Tasks</span>
-                            <span class="btn-arrow">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Service 3: High-Performance Web -->
-            <div class="enterprise-card">
-                <div class="ambient-glow blue-glow"></div>
-                <div class="card-inner">
-                    <div class="enterprise-icon-box">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                    </div>
-                    <h3 class="enterprise-title">Website Development</h3>
-                    <p class="enterprise-desc">Developing ultra-fast, high performance, responsive web applications and e-commerce stores using modern tech stacks optimized for SEO and conversions.</p>
-                    <div class="enterprise-footer">
-                        <a href="./services" class="enterprise-btn">
-                            <span class="btn-text">Boost Conversions</span>
-                            <span class="btn-arrow">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <button type="button" class="sv__nav sv__nav--next" aria-label="Next services">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
         </div>
 
-        <!-- New Premium CTA Button -->
-        <div class="premium-cta-wrapper text-center" style="margin-top: 4rem;">
-            <a href="./services" class="btn-cyber-glass">
-                <span class="btn-content">
-                    View Enterprise Solutions
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </span>
-                <span class="btn-glow"></span>
-            </a>
-            <p class="cta-subtitle">Available for freelance & contract roles</p>
-        </div>
+        <p class="sv__foot">
+            Not sure which fits? <button type="button" class="sv__ask" data-service="Not sure yet">Tell me what you need &rarr;</button>
+        </p>
     </section>
+
 
 
 
@@ -1108,13 +1202,36 @@
                 <div class="form-group">
                     <label for="subject">Subject *</label>
                     <select id="subject" name="subject" required>
-                        <option value="" style="color: rgb(77, 77, 158)">Select a subject</option>
-                        <option value="web-development" style="color: rgb(77, 77, 158);">Web Development Project</option>
-                        <option value="consultation" style="color: rgb(77, 77, 158);">Consultation</option>
-                        <option value="collaboration" style="color: rgb(77, 77, 158);">Collaboration Opportunity</option>
-                        <option value="job-opportunity" style="color: rgb(77, 77, 158);">Job Opportunity</option>
-                        <option value="other" style="color: rgb(77, 77, 158);">Other</option>
-                    </select>
+                            <option value="" style="color: rgb(77, 77, 158)">Select a service</option>
+                            <optgroup label="Custom">
+                            <option value="Landing Page · Custom" style="color: rgb(77, 77, 158);">Landing Page · Custom</option>
+                            <option value="Business Website · Custom" style="color: rgb(77, 77, 158);">Business Website · Custom</option>
+                            <option value="Full Stack Website · Custom" style="color: rgb(77, 77, 158);">Full Stack Website · Custom</option>
+                            <option value="SaaS Platform · Custom" style="color: rgb(77, 77, 158);">SaaS Platform · Custom</option>
+                            </optgroup>
+                            <optgroup label="Shopify">
+                            <option value="Starter Store · Shopify" style="color: rgb(77, 77, 158);">Starter Store · Shopify</option>
+                            <option value="Custom Shopify Store · Shopify" style="color: rgb(77, 77, 158);">Custom Shopify Store · Shopify</option>
+                            <option value="Move to Shopify · Shopify" style="color: rgb(77, 77, 158);">Move to Shopify · Shopify</option>
+                            <option value="Connect Your Tools · Shopify" style="color: rgb(77, 77, 158);">Connect Your Tools · Shopify</option>
+                            </optgroup>
+                            <optgroup label="WordPress">
+                            <option value="Landing Page · WordPress" style="color: rgb(77, 77, 158);">Landing Page · WordPress</option>
+                            <option value="Portfolio Website · WordPress" style="color: rgb(77, 77, 158);">Portfolio Website · WordPress</option>
+                            <option value="Business Website · WordPress" style="color: rgb(77, 77, 158);">Business Website · WordPress</option>
+                            <option value="Services Website · WordPress" style="color: rgb(77, 77, 158);">Services Website · WordPress</option>
+                            </optgroup>
+                            <optgroup label="Automation">
+                            <option value="Website Control Panel · Automation" style="color: rgb(77, 77, 158);">Website Control Panel · Automation</option>
+                            <option value="Business Automation · Automation" style="color: rgb(77, 77, 158);">Business Automation · Automation</option>
+                            <option value="AI Apps · Automation" style="color: rgb(77, 77, 158);">AI Apps · Automation</option>
+                            </optgroup>
+                            <option value="Not sure yet" style="color: rgb(77, 77, 158);">Not sure yet</option>
+                            <option value="Consultation" style="color: rgb(77, 77, 158);">Consultation</option>
+                            <option value="Collaboration" style="color: rgb(77, 77, 158);">Collaboration</option>
+                            <option value="Job opportunity" style="color: rgb(77, 77, 158);">Job opportunity</option>
+                            <option value="Something else" style="color: rgb(77, 77, 158);">Something else</option>
+                        </select>
                 </div>
                 <div class="form-group">
                     <label for="message">Message *</label>
@@ -1223,5 +1340,6 @@
 <svg class="sk-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="sk-shopify" viewBox="0 0 24 24"><title>Shopify</title><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></symbol><symbol id="sk-wordpress" viewBox="0 0 24 24"><title>WordPress</title><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></symbol><symbol id="sk-html5" viewBox="0 0 24 24"><title>HTML5</title><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></symbol><symbol id="sk-css" viewBox="0 0 24 24"><title>CSS</title><path d="M0 0v20.16A3.84 3.84 0 0 0 3.84 24h16.32A3.84 3.84 0 0 0 24 20.16V3.84A3.84 3.84 0 0 0 20.16 0Zm14.256 13.08c1.56 0 2.28 1.08 2.304 2.64h-1.608c.024-.288-.048-.6-.144-.84-.096-.192-.288-.264-.552-.264-.456 0-.696.264-.696.84-.024.576.288.888.768 1.08.72.288 1.608.744 1.92 1.296q.432.648.432 1.656c0 1.608-.912 2.592-2.496 2.592-1.656 0-2.4-1.032-2.424-2.688h1.68c0 .792.264 1.176.792 1.176.264 0 .456-.072.552-.24.192-.312.24-1.176-.048-1.512-.312-.408-.912-.6-1.32-.816q-.828-.396-1.224-.936c-.24-.36-.36-.888-.36-1.536 0-1.44.936-2.472 2.424-2.448m5.4 0c1.584 0 2.304 1.08 2.328 2.64h-1.608c0-.288-.048-.6-.168-.84-.096-.192-.264-.264-.528-.264-.48 0-.72.264-.72.84s.288.888.792 1.08c.696.288 1.608.744 1.92 1.296.264.432.408.984.408 1.656.024 1.608-.888 2.592-2.472 2.592-1.68 0-2.424-1.056-2.448-2.688h1.68c0 .744.264 1.176.792 1.176.264 0 .456-.072.552-.24.216-.312.264-1.176-.048-1.512-.288-.408-.888-.6-1.32-.816-.552-.264-.96-.576-1.2-.936s-.36-.888-.36-1.536c-.024-1.44.912-2.472 2.4-2.448m-11.031.018c.711-.006 1.419.198 1.839.63.432.432.672 1.128.648 1.992H9.336c.024-.456-.096-.792-.432-.96-.312-.144-.768-.048-.888.24-.12.264-.192.576-.168.864v3.504c0 .744.264 1.128.768 1.128a.65.65 0 0 0 .552-.264c.168-.24.192-.552.168-.84h1.776c.096 1.632-.984 2.712-2.568 2.688-1.536 0-2.496-.864-2.472-2.472v-4.032c0-.816.24-1.44.696-1.848.432-.408 1.146-.624 1.857-.63"/></symbol><symbol id="sk-javascript" viewBox="0 0 24 24"><title>JavaScript</title><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></symbol><symbol id="sk-git" viewBox="0 0 24 24"><title>Git</title><path d="M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z"/></symbol><symbol id="sk-github" viewBox="0 0 24 24"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol><symbol id="sk-vercel" viewBox="0 0 24 24"><title>Vercel</title><path d="m12 1.608 12 20.784H0Z"/></symbol><symbol id="sk-markdown" viewBox="0 0 24 24"><title>Markdown</title><path d="M22.27 19.385H1.73A1.73 1.73 0 010 17.655V6.345a1.73 1.73 0 011.73-1.73h20.54A1.73 1.73 0 0124 6.345v11.308a1.73 1.73 0 01-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/></symbol><symbol id="sk-python" viewBox="0 0 24 24"><title>Python</title><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></symbol><symbol id="sk-langchain" viewBox="0 0 24 24"><title>LangChain</title><path d="M13.796 0a6.93 6.93 0 0 0-4.91 2.019L5.451 5.455l3.273 3.27 3.432-3.432a2.284 2.284 0 0 1 3.277 0 2.28 2.28 0 0 1 0 3.275L12 12.001l3.273 3.273 3.433-3.435c2.692-2.692 2.692-7.127 0-9.82A6.92 6.92 0 0 0 13.796 0m-5.07 8.728-3.433 3.434c-2.692 2.693-2.692 7.126 0 9.819A6.92 6.92 0 0 0 10.203 24a6.93 6.93 0 0 0 4.911-2.02l3.432-3.432-3.271-3.272-3.433 3.433a2.284 2.284 0 0 1-3.277 0 2.28 2.28 0 0 1 0-3.276L12 12z"/></symbol><symbol id="sk-openai" viewBox="0 0 24 24"><title>OpenAI</title><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></symbol><symbol id="sk-googlegemini" viewBox="0 0 24 24"><title>Google Gemini</title><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81"/></symbol><symbol id="sk-huggingface" viewBox="0 0 24 24"><title>Hugging Face</title><path d="M12.025 1.13c-5.77 0-10.449 4.647-10.449 10.378 0 1.112.178 2.181.503 3.185.064-.222.203-.444.416-.577a.96.96 0 0 1 .524-.15c.293 0 .584.124.84.284.278.173.48.408.71.694.226.282.458.611.684.951v-.014c.017-.324.106-.622.264-.874s.403-.487.762-.543c.3-.047.596.06.787.203s.31.313.4.467c.15.257.212.468.233.542.01.026.653 1.552 1.657 2.54.616.605 1.01 1.223 1.082 1.912.055.537-.096 1.059-.38 1.572.637.121 1.294.187 1.967.187.657 0 1.298-.063 1.921-.178-.287-.517-.44-1.041-.384-1.581.07-.69.465-1.307 1.081-1.913 1.004-.987 1.647-2.513 1.657-2.539.021-.074.083-.285.233-.542.09-.154.208-.323.4-.467a1.08 1.08 0 0 1 .787-.203c.359.056.604.29.762.543s.247.55.265.874v.015c.225-.34.457-.67.683-.952.23-.286.432-.52.71-.694.257-.16.547-.284.84-.285a.97.97 0 0 1 .524.151c.228.143.373.388.43.625l.006.04a10.3 10.3 0 0 0 .534-3.273c0-5.731-4.678-10.378-10.449-10.378M8.327 6.583a1.5 1.5 0 0 1 .713.174 1.487 1.487 0 0 1 .617 2.013c-.183.343-.762-.214-1.102-.094-.38.134-.532.914-.917.71a1.487 1.487 0 0 1 .69-2.803m7.486 0a1.487 1.487 0 0 1 .689 2.803c-.385.204-.536-.576-.916-.71-.34-.12-.92.437-1.103.094a1.487 1.487 0 0 1 .617-2.013 1.5 1.5 0 0 1 .713-.174m-10.68 1.55a.96.96 0 1 1 0 1.921.96.96 0 0 1 0-1.92m13.838 0a.96.96 0 1 1 0 1.92.96.96 0 0 1 0-1.92M8.489 11.458c.588.01 1.965 1.157 3.572 1.164 1.607-.007 2.984-1.155 3.572-1.164.196-.003.305.12.305.454 0 .886-.424 2.328-1.563 3.202-.22-.756-1.396-1.366-1.63-1.32q-.011.001-.02.006l-.044.026-.01.008-.03.024q-.018.017-.035.036l-.032.04a1 1 0 0 0-.058.09l-.014.025q-.049.088-.11.19a1 1 0 0 1-.083.116 1.2 1.2 0 0 1-.173.18q-.035.029-.075.058a1.3 1.3 0 0 1-.251-.243 1 1 0 0 1-.076-.107c-.124-.193-.177-.363-.337-.444-.034-.016-.104-.008-.2.022q-.094.03-.216.087-.06.028-.125.063l-.13.074q-.067.04-.136.086a3 3 0 0 0-.135.096 3 3 0 0 0-.26.219 2 2 0 0 0-.12.121 2 2 0 0 0-.106.128l-.002.002a2 2 0 0 0-.09.132l-.001.001a1.2 1.2 0 0 0-.105.212q-.013.036-.024.073c-1.139-.875-1.563-2.317-1.563-3.203 0-.334.109-.457.305-.454m.836 10.354c.824-1.19.766-2.082-.365-3.194-1.13-1.112-1.789-2.738-1.789-2.738s-.246-.945-.806-.858-.97 1.499.202 2.362c1.173.864-.233 1.45-.685.64-.45-.812-1.683-2.896-2.322-3.295s-1.089-.175-.938.647 2.822 2.813 2.562 3.244-1.176-.506-1.176-.506-2.866-2.567-3.49-1.898.473 1.23 2.037 2.16c1.564.932 1.686 1.178 1.464 1.53s-3.675-2.511-4-1.297c-.323 1.214 3.524 1.567 3.287 2.405-.238.839-2.71-1.587-3.216-.642-.506.946 3.49 2.056 3.522 2.064 1.29.33 4.568 1.028 5.713-.624m5.349 0c-.824-1.19-.766-2.082.365-3.194 1.13-1.112 1.789-2.738 1.789-2.738s.246-.945.806-.858.97 1.499-.202 2.362c-1.173.864.233 1.45.685.64.451-.812 1.683-2.896 2.322-3.295s1.089-.175.938.647-2.822 2.813-2.562 3.244 1.176-.506 1.176-.506 2.866-2.567 3.49-1.898-.473 1.23-2.037 2.16c-1.564.932-1.686 1.178-1.464 1.53s3.675-2.511 4-1.297c.323 1.214-3.524 1.567-3.287 2.405.238.839 2.71-1.587 3.216-.642.506.946-3.49 2.056-3.522 2.064-1.29.33-4.568 1.028-5.713-.624"/></symbol><symbol id="sk-streamlit" viewBox="0 0 24 24"><title>Streamlit</title><path d="M16.673 11.32l6.862-3.618c.233-.136.554.12.442.387L20.463 17.1zm-8.556-.229l3.473-5.187c.203-.328.578-.316.793-.028l7.886 11.75zm-3.375 7.25c-.28 0-.835-.284-.993-.716l-3.72-9.46c-.118-.331.139-.614.48-.464l19.474 10.306c-.149.147-.453.337-.72.334z"/></symbol><symbol id="sk-gradio" viewBox="0 0 24 24"><title>Gradio</title><path d="M 12 1.527 A 1.532 1.532 0 0 0 11.24 1.73 L 0.7695 7.732 A 1.532 1.532 0 0 0 0 9.021 L 0 9.109 A 1.532 1.532 0 0 0 0.7695 10.4 L 3.57 12 L 0.7695 13.61 C 0.256 13.9 0 14.42 0 14.94 C 0 15.45 0.256 15.97 0.7695 16.26 L 11.24 22.27 C 11.71 22.54 12.29 22.54 12.76 22.27 L 23.23 16.26 C 23.73 15.98 23.99 15.48 24 14.97 L 24 14.9 C 23.99 14.4 23.73 13.89 23.23 13.61 L 20.42 12 L 23.23 10.4 A 1.532 1.532 0 0 0 24 9.223 L 24 8.91 A 1.532 1.532 0 0 0 23.23 7.732 L 12.76 1.73 A 1.532 1.532 0 0 0 12 1.527 z M 12 4.826 L 19.39 9.061 L 17.34 10.24 L 12.76 7.602 C 12.53 7.47 12.27 7.398 12 7.398 C 11.73 7.398 11.47 7.469 11.24 7.602 L 6.652 10.24 L 4.613 9.061 L 12 4.826 z M 12 10.7 L 14.27 12 L 12 13.3 L 9.734 12 L 12 10.7 z M 6.652 13.77 L 11.24 16.39 A 1.532 1.532 0 0 0 12.76 16.39 L 17.34 13.77 L 19.39 14.94 L 12 19.17 L 4.613 14.94 L 6.652 13.77 z"/></symbol><symbol id="sk-pandas" viewBox="0 0 24 24"><title>pandas</title><path d="M16.922 0h2.623v18.104h-2.623zm-4.126 12.94h2.623v2.57h-2.623zm0-7.037h2.623v5.446h-2.623zm0 11.197h2.623v5.446h-2.623zM4.456 5.896h2.622V24H4.455zm4.213 2.559h2.623v2.57H8.67zm0 4.151h2.623v5.447H8.67zm0-11.187h2.623v5.446H8.67Z"/></symbol><symbol id="sk-numpy" viewBox="0 0 24 24"><title>NumPy</title><path d="M10.315 4.876L6.3048 2.8517l-4.401 2.1965 4.1186 2.0683zm1.8381.9277l4.2045 2.1223-4.3622 2.1906-4.125-2.0718zm5.6153-2.9213l4.3193 2.1658-3.863 1.9402-4.2131-2.1252zm-1.859-.9329L12.021 0 8.1742 1.9193l4.0068 2.0208zm-3.0401 16.7443V24l4.7107-2.3507-.0053-5.3085zm4.7037-4.2057l-.0052-5.2528-4.6985 2.3356v5.2546zm5.6553-.9845v5.327l-4.0178 2.0052-.0029-5.3028zm0-1.8626V6.4214l-4.0253 2.001.0034 5.2633zM11.2062 11.571L8.0333 9.9756v6.895s-3.8804-8.2564-4.2399-8.998c-.0463-.0957-.2371-.2007-.2858-.2262C2.8118 7.2812.773 6.2485.773 6.2485V18.43l2.8204 1.5076v-6.3674s3.8392 7.3775 3.878 7.458c.0389.0807.4245.8582.8362 1.1314.5485.363 2.8992 1.7766 2.8992 1.7766z"/></symbol><symbol id="sk-c" viewBox="0 0 24 24"><title>C</title><path d="M16.5921 9.1962s-.354-3.298-3.627-3.39c-3.2741-.09-4.9552 2.474-4.9552 6.14 0 3.6651 1.858 6.5972 5.0451 6.5972 3.184 0 3.5381-3.665 3.5381-3.665l6.1041.365s.36 3.31-2.196 5.836c-2.552 2.5241-5.6901 2.9371-7.8762 2.9201-2.19-.017-5.2261.034-8.1602-2.97-2.938-3.0101-3.436-5.9302-3.436-8.8002 0-2.8701.556-6.6702 4.047-9.5502C7.444.72 9.849 0 12.254 0c10.0422 0 10.7172 9.2602 10.7172 9.2602z"/></symbol><symbol id="sk-cplusplus" viewBox="0 0 24 24"><title>C++</title><path d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"/></symbol></svg>
 <script id="sk-data-a" type="application/json">[{"label":"Shopify","slug":"shopify","hex":"#7AB55C"},{"label":"WordPress","slug":"wordpress","hex":"#21759B"},{"label":"HTML5","slug":"html5","hex":"#E34F26"},{"label":"CSS","slug":"css","hex":"#663399"},{"label":"JavaScript","slug":"javascript","hex":"#F7DF1E"},{"label":"Git","slug":"git","hex":"#F05032"},{"label":"GitHub","slug":"github","hex":"#181717"},{"label":"Vercel","slug":"vercel","hex":"#000000"},{"label":"Markdown","slug":"markdown","hex":"#000000"}]</script>
 <script id="sk-data-b" type="application/json">[{"label":"Python","slug":"python","hex":"#3776AB"},{"label":"LangChain","slug":"langchain","hex":"#1C3C3C"},{"label":"OpenAI","slug":"openai","hex":"#412991"},{"label":"Google Gemini","slug":"googlegemini","hex":"#8E75B2"},{"label":"Hugging Face","slug":"huggingface","hex":"#FFD21E"},{"label":"Streamlit","slug":"streamlit","hex":"#FF4B4B"},{"label":"Gradio","slug":"gradio","hex":"#F97316"},{"label":"Pandas","slug":"pandas","hex":"#150458"},{"label":"NumPy","slug":"numpy","hex":"#013243"},{"label":"C","slug":"c","hex":"#A8B9CC"},{"label":"C++","slug":"cplusplus","hex":"#00599C"}]</script>
+<svg class="sv-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="sv-landing" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="34" y="22" width="92" height="72" rx="9" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="34" y="22" width="92" height="15" rx="9" fill="#096fcf"/><rect x="34" y="31" width="92" height="6" fill="#096fcf"/><rect class="p2" x="46" y="48" width="42" height="6" rx="3" fill="#cfe1f7"/><rect class="p2" x="46" y="61" width="62" height="6" rx="3" fill="#e4ebf5"/><rect class="p1" x="46" y="75" width="32" height="9" rx="4.5" fill="#096fcf"/></symbol><symbol id="sv-business" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="22" y="24" width="116" height="68" rx="9" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="22" y="24" width="116" height="14" rx="9" fill="#096fcf"/><rect x="22" y="32" width="116" height="6" fill="#096fcf"/><rect class="p1" x="32" y="48" width="30" height="34" rx="5" fill="#e8f1fd"/><rect class="p2" x="70" y="48" width="56" height="6" rx="3" fill="#cfe1f7"/><rect class="p2" x="70" y="60" width="44" height="6" rx="3" fill="#e4ebf5"/><rect class="p1" x="70" y="73" width="28" height="9" rx="4.5" fill="#096fcf"/></symbol><symbol id="sv-fullstack" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="20" y="22" width="80" height="58" rx="8" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="20" y="22" width="80" height="13" rx="8" fill="#096fcf"/><rect x="20" y="30" width="80" height="5" fill="#096fcf"/><rect x="30" y="44" width="40" height="5" rx="2.5" fill="#cfe1f7"/><rect x="30" y="55" width="52" height="5" rx="2.5" fill="#e4ebf5"/><g class="p1"><ellipse cx="120" cy="46" rx="22" ry="8" fill="#fff" stroke="#096fcf" stroke-width="2"/><path d="M98 46v26c0 4.4 9.8 8 22 8s22-3.6 22-8V46" fill="#fff" stroke="#096fcf" stroke-width="2"/><ellipse cx="120" cy="60" rx="22" ry="8" fill="none" stroke="#cfe1f7" stroke-width="2"/></g></symbol><symbol id="sv-saas" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="24" y="20" width="88" height="58" rx="8" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="24" y="20" width="88" height="13" rx="8" fill="#096fcf"/><rect x="24" y="28" width="88" height="5" fill="#096fcf"/><rect x="36" y="42" width="46" height="6" rx="3" fill="#cfe1f7"/><rect x="36" y="54" width="34" height="6" rx="3" fill="#e4ebf5"/><g class="p1"><rect x="76" y="56" width="60" height="38" rx="7" fill="#fff" stroke="#096fcf" stroke-width="2"/><rect x="76" y="64" width="60" height="8" fill="#096fcf"/><rect x="84" y="80" width="22" height="5" rx="2.5" fill="#cfe1f7"/></g><circle cx="126" cy="30" r="12" fill="#f5a524" opacity=".2"/><path class="p2" d="M120 30a6 6 0 1 1 2 4.5" stroke="#f5a524" stroke-width="3" fill="none" stroke-linecap="round"/></symbol><symbol id="sv-starter" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><g class="p1"><path d="M42 44h76l-8 46H50z" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><path d="M60 44V32a20 20 0 0 1 40 0v12" stroke="#096fcf" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="62" y="58" width="36" height="6" rx="3" fill="#cfe1f7"/><rect x="66" y="70" width="28" height="6" rx="3" fill="#e4ebf5"/></g><circle class="p2" cx="66" cy="102" r="6" fill="#096fcf"/><circle class="p2" cx="98" cy="102" r="6" fill="#096fcf"/></symbol><symbol id="sv-shopcustom" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><path d="M38 46h64l-7 44H45z" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><path d="M54 46V35a16 16 0 0 1 32 0v11" stroke="#096fcf" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="56" y="60" width="28" height="6" rx="3" fill="#cfe1f7"/><rect x="58" y="72" width="22" height="6" rx="3" fill="#e4ebf5"/><path class="p1" d="m120 34 4.5 10.5L135 49l-10.5 4.5L120 64l-4.5-10.5L105 49l10.5-4.5z" fill="#f5a524"/><circle class="p2" cx="132" cy="76" r="6" fill="#096fcf" opacity=".5"/></symbol><symbol id="sv-migrate" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="16" y="34" width="50" height="52" rx="8" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="16" y="34" width="50" height="11" rx="8" fill="#cfe1f7"/><rect x="16" y="40" width="50" height="5" fill="#cfe1f7"/><rect x="26" y="56" width="30" height="5" rx="2.5" fill="#e4ebf5"/><rect x="26" y="68" width="22" height="5" rx="2.5" fill="#e4ebf5"/><rect x="94" y="34" width="50" height="52" rx="8" fill="#fff" stroke="#096fcf" stroke-width="2"/><rect x="94" y="34" width="50" height="11" rx="8" fill="#096fcf"/><rect x="94" y="40" width="50" height="5" fill="#096fcf"/><rect class="p2" x="104" y="56" width="30" height="5" rx="2.5" fill="#cfe1f7"/><rect class="p2" x="104" y="68" width="22" height="5" rx="2.5" fill="#e4ebf5"/><path class="p1" d="M70 60h20m0 0-7-7m7 7-7 7" stroke="#f5a524" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="sv-integrate" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><circle cx="80" cy="56" r="26" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><circle class="p1" cx="80" cy="56" r="9" fill="#e8f1fd"/><circle cx="80" cy="56" r="4" fill="#096fcf"/><circle class="p2" cx="40" cy="34" r="8" fill="#096fcf"/><circle class="p2" cx="124" cy="36" r="8" fill="#096fcf" opacity=".55"/><circle class="p2" cx="34" cy="80" r="8" fill="#096fcf" opacity=".55"/><circle class="p2" cx="126" cy="84" r="8" fill="#f5a524"/><path d="m47 39 18 11M117 41 95 51M42 76l23-10M119 80 95 63" stroke="#cfe1f7" stroke-width="2.5" stroke-linecap="round"/></symbol><symbol id="sv-wplanding" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="38" y="22" width="84" height="72" rx="9" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="38" y="22" width="84" height="15" rx="9" fill="#096fcf"/><rect x="38" y="31" width="84" height="6" fill="#096fcf"/><rect class="p2" x="50" y="48" width="40" height="6" rx="3" fill="#cfe1f7"/><rect class="p2" x="50" y="61" width="56" height="6" rx="3" fill="#e4ebf5"/><rect x="50" y="75" width="30" height="9" rx="4.5" fill="#096fcf"/><g class="p1"><circle cx="122" cy="30" r="13" fill="#fff" stroke="#096fcf" stroke-width="2"/><path d="m116 25 2.6 10L121 28l2.4 7 2.6-10" stroke="#096fcf" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></symbol><symbol id="sv-wpportfolio" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="24" y="24" width="112" height="68" rx="9" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="34" y="34" width="44" height="28" rx="5" fill="#e8f1fd"/><circle cx="46" cy="44" r="4" fill="#096fcf"/><path d="m36 60 10-9 8 7 6-5 8 9z" fill="#cfe1f7"/><rect class="p1" x="86" y="34" width="40" height="12" rx="4" fill="#cfe1f7"/><rect class="p1" x="86" y="50" width="40" height="12" rx="4" fill="#e4ebf5"/><rect class="p2" x="34" y="70" width="28" height="12" rx="4" fill="#e4ebf5"/><rect class="p2" x="70" y="70" width="28" height="12" rx="4" fill="#e4ebf5"/><rect class="p2" x="106" y="70" width="20" height="12" rx="4" fill="#096fcf"/></symbol><symbol id="sv-wpbusiness" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="34" y="30" width="54" height="64" rx="6" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="92" y="50" width="38" height="44" rx="6" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect class="p2" x="44" y="42" width="14" height="12" rx="3" fill="#cfe1f7"/><rect class="p2" x="64" y="42" width="14" height="12" rx="3" fill="#e4ebf5"/><rect class="p2" x="44" y="60" width="14" height="12" rx="3" fill="#e4ebf5"/><rect class="p2" x="64" y="60" width="14" height="12" rx="3" fill="#cfe1f7"/><rect x="100" y="60" width="10" height="10" rx="2.5" fill="#e4ebf5"/><rect x="114" y="60" width="10" height="10" rx="2.5" fill="#e4ebf5"/><rect x="54" y="78" width="16" height="16" rx="3" fill="#096fcf"/><circle class="p1" cx="104" cy="40" r="7" fill="#f5a524"/></symbol><symbol id="sv-wpservices" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="30" y="24" width="70" height="70" rx="8" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="30" y="24" width="70" height="15" rx="8" fill="#096fcf"/><rect x="30" y="33" width="70" height="6" fill="#096fcf"/><rect class="p2" x="42" y="50" width="46" height="6" rx="3" fill="#cfe1f7"/><rect class="p2" x="42" y="63" width="34" height="6" rx="3" fill="#e4ebf5"/><rect class="p2" x="42" y="76" width="40" height="6" rx="3" fill="#e4ebf5"/><circle cx="116" cy="66" r="22" fill="#fff" stroke="#096fcf" stroke-width="2"/><path class="p1" d="m106 66 7 7 14-15" stroke="#096fcf" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></symbol><symbol id="sv-cms" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="22" y="24" width="116" height="70" rx="9" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><rect x="22" y="24" width="34" height="70" rx="9" fill="#e8f1fd"/><rect x="22" y="24" width="34" height="10" fill="#e8f1fd"/><rect class="p2" x="30" y="40" width="18" height="5" rx="2.5" fill="#cfe1f7"/><rect class="p2" x="30" y="52" width="18" height="5" rx="2.5" fill="#cfe1f7"/><rect class="p2" x="30" y="64" width="18" height="5" rx="2.5" fill="#cfe1f7"/><rect class="p1" x="66" y="38" width="62" height="7" rx="3.5" fill="#cfe1f7"/><rect class="p1" x="66" y="53" width="46" height="7" rx="3.5" fill="#e4ebf5"/><rect x="66" y="68" width="34" height="11" rx="5" fill="#096fcf"/><circle cx="122" cy="72" r="6" fill="#f5a524"/></symbol><symbol id="sv-bizauto" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><g class="p1"><path d="M87.6 41.9 L96.6 42.0 L99.0 54.4 L90.7 57.9 L90.4 59.3 L96.7 65.8 L89.7 76.2 L81.3 72.8 L80.1 73.6 L80.0 82.6 L67.6 85.0 L64.1 76.7 L62.7 76.4 L56.2 82.7 L45.8 75.7 L49.2 67.3 L48.4 66.1 L39.4 66.0 L37.0 53.6 L45.3 50.1 L45.6 48.7 L39.3 42.2 L46.3 31.8 L54.7 35.2 L55.9 34.4 L56.0 25.4 L68.4 23.0 L71.9 31.3 L73.3 31.6 L79.8 25.3 L90.2 32.3 L86.8 40.7 Z" fill="#fff" stroke="#096fcf" stroke-width="2.5" stroke-linejoin="round"/><circle cx="68" cy="54" r="12" fill="#e8f1fd"/><circle cx="68" cy="54" r="5" fill="#096fcf"/></g><g class="p2"><path d="M125.6 78.4 L131.4 79.4 L131.4 88.6 L125.6 89.6 L125.1 90.4 L127.1 95.9 L119.2 100.5 L115.5 96.0 L114.5 96.0 L110.8 100.5 L102.9 95.9 L104.9 90.4 L104.4 89.6 L98.6 88.6 L98.6 79.4 L104.4 78.4 L104.9 77.6 L102.9 72.1 L110.8 67.5 L114.5 72.0 L115.5 72.0 L119.2 67.5 L127.1 72.1 L125.1 77.6 Z" fill="#f5a524" stroke="#dd9019" stroke-width="2" stroke-linejoin="round"/><circle cx="115" cy="84" r="6" fill="#fff"/></g></symbol><symbol id="sv-genai" viewBox="0 0 160 120"><ellipse cx="80" cy="108" rx="52" ry="8" fill="#e8f1fd"/><rect x="26" y="26" width="80" height="54" rx="12" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><path d="M46 80v16l18-16z" fill="#fff" stroke="#d5e4f7" stroke-width="2"/><path d="M47 80h18" stroke="#fff" stroke-width="3"/><rect class="p2" x="40" y="42" width="46" height="6" rx="3" fill="#cfe1f7"/><rect class="p2" x="40" y="56" width="32" height="6" rx="3" fill="#e4ebf5"/><path class="p1" d="m124 30 5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#f5a524"/><circle cx="112" cy="72" r="9" fill="#096fcf" opacity=".2"/><circle cx="112" cy="72" r="4" fill="#096fcf"/></symbol></svg>
 </body>
 </html>
