@@ -93,12 +93,13 @@ const typingElement = document.getElementById("premium-typing-text");
 if (typingElement) {
     // Your High-Value Skillsets
     const roles = [
-        "Python Engineer", 
-        "Website Development", 
-        "UI/UX Design", 
-        "AI Automations",
-        "RAG Pipeline Architect",
-        "LLMOps Specialist",
+        "Sr. Shopify Developer",
+        "Shopify Plus / Liquid",
+        "Full-Stack Web Developer",
+        "Speed Optimization",
+        "Python Automation",
+        "AI & RAG Systems",
+        "WordPress / WooCommerce",
     ];
 
     // The random characters used during the "decode" scramble phase
