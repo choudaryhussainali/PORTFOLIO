@@ -4752,3 +4752,90 @@ input[name="_gotcha"] {
 /* off screen it has nothing to say; the class is set by the observer in
    index.js, so without script the drift simply runs */
 .ft.is-away .ft__aurora { animation-play-state: paused; }
+
+/* ==========================================================================
+   BACK TO TOP
+   Stacked above the chat launcher, which is fixed at 20px/20px and 60px wide:
+   52px at right:24px puts the two on the same centre line, and bottom:96px
+   leaves a 16px gap over it. The ring reports how far down the page is.
+   ========================================================================== */
+.totop {
+    position: fixed;
+    right: 24px;
+    bottom: 96px;
+    z-index: 9999;          /* under the chat window (10000), over everything else */
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: 1px solid rgba(0, 240, 255, 0.45);
+    border-radius: 50%;
+    background: linear-gradient(155deg, rgba(20, 27, 45, 0.92), rgba(10, 14, 30, 0.96));
+    color: var(--primary);
+    cursor: pointer;
+    /* no backdrop-filter here: a fixed element that blurs its backdrop
+       re-snapshots it on every frame the aurora moves behind, and the fill is
+       92-96% opaque so there was nothing to see through it anyway. Measured
+       over four interleaved runs the whole button costs about 1fps. */
+    box-shadow:
+        0 10px 26px -10px rgba(0, 0, 0, 0.8),
+        0 0 22px -8px rgba(0, 240, 255, 0.55);
+    opacity: 0;
+    transform: translateY(14px) scale(0.9);
+    pointer-events: none;
+    transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+                transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 320ms ease, border-color 320ms ease, color 220ms ease;
+}
+/* kept in the layout while hidden, or it cannot animate in */
+.totop[hidden] { display: grid; }
+.totop.is-on { opacity: 1; transform: none; pointer-events: auto; }
+
+.totop:hover,
+.totop:focus-visible {
+    color: var(--light);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow:
+        0 16px 32px -10px rgba(0, 0, 0, 0.85),
+        0 0 34px -6px rgba(0, 240, 255, 0.8);
+}
+.totop:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.totop:active { transform: translateY(-1px) scale(0.97); }
+
+.totop__arrow { position: relative; z-index: 1; width: 21px; height: 21px; }
+.totop__ring {
+    position: absolute;
+    inset: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    transform: rotate(-90deg);   /* start the fill at twelve o'clock */
+}
+.totop__ring circle { fill: none; stroke-width: 2.5; }
+.totop__track { stroke: rgba(0, 240, 255, 0.14); }
+.totop__bar {
+    stroke: url(#totop-grad);
+    stroke-linecap: round;
+    stroke-dasharray: 126;       /* 2 * pi * 20, rounded */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset 120ms linear;
+}
+
+/* it would sit over the quote panel otherwise, like the chat launcher */
+body.qz-lock .totop { opacity: 0; pointer-events: none; }
+
+@media (max-width: 480px) {
+    /* the launcher moves in to 15px/15px here and stays 60px, so its centre
+       is 45 from the edge: a 46px button wants right:22 to match, and its top
+       edge sits 75 up, so bottom:91 keeps the same 16px gap */
+    .totop { right: 22px; bottom: 91px; width: 46px; height: 46px; }
+    .totop__arrow { width: 19px; height: 19px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .totop { transition: opacity 200ms linear; transform: none; }
+    .totop.is-on { transform: none; }
+    .totop:hover, .totop:active { transform: none; }
+    .totop__bar { transition: none; }
+}

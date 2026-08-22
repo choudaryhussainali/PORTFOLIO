@@ -1131,3 +1131,52 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
     else start();
 })();
+
+
+// ==========================================
+// BACK TO TOP
+// The ring reports read position. Scroll reads are rAF-batched and the only
+// thing written per frame is one stroke-dashoffset, which paints without
+// touching layout.
+// ==========================================
+(function () {
+    function start() {
+        var btn = document.getElementById("to-top");
+        if (!btn) return;
+        var bar = btn.querySelector(".totop__bar");
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var LEN = 126, ticking = false, shown = false;
+
+        function update() {
+            ticking = false;
+            var doc = document.documentElement;
+            var max = doc.scrollHeight - doc.clientHeight;
+            var y = window.pageYOffset || doc.scrollTop || 0;
+            var pct = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+            if (bar) bar.style.strokeDashoffset = String(LEN - LEN * pct);
+            var want = y > 600;
+            if (want !== shown) { shown = want; btn.classList.toggle("is-on", want); }
+        }
+
+        window.addEventListener("scroll", function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }, { passive: true });
+        window.addEventListener("resize", update);
+
+        btn.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+            // send focus back to the top of the page, not left on a button that
+            // has just scrolled away from the pointer
+            var first = document.querySelector(".logo, .nav-logo, header a");
+            if (first) setTimeout(function () {
+                try { first.focus({ preventScroll: true }); } catch (e) {}
+            }, reduced ? 0 : 420);
+        });
+
+        btn.hidden = false;
+        update();
+    }
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+    else start();
+})();
