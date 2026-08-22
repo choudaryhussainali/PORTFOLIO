@@ -1041,3 +1041,93 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     var y = document.getElementById("year");
     if (y) y.textContent = String(new Date().getFullYear());
 })();
+
+
+// ==========================================
+// FOOTER
+// A live clock for the "currently" reading, and a pointer tilt on the note and
+// the tiles. The tilt is two custom properties written from one rAF-batched
+// pointer read — no layout, no per-frame style recalculation beyond the two
+// transforms the compositor is already handling.
+// ==========================================
+(function () {
+    function start() {
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // ---- the clock ----
+        var clock = document.getElementById("ft-clock");
+        var icon = document.getElementById("ft-icon");
+        if (clock) {
+            var fmt;
+            try {
+                fmt = new Intl.DateTimeFormat("en-US", {
+                    timeZone: "Asia/Karachi", hour: "numeric", minute: "2-digit", hour12: true
+                });
+            } catch (e) { fmt = null; }
+
+            // the icon follows the hour there, not the visitor's
+            var hourFmt = null;
+            try {
+                hourFmt = new Intl.DateTimeFormat("en-GB", {
+                    timeZone: "Asia/Karachi", hour: "2-digit", hour12: false
+                });
+            } catch (e2) { hourFmt = null; }
+
+            var MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" ' +
+                'stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5' +
+                'a8.5 8.5 0 1 0 10.7 10.7z"/></svg>';
+            var SUN = icon ? icon.innerHTML : "";
+            var wasNight = null;
+
+            function tick() {
+                if (!fmt) { clock.textContent = ""; return; }
+                clock.textContent = fmt.format(new Date()).replace(/\s/g, "");
+                if (icon && hourFmt) {
+                    var h = parseInt(hourFmt.format(new Date()), 10);
+                    var night = h < 6 || h >= 19;
+                    if (night !== wasNight) { icon.innerHTML = night ? MOON : SUN; wasNight = night; }
+                }
+            }
+            tick();
+            // on the minute, not every second: the reading has no seconds in it
+            setTimeout(function () {
+                tick();
+                setInterval(tick, 60000);
+            }, (60 - new Date().getSeconds()) * 1000);
+        }
+
+        // ---- the tilt ----
+        var stage = document.getElementById("ft-stage");
+        var footer = document.getElementById("site-footer");
+
+        if (stage && !reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            var pending = false, px = 0, py = 0;
+            stage.addEventListener("pointermove", function (e) {
+                px = e.clientX; py = e.clientY;
+                if (pending) return;
+                pending = true;
+                requestAnimationFrame(function () {
+                    pending = false;
+                    var r = stage.getBoundingClientRect();
+                    if (!r.width || !r.height) return;
+                    stage.style.setProperty("--mx", (((px - r.left) / r.width) * 2 - 1).toFixed(3));
+                    stage.style.setProperty("--my", (((py - r.top) / r.height) * 2 - 1).toFixed(3));
+                });
+            }, { passive: true });
+            stage.addEventListener("pointerleave", function () {
+                stage.style.setProperty("--mx", "0");
+                stage.style.setProperty("--my", "0");
+            });
+        }
+
+        // the aurora keeps drifting off screen otherwise
+        if (footer && window.IntersectionObserver) {
+            new IntersectionObserver(function (entries) {
+                footer.classList.toggle("is-away", !entries[0].isIntersecting);
+            }, { rootMargin: "150px 0px" }).observe(footer);
+        }
+    }
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+    else start();
+})();

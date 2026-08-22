@@ -1875,112 +1875,7 @@ section {
 }
 
 /* --- EXPERT FLEXBOX FOOTER LAYOUT --- */
-footer {
-    background: var(--darker);
-    padding: 4rem 0 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 0.95rem;
-}
-
-/* THE CONTAINER ENGINE */
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    
-    /* 1. Force Horizontal Layout */
-    display: flex; 
-    flex-direction: row; 
-    
-    /* 2. Space items apart evenly */
-    justify-content: space-between; 
-    
-    /* 3. Align everything to the top */
-    align-items: flex-start; 
-    
-    /* 4. Safety wrap: allows stacking ONLY if screen is too small */
-    flex-wrap: wrap; 
-    gap: 3rem;
-}
-
-/* SECTION 1: BRAND (Wider) */
-.footer-brand {
-    flex: 2; /* Takes up 2 portions of space (approx 40-50%) */
-    min-width: 300px; /* Prevents it from getting too squashed */
-    padding-right: 2rem; /* Breathing room before the links */
-}
-
-/* SECTIONS 2 & 3: LINKS & CONNECT (Narrower) */
-.footer-column {
-    flex: 1; /* Takes up 1 portion of space (approx 25%) */
-    min-width: 150px; /* Ensures columns don't collapse */
-}
-
-/* --- TYPOGRAPHY & STYLING --- */
-.footer-brand h2 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1rem;
-    display: inline-block;
-}
-
-.footer-brand p {
-    color: var(--gray);
-    line-height: 1.6;
-    margin: 0;
-}
-
-.footer-heading {
-    color: var(--light);
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.footer-links-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.footer-links-list a {
-    color: var(--gray);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.footer-links-list a:hover {
-    color: var(--primary);
-    padding-left: 5px;
-}
-
-/* FOOTER BOTTOM BAR */
-.footer-bottom {
-    max-width: 1200px;
-    margin: 3rem auto 0;
-    padding: 1.5rem 2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--gray);
-    font-size: 0.85rem;
-}
-
-.footer-heart {
-    color: var(--secondary);
-    animation: pulse 2s infinite;
-}
+/* the old footer's rules lived here; see FOOTER at the end of this file */
 
 /* --- Greeting Tooltip (The Pop-up) --- */
 .chat-tooltip {
@@ -4595,3 +4490,251 @@ input[name="_gotcha"] {
 }
 .stat-src:hover,
 .stat-src:focus-visible { color: var(--primary); border-color: var(--primary); }
+
+/* ==========================================================================
+   FOOTER
+   A bold colour block to close the page on, with a note card and the contact
+   tiles standing off it in perspective. The whole scene tilts with the
+   pointer — one rAF-batched read writing two custom properties, so the
+   compositor does the moving and nothing here reflows.
+   ========================================================================== */
+.ft {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    /* the bottom pad clears the chat launcher, which is pinned to the
+       viewport corner and would otherwise sit over the last line */
+    padding: clamp(3rem, 7vw, 5.5rem) clamp(1.25rem, 5vw, 4rem) clamp(5.5rem, 8vw, 6.5rem);
+    background:
+        radial-gradient(120% 90% at 12% 0%, #7c3aff 0%, rgba(124, 58, 255, 0) 58%),
+        radial-gradient(80% 70% at 96% 18%, rgba(43, 183, 255, 0.55) 0%, rgba(43, 183, 255, 0) 52%),
+        linear-gradient(168deg, #5c22cf 0%, #3d178f 46%, #1b0b48 100%);
+    color: #fff;
+}
+/* the seam with the page above, in the site's own cyan */
+.ft::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary) 20%, var(--secondary) 55%, var(--accent) 80%, transparent);
+    opacity: 0.85;
+}
+/* a slow drift of light, so the block is never quite flat */
+.ft__aurora {
+    position: absolute;
+    left: 50%;
+    top: -25%;
+    width: 120%;
+    aspect-ratio: 2 / 1;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(closest-side, rgba(0, 240, 255, 0.22), transparent 70%),
+        radial-gradient(closest-side, rgba(255, 0, 110, 0.18), transparent 70%);
+    background-size: 55% 70%, 45% 60%;
+    background-position: 18% 30%, 78% 55%;
+    background-repeat: no-repeat;
+    /* drifts on a transform, not background-position: the latter repaints the
+       whole block every frame and cost about 6fps on a throttled CPU */
+    animation: ft-drift 22s ease-in-out infinite alternate;
+    will-change: transform;
+}
+@keyframes ft-drift {
+    to { transform: translateX(-50%) translate3d(5%, 4%, 0) scale(1.09); }
+}
+
+/* ---------- the two meta readings ---------- */
+.ft__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    max-width: 1180px;
+    margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+}
+.ft__k {
+    margin: 0 0 0.35rem;
+    font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+}
+.ft__v {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: clamp(1rem, 1.7vw, 1.22rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #fff;
+}
+.ft__meta-item--end { text-align: right; }
+.ft__meta-item--end .ft__v { justify-content: flex-end; }
+.ft__v svg { width: 17px; height: 17px; flex: none; }
+/* the clock is monospaced so the layout does not jitter every second */
+#ft-clock { font-variant-numeric: tabular-nums; }
+
+/* ---------- the scene ---------- */
+.ft__stage {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+    perspective: 1200px;
+    perspective-origin: 50% 40%;
+    --mx: 0;   /* pointer, -1 to 1 */
+    --my: 0;
+}
+
+.ft__note {
+    position: relative;
+    padding: clamp(1.25rem, 3vw, 1.9rem) clamp(1.25rem, 3.5vw, 2.4rem) clamp(1.6rem, 3.5vw, 2.2rem);
+    border-radius: 14px;
+    background: linear-gradient(158deg, #10142c 0%, #080b1c 100%);
+    box-shadow:
+        0 34px 60px -28px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(255, 255, 255, 0.07) inset;
+    transform:
+        rotate(-1.5deg)
+        rotateX(calc(var(--my) * -5deg))
+        rotateY(calc(var(--mx) * 7deg));
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ft__note-k {
+    margin: 0 0 1.1rem;
+    font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+.ft__note p:not(.ft__note-k) {
+    margin: 0;
+    padding: 0.55rem 0 0.7rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    font-size: clamp(1.02rem, 2.1vw, 1.32rem);
+    line-height: 1.45;
+    color: #eef2ff;
+}
+.ft__note a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.45);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+.ft__note a:hover,
+.ft__note a:focus-visible { color: #fff; border-color: #fff; }
+/* two blank rules, so it reads as a page torn from a pad */
+.ft__rule {
+    display: block;
+    height: 1.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- the tiles ---------- */
+.ft__tiles {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: clamp(0.4rem, 1.6vw, 1rem);
+    position: relative;
+    z-index: 2;
+    margin: -1.7rem 0 0;
+    padding: 0;
+    transform:
+        rotateX(calc(var(--my) * -4deg))
+        rotateY(calc(var(--mx) * 9deg));
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ft__tile { margin: 0; }
+.ft__tile a {
+    display: grid;
+    place-items: center;
+    width: clamp(66px, 13.5vw, 118px);
+    aspect-ratio: 1;
+    /* corners that do not quite match, so the row looks drawn rather than set */
+    border-radius: 26% 24% 27% 23%;
+    border: 3px solid rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.07);
+    color: #fff;
+    transform: rotate(var(--r, 0deg));
+    box-shadow: 0 16px 30px -16px rgba(0, 0, 0, 0.75);
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+                background 240ms ease, box-shadow 280ms ease, border-color 240ms ease;
+}
+.ft__tile a svg { width: 46%; height: 46%; fill: currentColor; }
+.ft__tile a:hover,
+.ft__tile a:focus-visible {
+    transform: rotate(0deg) translateY(-10px) scale(1.06);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: #fff;
+    box-shadow: 0 26px 44px -18px rgba(0, 0, 0, 0.85);
+}
+.ft__tile a:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+
+/* ---------- links and the base line ---------- */
+.ft__nav {
+    max-width: 1180px;
+    margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+}
+.ft__nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem clamp(1rem, 3vw, 2.2rem);
+    margin: 0;
+    padding: 0;
+}
+.ft__nav a {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.92rem;
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+.ft__nav a:hover,
+.ft__nav a:focus-visible { color: #fff; border-color: var(--primary); }
+
+.ft__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    max-width: 1180px;
+    margin: clamp(2rem, 4vw, 3rem) auto 0;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.ft__base p {
+    margin: 0;
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.78);
+}
+.ft__base strong { color: #fff; font-weight: 600; }
+
+/* ---------- narrow ---------- */
+@media (max-width: 720px) {
+    /* the two readings stack, the way the reference does on a phone */
+    .ft__meta { flex-direction: column; gap: 1.5rem; }
+    .ft__meta-item--end { text-align: left; }
+    .ft__meta-item--end .ft__v { justify-content: flex-start; }
+    .ft__tiles { margin-top: -1.6rem; gap: 0.35rem; }
+    .ft__base { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ft__aurora { animation: none; }
+    .ft__note, .ft__tiles { transition: none; transform: rotate(-1.5deg); }
+    .ft__tiles { transform: none; }
+    .ft__tile a { transition: none; }
+}
+
+/* off screen it has nothing to say; the class is set by the observer in
+   index.js, so without script the drift simply runs */
+.ft.is-away .ft__aurora { animation-play-state: paused; }
