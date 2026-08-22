@@ -4557,3 +4557,41 @@ input[name="_gotcha"] {
     opacity: 0 !important;
     pointer-events: none !important;
 }
+
+/* marks a role as contract rather than the full-time seat, so two open-ended
+   entries do not read as an oversight */
+.timeline-tag {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.14rem 0.55rem;
+    border: 1px solid rgba(157, 123, 255, 0.5);
+    border-radius: 999px;
+    background: rgba(157, 123, 255, 0.12);
+    color: #b9a0ff;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+/* the full-time seat reads in the site's own cyan, the contract one in purple,
+   so the pair is distinguishable at a glance */
+.timeline-tag--ft {
+    border-color: rgba(0, 240, 255, 0.45);
+    background: rgba(0, 240, 255, 0.1);
+    color: #6fe4f5;
+}
+
+/* a figure this big needs to say where it came from and let the reader check */
+.stat-src {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: #8892b0;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.28);
+    transition: color 0.22s ease, border-color 0.22s ease;
+}
+.stat-src:hover,
+.stat-src:focus-visible { color: var(--primary); border-color: var(--primary); }

@@ -981,7 +981,10 @@
     function esc(x) { return String(x).replace(/[&<>"]/g, function (m) {
       return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[m]; }); }
 
-    stage.innerHTML = items.map(function (r, i) {
+    // The cards are in the served HTML so that crawlers and anything without
+    // JavaScript can read the reviews — this only builds them if they are
+    // missing, which keeps the two in step without rendering twice.
+    if (!stage.querySelector(".ts__card")) stage.innerHTML = items.map(function (r, i) {
       // a div, not a figure: role=group is not permitted on <figure>
       return '<div class="ts__card" data-i="' + i + '" role="group" ' +
         'aria-roledescription="slide" aria-label="' + (i + 1) + ' of ' + n + '">' +
@@ -996,7 +999,7 @@
         "</div></div>";
     }).join("");
 
-    if (dots) dots.innerHTML = items.map(function (_r, i) {
+    if (dots && !dots.querySelector(".ts__dot")) dots.innerHTML = items.map(function (_r, i) {
       return '<button type="button" class="ts__dot" data-go="' + i + '" aria-label="Review ' + (i + 1) + '"></button>';
     }).join("");
 

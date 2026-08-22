@@ -1033,3 +1033,11 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
     else start();
 })();
+
+
+// The footer year comes from the clock, so it cannot go stale again. The
+// markup carries the current year too, for anything that does not run this.
+(function () {
+    var y = document.getElementById("year");
+    if (y) y.textContent = String(new Date().getFullYear());
+})();
