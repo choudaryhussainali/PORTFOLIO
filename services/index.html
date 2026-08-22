@@ -1316,8 +1316,8 @@
     <div class="foot__panel">
       <div class="foot__lead">
         <h2>Get a fixed quote, not a discovery call.</h2>
-        <!-- Posts to the same Web3Forms endpoint as the main brief, so it is
-             blocked on the same key. -->
+        <!-- Posts to the same Formspree endpoint as the main brief, over fetch,
+             so a send never takes the visitor off the page. -->
         <form class="foot__sub" action="https://formspree.io/f/xjklzvyz" method="POST">
           <input type="hidden" name="_subject" value="New enquiry from the footer — choudaryhussainali.online/services">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -1325,6 +1325,7 @@
           <input id="f-foot" type="email" name="email" placeholder="Enter your email" autocomplete="email" required>
           <button type="submit">Send</button>
         </form>
+        <p class="foot__msg" id="foot-status" role="status" aria-live="polite"></p>
         <p class="foot__fine">
           Your address is used to reply to you and nothing else. No list, no forwarding.
         </p>

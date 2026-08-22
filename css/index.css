@@ -4546,3 +4546,14 @@ body.qz-lock .chat-tooltip { transition: opacity 0.25s ease; }
 :root[data-hold] .sv__art svg,
 :root[data-hold] .sv__art::after,
 :root[data-hold] .sv__art::before { animation-play-state: paused; }
+
+/* Formspree reads this field to catch bots; a person must never see or reach
+   it. It is a text input, not a checkbox, so it needs hiding explicitly. */
+input[name="_gotcha"] {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}

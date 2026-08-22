@@ -1284,3 +1284,13 @@ body {
         background: rgba(6, 8, 24, 0.99) !important;
     }
 }
+/* Formspree reads this field to catch bots; a person must never see or reach
+   it. It is a text input, not a checkbox, so it needs hiding explicitly. */
+input[name="_gotcha"] {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}

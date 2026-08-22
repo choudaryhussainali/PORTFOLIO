@@ -481,6 +481,46 @@
     });
   })();
 
+  /* ---- 6b · Footer enquiry ------------------------------------------------
+     It posts to the same endpoint as the brief. Without this it submitted
+     natively and the visitor ended up looking at formspree.io. */
+  (function () {
+    var form = $(".foot__sub");
+    if (!form) return;
+    var status = $("#foot-status");
+    var btn = form.querySelector('button[type="submit"]');
+    var label = btn ? btn.textContent : "Send";
+
+    function say(msg, state) {
+      if (!status) return;
+      status.textContent = msg;
+      if (state) status.setAttribute("data-state", state);
+      else status.removeAttribute("data-state");
+    }
+
+    form.addEventListener("submit", function (e) {
+      if (!form.checkValidity()) return;   // let the browser show its own UI
+      e.preventDefault();
+      if (btn) { btn.disabled = true; btn.textContent = "Sending"; }
+      say("Sending…");
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          form.reset();
+          say("Got it. You will have a reply within one business day.", "ok");
+        })
+        .catch(function () {
+          say("That did not send. Email contact@choudaryhussainali.online instead.", "err");
+        })
+        .finally(function () { if (btn) { btn.disabled = false; btn.textContent = label; } });
+    });
+  })();
+
   /* ---- 7 · Hero animation — honour reduced motion ------------------------
      This file is ordered before the player module, so clearing the attribute
      here happens before the custom element upgrades and it never starts. The

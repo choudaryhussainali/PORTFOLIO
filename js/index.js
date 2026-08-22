@@ -362,6 +362,14 @@ if (contactForm) {
         const submitBtn = e.target.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
         
+        // name the email after whatever they picked, so it is not fifteen
+        // identical "New enquiry" subject lines in the inbox
+        const subjField = document.getElementById('cf-subject');
+        const chosen = document.getElementById('subject');
+        if (subjField && chosen && chosen.value) {
+            subjField.value = 'Enquiry: ' + chosen.value + ' — choudaryhussainali.online';
+        }
+
         // 1. Change button state
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
@@ -918,7 +926,7 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
                     gauge();
                     qzDone.querySelector(".qz__back").focus();
                 }).catch(function () {
-                    qzErr.textContent = "That did not send. Please try again, or email hivenexis@gmail.com directly.";
+                    qzErr.textContent = "That did not send. Please try again, or email contact@choudaryhussainali.online directly.";
                     qzErr.hidden = false;
                     qzSend.classList.add("is-bad");
                     qzSend.querySelector("span").textContent = "Try again";
