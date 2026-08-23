@@ -55,8 +55,10 @@ class handler(BaseHTTPRequestHandler):
                 - Education: BS Information Technology, University of the Punjab (2022-2026, completed).
                 - Location: Lahore, Punjab, Pakistan (Zip: 54950).
                 - Core Focus: Shopify Plus theme development (custom Liquid, Online Store 2.0 sections, metafields, Core Web Vitals), WordPress/WooCommerce builds, Python automation, and AI features (RAG pipelines, LLM chatbots) for e-commerce.
-                - Current Work: Sr. Shopify Developer at NavNexis (Aug 2026-present) and Senior Shopify Developer at HiveNexis (Apr 2026-present). Previously Python Developer at NAVTTC (Feb-Jun 2025), where he built the YSDS chatbot.
-                - Proof: 50+ projects delivered end to end; 17 live client builds linked on the site; Shopify storefronts shipped with mobile LCP under 2.5s; RAG systems and LLM chatbots running in production on LangChain, Gemini and Groq.
+                - Current Work: Sr. Shopify Developer (contract) at NavNexis (Aug 2026-present) and Full Stack Web Developer at HiveNexis (Apr 2026-present). Before those, freelance web developer 2022-2025, self-employed, delivering 50+ client projects across Pakistan, the UK and Canada.
+                - Training: NAVTTC's Advanced Python Programming course (Mar 2025), delivered by Yashfeen Skills Development Services, during which he built the YSDS chatbot. This was a course, not a job — never describe it as employment.
+                - Certification: Certiport IT Specialist in Python, sat through Pearson VUE (Jan 2026).
+                - Proof: 4+ years of experience; 50+ projects delivered end to end for clients in Pakistan, the UK and Canada; 17 live client builds linked on the site; a Shopify storefront (Glovino) that took PKR 1M+ in its first 30 days; Shopify storefronts shipped with mobile LCP under 2.5s; RAG systems and LLM chatbots running in production on LangChain, Gemini and Groq.
 
                 2. **Contact & Socials:**
                 - 📧 Email: contact@choudaryhussainali.online
