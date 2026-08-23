@@ -4502,9 +4502,7 @@ input[name="_gotcha"] {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    /* the bottom pad clears the chat launcher, which is pinned to the
-       viewport corner and would otherwise sit over the last line */
-    padding: clamp(3rem, 7vw, 5.5rem) clamp(1.25rem, 5vw, 4rem) clamp(5.5rem, 8vw, 6.5rem);
+    padding: clamp(2.5rem, 4.5vw, 3.25rem) clamp(1.25rem, 5vw, 4rem) 3rem;
     /* the three tokens washed over the site's navy, in the site's own
        proportions — just carried further, because this is the block the page
        closes on */
@@ -4555,7 +4553,7 @@ input[name="_gotcha"] {
     justify-content: space-between;
     gap: 1.5rem 2rem;
     max-width: 1180px;
-    margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+    margin: 0 auto clamp(1.75rem, 3vw, 2.25rem);
 }
 .ft__k {
     margin: 0 0 0.35rem;
@@ -4692,8 +4690,13 @@ input[name="_gotcha"] {
 
 /* ---------- links and the base line ---------- */
 .ft__nav {
+    /* the site sets `nav { display: flex; justify-content: space-between }`,
+       which turns this one into a flex container and leaves the list a
+       shrink-to-fit item stuck at its left edge. As a block the list fills the
+       width and its own centring finally means something. */
+    display: block;
     max-width: 1180px;
-    margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+    margin: clamp(2rem, 3.5vw, 2.5rem) auto 0;
 }
 .ft__nav ul {
     list-style: none;
@@ -4717,13 +4720,14 @@ input[name="_gotcha"] {
 
 .ft__base {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem 1.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
     max-width: 1180px;
-    margin: clamp(2rem, 4vw, 3rem) auto 0;
-    padding-top: 1.4rem;
+    margin: clamp(1.5rem, 2.5vw, 1.75rem) auto 0;
+    padding-top: 1.25rem;
     border-top: 1px solid rgba(0, 240, 255, 0.14);
+    text-align: center;
 }
 .ft__base p {
     margin: 0;
@@ -4739,7 +4743,18 @@ input[name="_gotcha"] {
     .ft__meta-item--end { text-align: left; }
     .ft__meta-item--end .ft__v { justify-content: flex-start; }
     .ft__tiles { margin-top: -1.6rem; gap: 0.35rem; }
-    .ft__base { flex-direction: column; }
+    /* the tooltip bubble spans most of a phone's width, so there is no
+       sideways escape here — this breakpoint keeps its vertical clearance */
+    .ft { padding-bottom: 5.5rem; }
+}
+
+/* The chat tooltip is a ~204px bubble whose left edge sits about 309px in from
+   the right. The centred base line is ~280px wide, so it only clears that
+   bubble once the viewport is about 900px — and the back-to-top button clips
+   it on a phone. Below 960 the line is left-aligned instead, which puts it in
+   the one part of that row nothing is pinned to. */
+@media (max-width: 960px) {
+    .ft__base { align-items: flex-start; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
