@@ -7,18 +7,26 @@
     <meta name="description" content="Live client storefronts, business sites and AI tools &mdash; AutoMARK, FileIQ, the YSDS chatbot and more, each with a live demo and source code.">
     <meta name="keywords" content="Shopify store portfolio, Liquid theme examples, WordPress project portfolio, AI project portfolio, RAG chatbot projects, Python automation projects, AutoMARK, FileIQ, YSDS chatbot, Choudary Hussain Ali projects">
     <link rel="canonical" href="https://choudaryhussainali.online/projects/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     
     <link rel="icon" type="image/png" href="../assets/icon.png">
 
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Choudary Hussain Ali">
     <meta property="og:url" content="https://choudaryhussainali.online/projects/">
     <meta property="og:title" content="Shopify, Web &amp; AI Projects &mdash; Choudary Hussain Ali">
     <meta property="og:description" content="Live client storefronts, business sites and AI tools, each with a working demo and the source code behind it.">
-    <meta property="og:image" content="https://choudaryhussainali.online/assets/favicon.png">
+    <meta property="og:image" content="https://choudaryhussainali.online/assets/img/og-projects.jpg">
+    <meta property="og:image:secure_url" content="https://choudaryhussainali.online/assets/img/og-projects.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Shopify, web and AI projects by Choudary Hussain Ali — live builds, demos and source">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shopify, Web &amp; AI Projects &mdash; Choudary Hussain Ali">
 <meta name="twitter:description" content="Live client storefronts, business sites and AI tools, each with a working demo and source code.">
-<meta name="twitter:image" content="https://choudaryhussainali.online/assets/favicon.png">
+<meta name="twitter:image" content="https://choudaryhussainali.online/assets/img/og-projects.jpg">
+<meta name="twitter:image:alt" content="Shopify, web and AI projects by Choudary Hussain Ali">
 
         <!-- =========================================
     FAVICON SUITE (Google Search Optimized)
@@ -36,35 +44,58 @@
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Choudary Hussain Ali - Projects Portfolio",
-  "url": "https://choudaryhussainali.online/projects/",
-  "description": "Live client storefronts, business sites and AI tools by Choudary Hussain Ali, each with a working demo and the source code behind it.",
-  "creator": {
-    "@type": "Person",
-    "name": "Choudary Hussain Ali",
-    "url": "https://choudaryhussainali.online"
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "itemListElement": [
-      {
-        "@type": "SoftwareSourceCode",
-        "name": "AutoMARK AI",
-        "description": "Automated Grading System using Python."
+  "@graph": [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Choudary Hussain Ali - Projects Portfolio",
+      "url": "https://choudaryhussainali.online/projects/",
+      "description": "Live client storefronts, business sites and AI tools by Choudary Hussain Ali, each with a working demo and the source code behind it.",
+      "creator": {
+        "@type": "Person",
+        "name": "Choudary Hussain Ali",
+        "url": "https://choudaryhussainali.online"
       },
-      {
-        "@type": "SoftwareSourceCode",
-        "name": "FileIQ",
-        "description": "Document Intelligence Bot using RAG."
-      },
-      {
-        "@type": "SoftwareSourceCode",
-        "name": "PizzAi Bot",
-        "description": "LLM-powered ordering system."
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "SoftwareSourceCode",
+            "name": "AutoMARK AI",
+            "description": "Automated Grading System using Python."
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "name": "FileIQ",
+            "description": "Document Intelligence Bot using RAG."
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "name": "PizzAi Bot",
+            "description": "LLM-powered ordering system."
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://choudaryhussainali.online/projects/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://choudaryhussainali.online/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projects",
+          "item": "https://choudaryhussainali.online/projects/"
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -110,7 +141,7 @@
     <!-- Projects Archive Section -->
     <section id="projects" class="fade-in projects-section">
         <div class="section-header">
-            <h2 class="section-title">All Projects</h2>
+            <h1 class="section-title">All Projects</h1>
             <p class="section-description">
                 A complete archive of my work, from academic exercises to personal passion projects.
             </p>
@@ -131,7 +162,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">📚 FileIQ - Document Intelligence Bot</h3>
+                    <h2 class="project-title">📚 FileIQ - Document Intelligence Bot</h2>
                     <p class="project-description">
                         This Streamlit-based AI assistant allows you to upload documents (PDF, DOCX, TXT) and interact with them using natural language. Powered by Llama models via Groq API and LangChain, the bot intelligently understands your documents and provides accurate answers with source references.                    </p>
                     <div class="project-tech">
@@ -168,7 +199,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🍕 PizzAi - AI Pizza Order Bot</h3>
+                    <h2 class="project-title">🍕 PizzAi - AI Pizza Order Bot</h2>
                     <p class="project-description">
                         AI-powered Pizza Order Bot built with Streamlit and Groq's LLaMA 3. The bot takes pizza orders, handles delivery or pickup, summarizes the order, and responds like a human. Fast, natural, and customizable — ideal for learning chatbot integration with LLMs and real-time user interaction.                   
                     </p>
@@ -207,7 +238,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🤓 Oops my GPA! - GPA Calculator</h3>
+                    <h2 class="project-title">🤓 Oops my GPA! - GPA Calculator</h2>
                     <p class="project-description">
                         Oops My GPA is a sleek web app designed for students to calculate, track, and visualize their semester GPAs and overall CGPA. It offers multiple calculation modes, supports the Punjab University (PU) credit pattern by default, and provides import/export features to manage semester results easily.
                     </p>
@@ -246,7 +277,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🎓 YSDS Chatbot - Education Assistant</h3>
+                    <h2 class="project-title">🎓 YSDS Chatbot - Education Assistant</h2>
                     <p class="project-description">
                         This is a custom-built AI chatbot using Streamlit and Google Gemini API (via Lang Chain), designed to provide real-time, human-like assistance about Yashfeen Skills Development Services (YSDS). Perfect for educational institutes looking to automate FAQs and course guidance with a friendly, AI-driven solution.
                     </p>
@@ -284,7 +315,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🤖 Groq LLM Streamlit Chatbot</h3>
+                    <h2 class="project-title">🤖 Groq LLM Streamlit Chatbot</h2>
                     <p class="project-description">
                         An interactive and powerful AI chatbot with UI, built using Groq API and the LLaMA 3.3–70B Versatile model. This Streamlit project allows users to have real-time, intelligent conversations with a large language model through a modern and user-friendly web interface.
                     </p>
@@ -322,7 +353,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🍴 APNA Restaurant POS System</h3>
+                    <h2 class="project-title">🍴 APNA Restaurant POS System</h2>
                     <p class="project-description">
                         A simple and professional Point of Sale (POS) system for restaurants, built using Streamlit. This project allows customers (or staff) to easily select menu items, generate invoices, apply discounts, and confirm payments — all from a clean and interactive web interface.
                     </p>
@@ -358,7 +389,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🍿 Netflix Clone</h3>
+                    <h2 class="project-title">🍿 Netflix Clone</h2>
                     <p class="project-description">
                         A visually stunning and responsive clone of the Netflix landing page. This project replicates the iconic dark-themed UI, featuring movie carousels, a hero section, and an FAQ accordion, built entirely with pure HTML, CSS, and JavaScript to demonstrate frontend mastery.
                     </p>
@@ -390,7 +421,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">📦 Amazon E-Commerce Clone</h3>
+                    <h2 class="project-title">📦 Amazon E-Commerce Clone</h2>
                     <p class="project-description">
                         A functional frontend replica of the Amazon shopping platform. It features a robust navigation bar, product listing grids, a shopping cart interface, and a responsive layout, showcasing advanced skills in structure and styling without relying on heavy frameworks.
                     </p>
@@ -430,7 +461,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">📝 AutoMARK - AI</h3>
+                    <h2 class="project-title">📝 AutoMARK - AI</h2>
                     <p class="project-description">
                         An intelligent automated grading system designed to streamline the checking of MCQ-based exams. This tool accepts answer keys and student response sheets (CSV/PDF), processes them instantly, and generates detailed result reports, saving valuable time for educators.
                     </p>
@@ -468,7 +499,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🩺 HealthMate App</h3>
+                    <h2 class="project-title">🩺 HealthMate App</h2>
                     <p class="project-description">
                         A comprehensive health management application built with Python and Streamlit. This app aids in monitoring vital health metrics, tracking patient records, or predicting potential health issues using data analysis, providing a clean interface for personal or medical use.
                     </p>
@@ -507,7 +538,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">🏪 Fresh-Mart POS System</h3>
+                    <h2 class="project-title">🏪 Fresh-Mart POS System</h2>
                     <p class="project-description">
                         A specialized Point of Sale (POS) solution for grocery and fresh food markets. This Streamlit-based application manages inventory, calculates totals with discounts, and generates instant invoices, streamlining daily operations for store owners.
                     </p>
@@ -547,7 +578,7 @@
                     <div class="dots-container"></div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">💳 Banking Management System</h3>
+                    <h2 class="project-title">💳 Banking Management System</h2>
                     <p class="project-description">
                         A secure and efficient banking simulation application built with Python. It handles core banking operations such as account creation, secure logins, deposits, withdrawals, and history tracking, using JSON for persistent and structured data storage.
                     </p>
