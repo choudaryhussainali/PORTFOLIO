@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Page not found &mdash; Choudary Hussain Ali</title>
+<meta name="description" content="That page is not here. Links to the work, the projects and a way to get in touch.">
+<!-- a 404 must never enter the index, whatever crawls it -->
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0a0e27">
+
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+<!--
+  Everything below is inline and every path is absolute, on purpose.
+
+  This page is served for any URL that does not exist, including deep ones like
+  /a/b/c. A relative stylesheet href would resolve against that path and 404 in
+  its own right, leaving an unstyled page at exactly the moment a visitor is
+  already lost. Inlining also means it renders even if the CSS bundle is the
+  thing that went missing.
+
+  The palette and the gradients are the site's own tokens, copied rather than
+  imported for the same reason.
+-->
+<style>
+  :root {
+    --primary: #00f0ff;
+    --secondary: #ff006e;
+    --accent: #8338ec;
+    --dark: #0a0e27;
+    --darker: #060818;
+    --gray: #8892b0;
+    --light: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    color: var(--light);
+    background:
+      radial-gradient(115% 85% at 14% 0%, rgba(0, 240, 255, 0.18) 0%, rgba(0, 240, 255, 0) 56%),
+      radial-gradient(105% 90% at 86% 6%, rgba(131, 56, 236, 0.34) 0%, rgba(131, 56, 236, 0) 60%),
+      radial-gradient(95% 75% at 52% 108%, rgba(255, 0, 110, 0.16) 0%, rgba(255, 0, 110, 0) 62%),
+      linear-gradient(168deg, #141b2d 0%, var(--dark) 48%, var(--darker) 100%);
+  }
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary) 20%, var(--secondary) 55%, var(--accent) 80%, transparent);
+  }
+
+  a.brand {
+    position: relative;
+    align-self: flex-start;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    background: linear-gradient(135deg, #00f0ff 0%, #8338ec 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+  }
+  a.brand:hover { transform: scale(1.05); }
+
+  main {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: clamp(1.5rem, 4vw, 2.75rem) 0;
+  }
+
+  /* the numeral, with a soft echo of itself behind it */
+  .code {
+    position: relative;
+    font-size: clamp(6rem, 22vw, 13rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #00f0ff 0%, #8338ec 60%, #ff006e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .code::after {
+    content: "404";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    filter: blur(38px);
+    opacity: 0.55;
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.85; transform: scale(1.04); } }
+
+  h1 {
+    margin: clamp(1rem, 3vw, 1.5rem) 0 0.75rem;
+    font-size: clamp(1.35rem, 3.4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .lead {
+    max-width: 46ch;
+    font-size: clamp(0.95rem, 1.7vw, 1.05rem);
+    color: var(--gray);
+  }
+  /* filled in by the script with the address that was actually asked for */
+  .asked {
+    display: none;
+    max-width: 90vw;
+    margin-top: 1rem;
+    padding: 0.55rem 0.95rem;
+    border: 1px solid rgba(0, 240, 255, 0.22);
+    border-radius: 10px;
+    background: rgba(0, 240, 255, 0.05);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    color: #a8b4d4;
+    overflow-wrap: anywhere;
+  }
+  .asked.show { display: block; }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 12px;
+    font-size: 0.97rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease,
+                background 0.24s ease, color 0.24s ease, border-color 0.24s ease;
+  }
+  .btn svg { width: 18px; height: 18px; }
+  .btn--primary {
+    background: linear-gradient(135deg, #00f0ff 0%, #4fd8ff 42%, #9d7bff 100%);
+    color: #04101c;
+    box-shadow: 0 14px 34px -14px rgba(0, 240, 255, 0.6);
+  }
+  .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 20px 42px -14px rgba(0, 240, 255, 0.8); }
+  .btn--ghost {
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    background: linear-gradient(155deg, rgba(20, 27, 45, 0.92), rgba(10, 14, 30, 0.96));
+    color: var(--primary);
+  }
+  .btn--ghost:hover { transform: translateY(-2px); color: var(--light); border-color: var(--primary); }
+  .btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+  nav.where {
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+    padding-top: clamp(1.25rem, 2.5vw, 1.6rem);
+    border-top: 1px solid rgba(0, 240, 255, 0.14);
+    width: min(760px, 100%);
+  }
+  nav.where p {
+    margin-bottom: 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    color: #a8b4d4;
+  }
+  nav.where ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem clamp(1rem, 3vw, 2rem);
+  }
+  nav.where a {
+    font-size: 0.92rem;
+    color: var(--gray);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  nav.where a:hover,
+  nav.where a:focus-visible { color: var(--primary); border-color: var(--primary); }
+
+  footer {
+    position: relative;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--gray);
+  }
+  footer a { color: var(--primary); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .code::after { animation: none; }
+    a.brand:hover, .btn:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="brand" href="/">CHOUDARY</a>
+
+<main>
+  <p class="code" role="img" aria-label="Error 404">404</p>
+
+  <h1>This page does not exist.</h1>
+  <p class="lead">
+    The address is wrong, or whatever used to be here has moved. Nothing is
+    broken on your side &mdash; here is the way back.
+  </p>
+  <p class="asked" id="asked"></p>
+
+  <div class="actions">
+    <a class="btn btn--primary" href="/">
+      Back to the homepage
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0-4.2-4.2M15 10l-4.2 4.2"
+        fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="btn btn--ghost" href="/projects/">See the projects</a>
+  </div>
+
+  <nav class="where" aria-label="Where to go instead">
+    <p>Or try one of these</p>
+    <ul>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#contact">Contact</a></li>
+      <li><a href="/projects/">Full project list</a></li>
+    </ul>
+  </nav>
+</main>
+
+<footer>
+  <p>
+    Still stuck? Email
+    <a href="mailto:contact@choudaryhussainali.online">contact@choudaryhussainali.online</a>
+    &middot; &copy; <span id="year">2026</span> Choudary Hussain Ali
+  </p>
+</footer>
+
+<script>
+  // Show the address that was actually requested. On a 404 the server keeps the
+  // original URL in the bar, so this tells the visitor whether they mistyped
+  // something or followed a dead link — and gives them something exact to quote
+  // if they report it. textContent, never innerHTML: the path is attacker-
+  // controlled and must never be parsed as markup.
+  (function () {
+    var el = document.getElementById("asked");
+    if (el && location.pathname && location.pathname !== "/") {
+      el.textContent = location.pathname + location.search;
+      el.classList.add("show");
+    }
+    var y = document.getElementById("year");
+    if (y) y.textContent = String(new Date().getFullYear());
+  })();
+</script>
+
+</body>
+</html>
